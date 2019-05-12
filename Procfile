@@ -1,1 +1,1 @@
-worker: py -3 CaliBot.py
+worker: python3 CaliBot.py
