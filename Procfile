@@ -1,1 +1,1 @@
-worker: python CaliBot.py
+web: python CaliBot.py
