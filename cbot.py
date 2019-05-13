@@ -13,6 +13,8 @@ bot.run('token')
 '''
 
 #Learn to edit messages to prevent clutter
+#Create exceptions for invalid commands
+#Don't allow unreasonable start times
 
 def timeCheck(t):
     C = False
@@ -44,7 +46,7 @@ client = discord.Client()
 
 @client.event
 async def on_ready():
-    await client.change_presence(activity = discord.Game(name = "/startDFC (Starts Clock)", type = 3))
+    await client.change_presence(activity = discord.Game(name = "/startDFC (Starts Clock)"))
     print('We have logged in as {0.user}'.format(client))
 
 @client.event
@@ -56,6 +58,7 @@ async def on_message(message):
         st = message.content
         lst = st.split(' ')
         if len(lst) < 3:
+            await message.channel.send("***Invalid Command! Must include start time of server and timezone!***\n (ex: `/startDFC 12:30 EST`)")
             return 0;
         chk = timeCheck(lst[1])
         tz = lst[2]
@@ -68,6 +71,6 @@ async def on_message(message):
             st = timeAdd(h, m)
             await message.channel.send("Devil Fruit Spawn Time:```" + st + " " + tz + "```")
             await asyncio.sleep(5)
-            await message.channel.send("@" + message.author + " The devil fruit has spawned at```" + st + " " + tz + "```You now have 25 minutes to search!")
+            await message.channel.send("@" + " The devil fruit has spawned at```" + st + " " + tz + "```You now have 25 minutes to search!")
 
 client.run('NTc2OTUyMjc0MjA3NzY4NTc2.XNd-wA.EubtjmhnTgLnDL6yBBFv4OtojeU')
