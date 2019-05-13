@@ -14,7 +14,6 @@ bot.run('token')
 
 #Learn to edit messages to prevent clutter
 #Create exceptions for invalid commands
-#Don't allow unreasonable start times
 
 def timeCheck(t):
     C = False
@@ -62,15 +61,15 @@ async def on_message(message):
             return 0;
         chk = timeCheck(lst[1])
         tz = lst[2]
-        if len(st) == 9 or not chk:
+        if not chk:
             await message.channel.send("***Invalid Command! Must include start time of server and timezone!***\n (ex: `/startDFC 12:30 EST`)")
         else:
             st = lst[1]
             h = st[:2].strip(':')
             m = st[-2:]
             st = timeAdd(h, m)
-            await message.channel.send("Devil Fruit Spawn Time:```" + st + " " + tz + "```")
-            await asyncio.sleep(3)
-            await message.channel.send(message.author.mention + " The devil fruit has spawned at```" + st + " " + tz + "```You now have 25 minutes to search!")
+            await message.channel.send(":df1:Devil Fruit Spawn Time:df1::```" + st + " " + tz + "```")
+            await asyncio.sleep(5400)
+            await message.channel.send(message.author.mention + " :df1:The devil fruit has spawned at:df1::```" + st + " " + tz + "```:triumph:You now have 25 minutes to search!:triumph:")
 
 client.run('NTc2OTUyMjc0MjA3NzY4NTc2.XNd-wA.EubtjmhnTgLnDL6yBBFv4OtojeU')
