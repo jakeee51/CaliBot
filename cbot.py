@@ -54,9 +54,9 @@ def timeDif(t1, t2): #df spawn time, current time
         hd = h2 - h1
     if m1 > m2:
         md = m1 - m2
-    elif m2 > m1 and h1 == h2:
-        return 7117;
     else:
+        if h1 != h2:
+            return 7117;
         md = m2 - m1
     return (((hd * 60) + md) * 60);
 
