@@ -55,8 +55,8 @@ def timeDif(t1, t2):
     if m1 > m2:
         md = m1 - m2
     else:
-        md = m2 - m1
-    return (((hd * 60) + md) * 60)
+        return 7117;
+    return (((hd * 60) + md) * 60);
 
 client = discord.Client()
 
@@ -89,6 +89,7 @@ async def on_message(message):
             dt = timeAdd(h, m)
             await message.channel.send(":pray: Devil Fruit Spawn Time :pray: ```" + dt + " " + tz + "```")
             sec = timeDif(dt, ct)
+            print(sec,(sec / 60))
             if sec <= 5400:
                 await asyncio.sleep(sec)
                 await message.channel.send(message.author.mention + ":open_mouth: The devil fruit has spawned at :open_mouth: ```" + dt + " " + tz + "```:triumph:You now have 25 minutes to search!:triumph:")
