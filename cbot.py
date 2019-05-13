@@ -91,6 +91,6 @@ async def on_message(message):
             sec = timeDif(dt, ct)
             if sec <= 5400:
                 await asyncio.sleep(sec)
-                await message.channel.send(message.author.mention + ":open_mouth: The devil fruit has spawned at :open_mouth: :```" + dt + " " + tz + "```:triumph:You now have 25 minutes to search!:triumph:")
+                await message.channel.send(message.author.mention + ":open_mouth: The devil fruit has spawned at :open_mouth: ```" + dt + " " + tz + "```:triumph:You now have 25 minutes to search!:triumph:")
 
 client.run('NTc2OTUyMjc0MjA3NzY4NTc2.XNd-wA.EubtjmhnTgLnDL6yBBFv4OtojeU')
