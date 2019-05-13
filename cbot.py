@@ -30,15 +30,18 @@ def timeCheck(t):
 def timeAdd(hrs, mins):
     newHrs = int(hrs) + 1
     newMin = int(mins) + 30
-    if newMin >= 60:
-        newHrs += 1
-        newMin = newMin - 60
-    if newHrs == 13:
-        newHrs = '1'
-    elif newHrs == 14:
-        newHrs = '2'
-    if newMin < 10:
-        newMin = "0" + str(newMin)
+    if hrs > 12:
+        
+    else:
+        if newMin >= 60:
+            newHrs += 1
+            newMin = newMin - 60
+        if newHrs == 13:
+            newHrs = '1'
+        elif newHrs == 14:
+            newHrs = '2'
+        if newMin < 10:
+            newMin = "0" + str(newMin)
     return str(newHrs) + ':' + str(newMin)
 
 def timeDif(t1, t2): #df spawn time, current time
@@ -73,7 +76,8 @@ async def on_message(message):
         return 1;
 
     if message.content.startswith('/startDFC'):
-        ct = message.created_at
+        ct = (message.created_at).split(' ')
+        ct = ct[1][0:5]
         st = message.content
         lst = st.split(' ')
         if len(lst) < 3:
@@ -90,7 +94,7 @@ async def on_message(message):
             dt = timeAdd(h, m)
             await message.channel.send(":pray: Devil Fruit Spawn Time :pray: ```" + dt + " " + tz + "```")
 ##            sec = timeDif(dt, ct)
-            await message.channel.send(dt + "<-df ct->" + str(ct))
+            await message.channel.send("df->" + dt + "ct->" + ct)
 ##            if sec <= 5400:
 ##                await asyncio.sleep(sec)
 ##                await message.channel.send(message.author.mention + ":open_mouth: The devil fruit has spawned at :open_mouth: ```" + dt + " " + tz + "```:triumph:You now have 25 minutes to search!:triumph:")
