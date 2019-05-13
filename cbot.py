@@ -41,11 +41,9 @@ def timeAdd(hrs, mins):
         newMin = "0" + str(newMin)
     return str(newHrs) + ':' + str(newMin)
 
-def timeSub(hrs)
-
 def timeDif(t1, t2):
     if t1 == t2:
-        return 0;
+        return 1;
 
 client = discord.Client()
 
@@ -57,7 +55,7 @@ async def on_ready():
 @client.event
 async def on_message(message):
     if message.author == client.user:
-        return 0;
+        return 1;
 
     if message.content.startswith('/startDFC'):
         t = time.time()
@@ -75,9 +73,9 @@ async def on_message(message):
             st = lst[1]
             h = st[:2].strip(':')
             m = st[-2:]
-            df = timeAdd(h, m)
+            dt = timeAdd(h, m)
             await message.channel.send(":pray: Devil Fruit Spawn Time :pray: ```" + dt + " " + tz + "```")
-            sec = timeDif(df, ct)
+            sec = timeDif(dt, ct)
             await asyncio.sleep(sec)
             await message.channel.send(message.author.mention + ":open_mouth: The devil fruit has spawned at :open_mouth: :```" + dt + " " + tz + "```:triumph:You now have 25 minutes to search!:triumph:")
 
