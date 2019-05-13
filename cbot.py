@@ -68,8 +68,8 @@ async def on_message(message):
             h = st[:2].strip(':')
             m = st[-2:]
             st = timeAdd(h, m)
-            await message.channel.send(":cry: Devil Fruit Spawn Time :cry: :```" + st + " " + tz + "```")
+            await message.channel.send(":df1: Devil Fruit Spawn Time :df1: :```" + st + " " + tz + "```")
             await asyncio.sleep(5400)
-            await message.channel.send(message.author.mention + " :df1: The devil fruit has spawned at :df1: :```" + st + " " + tz + "```:triumph:You now have 25 minutes to search!:triumph:")
+            await message.channel.send(message.author.mention + ":df1: The devil fruit has spawned at :df1: :```" + st + " " + tz + "```:triumph:You now have 25 minutes to search!:triumph:")
 
 client.run('NTc2OTUyMjc0MjA3NzY4NTc2.XNd-wA.EubtjmhnTgLnDL6yBBFv4OtojeU')
