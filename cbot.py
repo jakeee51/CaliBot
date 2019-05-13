@@ -73,7 +73,7 @@ async def on_message(message):
         return 1;
 
     if message.content.startswith('/startDFC'):
-        ct = message.timestamp
+        ct = message.created_at
         st = message.content
         lst = st.split(' ')
         if len(lst) < 3:
@@ -90,7 +90,7 @@ async def on_message(message):
             dt = timeAdd(h, m)
             await message.channel.send(":pray: Devil Fruit Spawn Time :pray: ```" + dt + " " + tz + "```")
 ##            sec = timeDif(dt, ct)
-            await message.channel.send(dt + "<-df ct->" + ct)
+            await message.channel.send(dt + "<-df ct->" + str(ct))
 ##            if sec <= 5400:
 ##                await asyncio.sleep(sec)
 ##                await message.channel.send(message.author.mention + ":open_mouth: The devil fruit has spawned at :open_mouth: ```" + dt + " " + tz + "```:triumph:You now have 25 minutes to search!:triumph:")
