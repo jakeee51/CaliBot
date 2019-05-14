@@ -33,7 +33,7 @@ def timeAdd(hrs, mins):
     if newMin >= 60:
         newHrs += 1
         newMin = newMin - 60
-    if hrs > 12:
+    if int(hrs) > 12:
         if newHrs == 24:
             newHrs = '00'
         elif newHrs == 25:
