@@ -30,12 +30,15 @@ def timeCheck(t):
 def timeAdd(hrs, mins):
     newHrs = int(hrs) + 1
     newMin = int(mins) + 30
+    if newMin >= 60:
+        newHrs += 1
+        newMin = newMin - 60
     if hrs > 12:
-        
+        if newHrs == 24:
+            newHrs = '00'
+        elif newHrs == 25:
+            newHrs = '01'
     else:
-        if newMin >= 60:
-            newHrs += 1
-            newMin = newMin - 60
         if newHrs == 13:
             newHrs = '1'
         elif newHrs == 14:
@@ -94,7 +97,7 @@ async def on_message(message):
             dt = timeAdd(h, m)
             await message.channel.send(":pray: Devil Fruit Spawn Time :pray: ```" + dt + " " + tz + "```")
 ##            sec = timeDif(dt, ct)
-            await message.channel.send("df->" + dt + "ct->" + ct)
+##            await message.channel.send("df->" + dt + "ct->" + ct)
 ##            if sec <= 5400:
 ##                await asyncio.sleep(sec)
 ##                await message.channel.send(message.author.mention + ":open_mouth: The devil fruit has spawned at :open_mouth: ```" + dt + " " + tz + "```:triumph:You now have 25 minutes to search!:triumph:")
