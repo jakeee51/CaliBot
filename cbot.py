@@ -38,13 +38,15 @@ def timeAdd(hrs, mins):
             newHrs = '00'
         elif newHrs == 25:
             newHrs = '01'
+        if newMin < 10:
+            newMin = '0' + str(newMin)
     else:
         if newHrs == 13:
             newHrs = '1'
         elif newHrs == 14:
             newHrs = '2'
         if newMin < 10:
-            newMin = "0" + str(newMin)
+            newMin = '0' + str(newMin)
     return str(newHrs) + ':' + str(newMin)
 
 def timeDif(t1, t2): #df spawn time, current time
