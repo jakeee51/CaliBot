@@ -79,7 +79,7 @@ async def on_message(message):
         return 1;
 
     if message.content.startswith('/startDFC'):
-        ct = (message.created_at).split(' ')
+        ct = str(message.created_at).split(' ')
         ct = ct[1][0:5]
         st = message.content
         lst = st.split(' ')
