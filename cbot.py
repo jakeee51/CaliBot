@@ -80,6 +80,8 @@ async def on_message(message):
     if message.author == client.user:
         return 1;
 
+    if message.content.startswith('/jump'):
+        await message.channel.send("How high?!" + message.author.mention)
     if message.content.startswith('/startDFC'):
 ##        ct = time.strftime("%I:%M %c", message.created_at)
 ##        print(time.time())
