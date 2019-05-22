@@ -20,10 +20,10 @@ def timeCheck(t):
     if len(t) > 5:
         return False
     elif len(t) == 5:
-        if t[:2].isdigit() and t[2] == ':' and t[-2:].isdigit():
+        if t[:2].isdigit() and t[2] == ':' and t[-2:].isdigit() and int(t[:2]) < 24 and int(t[-2:]) < 60:
             C = True
     elif len(t) == 4:
-        if t[0].isdigit() and t[1] == ':' and t[-2:].isdigit():
+        if t[0].isdigit() and t[1] == ':' and t[-2:].isdigit() and int(t[-2:]) < 60:
             C = True
     return C
 
