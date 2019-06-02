@@ -81,7 +81,9 @@ async def on_message(message):
         return 1;
 
     if message.content.startswith('/lick'):
-        await message.channel.send("*licks*" + "Sauce Boss#7075")
+        usr = message.content
+        usr = usr.strip('/lick @')
+        await message.channel.send(message.author.mention + " *GAVE A* ***MOIST*** *LICK TO* " + usr)
     if message.content.startswith('/jump'):
         await message.channel.send("How high?!" + message.author.mention)
     if message.content.startswith('/startDFC'):
