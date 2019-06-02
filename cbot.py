@@ -81,7 +81,7 @@ async def on_message(message):
         return 1;
 
     if message.content.startswith('/lick'):
-        await message.channel.send("*licks*" + message.author.mention)
+        await message.channel.send("*licks*" + "Sauce Boss#7075")
     if message.content.startswith('/jump'):
         await message.channel.send("How high?!" + message.author.mention)
     if message.content.startswith('/startDFC'):
