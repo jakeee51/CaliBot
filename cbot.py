@@ -1,6 +1,7 @@
 import discord
 import time
 import asyncio
+import re
 
 '''
 from discord.ext import commands
@@ -83,10 +84,11 @@ async def on_message(message):
     if message.content.startswith('my guardian angel'):
         if message.author == "Cali#6919":
             await message.channel.send("That's right papa :P")
-    if message.content.startswith('owo punch'):
+    if "punch" in str(message.content) or "slap" in str(message.content):
         usr = message.content
-        usr = usr.strip('owo punch @')
-        if '<@233691753922691072>' == usr:
+        get = re.search(r"@<@\d+>", usr)
+        print(get[0].strip('@'))
+        if '<@233691753922691072>' == get[0].strip('@'):
             await message.channel.send("Your slap has been deflected! " + message.author.mention)
     if message.content.startswith('/lick'):
         usr = message.content
