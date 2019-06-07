@@ -82,7 +82,6 @@ async def on_message(message):
         return 1;
     
     if message.content == "my guardian angel":
-        print(message.author)
         if "Cali#6919" in str(message.author):
             await message.channel.send("That's right papa :P")
     if "punch" in str(message.content) or "slap" in str(message.content):
