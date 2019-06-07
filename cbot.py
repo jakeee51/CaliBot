@@ -72,7 +72,7 @@ client = discord.Client()
 
 @client.event
 async def on_ready():
-    await client.change_presence(activity = discord.Game(name = "/startDFC (Starts Clock)"))
+    await client.change_presence(activity = discord.Game(name = "/help (For all cmds)"))
     print('We have logged in as {0.user}'.format(client))
 
 @client.event
