@@ -86,13 +86,12 @@ async def on_message(message):
             await message.channel.send("That's right papa :P")
     if "punch" in str(message.content) or "slap" in str(message.content):
         usr = message.content
-        get = re.search(r"@<@\d+>", usr)
-        print(get[0].strip('@'))
-        if '<@233691753922691072>' == get[0].strip('@'):
+        get = re.search(r"<@\d+>", usr)
+        if '<@233691753922691072>' == get[0]:
             await message.channel.send("Your slap has been deflected! " + message.author.mention)
     if message.content.startswith('/lick'):
         usr = message.content
-        usr = usr.strip('/lick @')
+        usr = usr.strip('/lick ')
         await message.channel.send(message.author.mention + " *GAVE A* ***MOIST*** *LICK TO* " + usr)
     if message.content.startswith('/jump'):
         await message.channel.send("How high?!" + message.author.mention)
