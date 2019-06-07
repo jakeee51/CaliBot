@@ -81,8 +81,9 @@ async def on_message(message):
     if message.author == client.user:
         return 1;
     
-    if message.content.startswith('my guardian angel'):
-        if message.author == "Cali#6919":
+    if message.content == "my guardian angel":
+        print(message.author)
+        if "Cali#6919" in str(message.author):
             await message.channel.send("That's right papa :P")
     if "punch" in str(message.content) or "slap" in str(message.content):
         usr = message.content
