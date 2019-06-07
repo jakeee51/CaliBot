@@ -80,7 +80,10 @@ async def on_message(message):
     if message.author == client.user:
         return 1;
     
-    if message.content.startswith('+slap @Cali'):
+    if message.content.startswith('+slaps'):
+        usr = message.content
+        usr = usr.strip('+slaps @')
+        await message.channel.send(usr)
         await message.channel.send("https://tenor.com/view/back-slap-backhand-funny-animals-penguin-slap-gif-11724800 " + "Your slap has been deflected! " + message.author.mention)
     if message.content.startswith('/lick'):
         usr = message.content
