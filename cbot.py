@@ -77,37 +77,42 @@ async def on_ready():
     print('We have logged in as {0.user}'.format(client))
 
 @client.event
-async def twice_daily(message):
-    if message.author == client.user:
-        return -1;
-    
-    if message.content.startswith('/hugPrescription'):
-        if "Vampy#1379" in str(message.author) or "Cali#6919" in str(message.author):
-            await message.channel.send("***I'm prescribing you 2 hugs per day...Doctor's orders.*** " + message.author.mention)
-            await asyncio.sleep(3)
-            while True:
-                await message.channel.send("https://cdn.discordapp.com/attachments/571528488809660476/586733560388386841/image0.gif")
-                await asyncio.sleep(43200)
-                wait message.channel.send("https://cdn.discordapp.com/attachments/571528488809660476/586733569817182208/image0.gif")
-                await asyncio.sleep(43200)
-
-@client.event
 async def on_message(message):
     if message.author == client.user:
         return -1;
 
+    if message.content.startswith('/hugPrescription'):
+        if "Vampy#1379" in str(message.author) or "Cali#6919" in str(message.author):
+            await message.channel.send("***I'm prescribing you 2 hugs per day...Doctor's orders.*** " + message.author.mention)
+            await asyncio.sleep(2)
+            while True:
+                await message.channel.send("https://cdn.discordapp.com/attachments/571528488809660476/586733560388386841/image0.gif")
+                await asyncio.sleep(43200)
+                await message.channel.send("https://cdn.discordapp.com/attachments/571528488809660476/586733569817182208/image0.gif")
+                await asyncio.sleep(43200)
+
     if message.content.startswith('/help'):
-        await message.channel.send("```/lick\n/jump\n/startDFC\n/defendme```")
+        await message.channel.send("```CaliBot Commands:\n/lick\n/jump\n/assault\n/startDFC```")
     if message.content == "my guardian angel":
         if "Cali#6919" in str(message.author):
             await message.channel.send("That's right papa :P")
-    if message.content.startswith('/defendme'):
-        await message.channel.send("***I shall defend you from any slaps or punches!***\n**>:D**")
-    if "punch" in str(message.content) or "slap" in str(message.content):
+    if re.search(r"(punch|slap|bully|insult|kill)", str(message.content)):
         usr = message.content
         get = re.search(r"<@\d+>", usr)
         if '<@233691753922691072>' == get[0]:
-            await message.channel.send("Your slap has been deflected! " + message.author.mention)
+            await message.channel.send("Your assault has been deflected! " + message.author.mention)
+    if message.content.startswith('/assault'):
+        usr = message.content
+        usr = usr.strip('/assault ')
+        await message.channel.send(message.author.mention + " HAS BEGUN A FULL")
+        await asyncio.sleep(2)
+        await message.channel.send("SCALE")
+        await asyncio.sleep(2)
+        await message.channel.send("ATTACK!!!")
+        await asyncio.sleep(2)
+        await message.channel.send("+slap " + usr)
+        await message.channel.send("owo slap " + usr)
+        await message.channel.send("->slap " + usr)
     if message.content.startswith('/lick'):
         usr = message.content
         usr = usr.strip('/lick ')
