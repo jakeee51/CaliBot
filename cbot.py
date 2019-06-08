@@ -80,10 +80,13 @@ async def on_ready():
 async def on_message(message):
     if message.author == client.user:
         return 1;
-    
+    if message.content.startswith('/help'):
+        await message.channel.send("```/lick\n/jump\n/startDFC\n/defendme```")
     if message.content == "my guardian angel":
         if "Cali#6919" in str(message.author):
             await message.channel.send("That's right papa :P")
+    if message.content.startswith('/defendme'):
+        await message.channel.send("***I shall defend you from any slaps or punches!***\n**>:D**")
     if "punch" in str(message.content) or "slap" in str(message.content):
         usr = message.content
         get = re.search(r"<@\d+>", usr)
