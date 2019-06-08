@@ -80,6 +80,18 @@ async def on_ready():
 async def on_message(message):
     if message.author == client.user:
         return 1;
+    
+    if message.content.startswith('/hugPrescription'):
+        if "Vampy#1379" in str(message.author):
+            await message.channel.send("***I'm prescribing you 2 hugs per day...Doctor's orders.*** " + message.author.mention)
+            await asyncio.sleep(3)
+            prescPeriod = 0
+            while True:
+                await message.channel.send("https://cdn.discordapp.com/attachments/571528488809660476/586733560388386841/image0.gif")
+                await asyncio.sleep(43200)
+                wait message.channel.send("https://cdn.discordapp.com/attachments/571528488809660476/586733569817182208/image0.gif")
+                await asyncio.sleep(43200)
+                prescPeriod += 1
     if message.content.startswith('/help'):
         await message.channel.send("```/lick\n/jump\n/startDFC\n/defendme```")
     if message.content == "my guardian angel":
