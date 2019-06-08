@@ -92,7 +92,7 @@ async def on_message(message):
                 await asyncio.sleep(43200)
 
     if message.content.startswith('/help'):
-        await message.channel.send("```CaliBot Commands:\n/lick\n/jump\n/assault\n/startDFC```")
+        await message.channel.send("```CaliBot Commands:\n/lick\n/jump\n/startDFC```")
     if message.content == "my guardian angel":
         if "Cali#6919" in str(message.author):
             await message.channel.send("That's right papa :P")
@@ -101,18 +101,6 @@ async def on_message(message):
         get = re.search(r"<@\d+>", usr)
         if '<@233691753922691072>' == get[0]:
             await message.channel.send("Your assault has been deflected! " + message.author.mention)
-    if message.content.startswith('/assault'):
-        usr = message.content
-        usr = usr.strip('/assault ')
-        await message.channel.send(message.author.mention + " HAS BEGUN A FULL")
-        await asyncio.sleep(2)
-        await message.channel.send("SCALE")
-        await asyncio.sleep(2)
-        await message.channel.send("ATTACK!!!")
-        await asyncio.sleep(2)
-        await message.channel.send("+slap " + usr)
-        await message.channel.send("owo slap " + usr)
-        await message.channel.send("->slap " + usr)
     if message.content.startswith('/lick'):
         usr = message.content
         usr = usr.strip('/lick ')
