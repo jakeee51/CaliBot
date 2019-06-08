@@ -90,9 +90,6 @@ async def on_message(message):
                 await asyncio.sleep(43200)
                 await message.channel.send("https://cdn.discordapp.com/attachments/571528488809660476/586733569817182208/image0.gif")
                 await asyncio.sleep(43200)
-
-    if message.content.startswith('/help'):
-        await message.channel.send("```CaliBot Commands:\n/lick\n/jump\n/startDFC```")
     if message.content == "my guardian angel":
         if "Cali#6919" in str(message.author):
             await message.channel.send("That's right papa :P")
@@ -101,6 +98,9 @@ async def on_message(message):
         get = re.search(r"<@\d+>", usr)
         if '<@233691753922691072>' == get[0]:
             await message.channel.send("Your assault has been deflected! " + message.author.mention)
+
+    if message.content.startswith('/help'):
+        await message.channel.send("```CaliBot Commands:\n/lick\n/jump\n/startDFC```")
     if message.content.startswith('/lick'):
         usr = message.content
         usr = usr.strip('/lick ')
