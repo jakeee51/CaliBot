@@ -93,11 +93,11 @@ async def on_message(message):
     if message.content == "my guardian angel":
         if "Cali#6919" in str(message.author):
             await message.channel.send("That's right papa :P")
-    if re.search(r"(punch|slap|bully|insult|kill)", str(message.content)):
-        usr = message.content
-        get = re.search(r"<@\d+>", usr)
-        if '<@233691753922691072>' == get[0]:
+    if "<@233691753922691072>" in str(message.content):
+        if re.search(r"(punch|slap|bully|insult|kill)", str(message.content)):
             await message.channel.send("Your assault has been deflected! " + message.author.mention)
+        elif re.sub(r"<@233691753922691072>", '', str(message.content)).isupper():
+            await message.channel.send("***DON'T YELL AT PAPA!!!***")
 
     if message.content.startswith('/help'):
         await message.channel.send("```CaliBot Commands:\n/lick\n/jump\n/startDFC```")
