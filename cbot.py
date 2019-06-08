@@ -82,7 +82,7 @@ async def on_message(message):
         return 1;
     
     if message.content.startswith('/hugPrescription'):
-        if "Vampy#1379" in str(message.author):
+        if "Cali#6919" in str(message.author):
             await message.channel.send("***I'm prescribing you 2 hugs per day...Doctor's orders.*** " + message.author.mention)
             await asyncio.sleep(3)
             prescPeriod = 0
