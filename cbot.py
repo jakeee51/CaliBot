@@ -110,13 +110,13 @@ async def on_message(message):
             await message.channel.send("YOU FOO!!!")
         else:
             usr = re.search(r"<@\d+>", str(message.content))
-            await message.channel.send(message.author.mention + " ***ATTACKED*** " + usr[0] + "https://tenor.com/view/shizuo-durarara-drrr-gif-12251387")
+            await message.channel.send(message.author.mention + " ***ATTACKED*** " + usr[0] + " https://tenor.com/view/shizuo-durarara-drrr-gif-12251387")
     if message.content.startswith('/lick'):
         usr = message.content
         usr = usr.strip('/lick ')
         await message.channel.send(message.author.mention + " *GAVE A* ***MOIST*** *LICK TO* " + usr)
     if message.content.startswith('/jump'):
-        await message.channel.send("How high?!" + message.author.mention)
+        await message.channel.send("How high?! " + message.author.mention)
     if message.content.startswith('/startDFC'):
 ##        ct = time.strftime("%I:%M %c", message.created_at)
 ##        print(time.time())
