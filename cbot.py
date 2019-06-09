@@ -94,7 +94,7 @@ async def on_message(message):
         if "Cali#6919" in str(message.author):
             await message.channel.send("That's right papa :P")
     if "<@233691753922691072>" in str(message.content):
-        if re.search(r"(punch|slap|bully|insult|kill)", str(message.content)):
+        if re.search(r"(punch|slap|bully|insult|kill|baka)", str(message.content)):
             await message.channel.send("Your assault has been deflected! " + message.author.mention)
         elif re.sub(r"<@233691753922691072>", '', str(message.content)).isupper():
             await message.channel.send("***DON'T YELL AT PAPA!!!***")
