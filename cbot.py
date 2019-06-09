@@ -102,7 +102,7 @@ async def on_message(message):
             await message.channel.send("***DON'T YELL AT PAPA!!!***")
 
     if message.content.startswith('/help'):
-        await message.channel.send("```CaliBot Commands:\n/lick\n/jump\n/startDFC```")
+        await message.channel.send("```CaliBot Commands:\n/help\n/lick\n/jump\n/hit\n/startDFC```")
     if message.content.startswith('/hit'):
         if "<@233691753922691072>" in str(message.content):
             await message.channel.send("Sorry...I don't hit my papa.")
@@ -110,7 +110,7 @@ async def on_message(message):
             await message.channel.send("YOU FOO!!!")
         else:
             usr = re.search(r"<@\d+>", str(message.content))
-            await message.channel.send(message.author.mention + " ***ATTACKED*** " + usr + "https://tenor.com/view/shizuo-durarara-drrr-gif-12251387")
+            await message.channel.send(message.author.mention + " ***ATTACKED*** " + usr[0] + "https://tenor.com/view/shizuo-durarara-drrr-gif-12251387")
     if message.content.startswith('/lick'):
         usr = message.content
         usr = usr.strip('/lick ')
