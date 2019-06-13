@@ -75,26 +75,20 @@ client = discord.Client()
 async def on_ready():
     await client.change_presence(activity = discord.Game(name = "/help (For all cmds)"))
     print('We have logged in as {0.user}'.format(client))
+    channel = client.get_channel(577547595170185217)
+    await channel.send("***I'm prescribing you 4 hugs per day...Doctor's orders.*** *(Note: DO NOT OVERDOSE)* " + "<@508740700213477386>")
+    await asyncio.sleep(2)
+    while True:
+        await channel.send("<@508740700213477386>" + " https://cdn.discordapp.com/attachments/571528488809660476/586733560388386841/image0.gif")
+        await asyncio.sleep(28800)
+        await channel.send("<@508740700213477386>" + " https://cdn.discordapp.com/attachments/571528488809660476/586733569817182208/image0.gif")
+        await asyncio.sleep(28800)
 
 @client.event
 async def on_message(message):
     if message.author == client.user:
         return -1;
 
-    while True:
-        await message.channel.send("Vampy#1379", "https://cdn.discordapp.com/attachments/571528488809660476/586733560388386841/image0.gif")
-        await asyncio.sleep(21600)
-        await message.channel.send("Vampy#1379", "https://cdn.discordapp.com/attachments/571528488809660476/586733569817182208/image0.gif")
-        await asyncio.sleep(21600)
-    '''if message.content.startswith('/hugPrescription'):
-        if "Vampy#1379" in str(message.author) or "Cali#6919" in str(message.author):
-            await message.channel.send("***I'm prescribing you 4 hugs per day...Doctor's orders.*** *(Note: DO NOT OVERDOSE)*" + message.author.mention)
-            await asyncio.sleep(2)
-            while True:
-                await message.channel.send(message.author.mention, "https://cdn.discordapp.com/attachments/571528488809660476/586733560388386841/image0.gif")
-                await asyncio.sleep(21600)
-                await message.channel.send(message.author.mention, "https://cdn.discordapp.com/attachments/571528488809660476/586733569817182208/image0.gif")
-                await asyncio.sleep(21600)'''
     if message.content == "my guardian angel":
         if "Cali#6919" in str(message.author):
             await message.channel.send("That's right papa :P")
