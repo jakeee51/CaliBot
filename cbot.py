@@ -81,15 +81,20 @@ async def on_message(message):
     if message.author == client.user:
         return -1;
 
-    if message.content.startswith('/hugPrescription'):
+    while True:
+        await message.channel.send("Vampy#1379", "https://cdn.discordapp.com/attachments/571528488809660476/586733560388386841/image0.gif")
+        await asyncio.sleep(21600)
+        await message.channel.send("Vampy#1379", "https://cdn.discordapp.com/attachments/571528488809660476/586733569817182208/image0.gif")
+        await asyncio.sleep(21600)
+    '''if message.content.startswith('/hugPrescription'):
         if "Vampy#1379" in str(message.author) or "Cali#6919" in str(message.author):
-            await message.channel.send("***I'm prescribing you 2 hugs per day...Doctor's orders.*** *(Note: DO NOT OVERDOSE)*" + message.author.mention)
+            await message.channel.send("***I'm prescribing you 4 hugs per day...Doctor's orders.*** *(Note: DO NOT OVERDOSE)*" + message.author.mention)
             await asyncio.sleep(2)
             while True:
-                await message.channel.send("https://cdn.discordapp.com/attachments/571528488809660476/586733560388386841/image0.gif")
-                await asyncio.sleep(43200)
-                await message.channel.send("https://cdn.discordapp.com/attachments/571528488809660476/586733569817182208/image0.gif")
-                await asyncio.sleep(43200)
+                await message.channel.send(message.author.mention, "https://cdn.discordapp.com/attachments/571528488809660476/586733560388386841/image0.gif")
+                await asyncio.sleep(21600)
+                await message.channel.send(message.author.mention, "https://cdn.discordapp.com/attachments/571528488809660476/586733569817182208/image0.gif")
+                await asyncio.sleep(21600)'''
     if message.content == "my guardian angel":
         if "Cali#6919" in str(message.author):
             await message.channel.send("That's right papa :P")
