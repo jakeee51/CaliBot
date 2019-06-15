@@ -89,6 +89,19 @@ async def on_message(message):
     if message.author == client.user:
         return -1;
 
+    tempo = {} # use a dict to store the time
+
+    if message.content.startswith('/nextHug'):
+        if message.author.id not in tempo:
+            await Bot.send_message(message.channel, "{} used the command".format(
+                message.author.name))
+            tempo[message.author.id] = time.time() + 720 # store end time
+            await asyncio.sleep(720)
+            del tempo[message.author.id]
+        else:
+            await Bot.send_message(message.channel, "wait {} seconds.".format(
+                tempo[message.author.id] - time.time()))
+
     if message.content == "my guardian angel":
         if "Cali#6919" in str(message.author):
             await message.channel.send("That's right papa :P")
