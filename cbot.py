@@ -100,8 +100,8 @@ async def on_message(message):
     if message.content == "my guardian angel":
         if "Cali#6919" in str(message.author):
             await message.channel.send("That's right papa :P")
-    if re.search(r"(<@233691753922691072>|Cali|CALI|cali)", str(message.content)):
-        if re.search(r"(punch|slap|bully|insult|kill|baka|roast|trigger|meme|mock|fight|hack)", str(message.content)):
+    if re.search(r"(<@233691753922691072>|cali|<@508740700213477386>|vampy|<@375778063356657666>|sauce|saucy)", str(message.content).lower()):
+        if re.search(r"(punch|slap|bully|insult|kill|baka|roast|trigger|meme|mock|fight|hack|lick)", str(message.content).lower()):
             await message.channel.send("Your assault has been deflected! " + message.author.mention)
             await asyncio.sleep(2)
             await message.channel.send("***Better luck next time!*** :shrug:")
@@ -109,7 +109,7 @@ async def on_message(message):
             await message.channel.send("***DON'T YELL AT PAPA!!!***")
 
     if message.content.startswith('/help'):
-        await message.channel.send("```CaliBot Commands:\n/help\n/lick\n/jump\n/hit\n/startDFC```")
+        await message.channel.send("```CaliBot Commands:\n/help\n/lick\n/jump\n/hit\n/startDFC\n/getPokemon (W.I.P.)```")
     if message.content.startswith('/hit'):
         if "<@233691753922691072>" in str(message.content):
             await message.channel.send("Sorry...I don't hit my papa.")
