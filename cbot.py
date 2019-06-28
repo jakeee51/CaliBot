@@ -98,9 +98,9 @@ async def on_message(message):
 ##        await message.channel.send("wait {} seconds.".format(t))
 
     if message.content == "my guardian angel":
-        if "Cali#6919" in str(message.author):
+        if "Cali#6919" in str(message.author) or "Vampy#1379" in str(message.author) or "Sauce Boss#7075" in str(message.author):
             await message.channel.send("That's right papa :P")
-    if re.search(r"(<@233691753922691072>|cali|<@508740700213477386>|vampy|<@375778063356657666>|sauce|saucy)", str(message.content).lower()):
+    if re.search(r"(<@233691753922691072>|cali)|(<@!508740700213477386>|vampy)|(<@!375778063356657666>|sauce|saucy)", str(message.content).lower()):
         if re.search(r"(punch|slap|bully|insult|kill|baka|roast|trigger|meme|mock|fight|hack|lick)", str(message.content).lower()):
             await message.channel.send("Your assault has been deflected! " + message.author.mention)
             await asyncio.sleep(2)
