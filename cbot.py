@@ -2,6 +2,7 @@ import discord
 import time
 import asyncio
 import re
+import random
 
 '''
 from discord.ext import commands
@@ -15,6 +16,8 @@ bot.run('token')
 
 #Learn to edit messages to prevent clutter
 #Permissions to only work in specific channel
+
+pokemonDict = ["Pikachu", "Squirtle", "Charmander", "Bulbasaur", '']
 
 def timeCheck(t):
     C = False
@@ -75,8 +78,17 @@ client = discord.Client()
 async def on_ready():
     await client.change_presence(activity = discord.Game(name = "/help (For all cmds)"))
     print('We have logged in as {0.user}'.format(client))
-    channel = client.get_channel(577547595170185217)
-    await channel.send("***I'm prescribing you 3 hugs per day...Doctor's orders.*** *(Note: DO NOT OVERDOSE)* " + "<@508740700213477386>")
+    channel = client.get_channel(577547595170185217); i = 0
+    '''while True:
+        spawn = random.choice(pokemonDict)
+        if spawn != '':
+            with open("play.txt", 'a') as f:
+                f.write(f"{i}\t{spawn}\n")
+            i += 1
+            print(f"{i}\t{spawn}")
+            await channel.send("Attention nearby pokemon trainers who are online...! A ***" + spawn + "*** has spawned! Gotta catchem all!\nCapture with `/capture <pokemon_name>`")
+        await asyncio.sleep(1200)'''
+    await channel.send("***I'm prescribing you 3 hugs per day...Doctor's orders.*** *(Note: DO NOT OVERDOSE)* ")
     await asyncio.sleep(2)
     while True:
         await channel.send("<@508740700213477386>" + " https://cdn.discordapp.com/attachments/571528488809660476/586733560388386841/image0.gif")
@@ -99,17 +111,20 @@ async def on_message(message):
 
     if message.content == "my guardian angel":
         if "Cali#6919" in str(message.author) or "Vampy#1379" in str(message.author) or "Sauce Boss#7075" in str(message.author):
-            await message.channel.send("That's right papa :P")
+            await message.channel.send("That's right, it is I! :stuck_out_tongue:")
     if re.search(r"(<@233691753922691072>|cali)|(<@!508740700213477386>|vampy)|(<@!375778063356657666>|sauce|saucy)", str(message.content).lower()):
         if re.search(r"(punch|slap|bully|insult|kill|baka|roast|trigger|meme|mock|fight|hack|lick)", str(message.content).lower()):
             await message.channel.send("Your assault has been deflected! " + message.author.mention)
             await asyncio.sleep(2)
             await message.channel.send("***Better luck next time!*** :shrug:")
-        elif re.sub(r"<@233691753922691072>", '', str(message.content)).isupper():
+    if re.search(r"<@233691753922691072>|CALI", str(message.content)):
+        if re.sub(r"<@233691753922691072>", '', str(message.content)).isupper():
             await message.channel.send("***DON'T YELL AT PAPA!!!***")
 
     if message.content.startswith('/help'):
         await message.channel.send("```CaliBot Commands:\n/help\n/lick\n/jump\n/hit\n/startDFC\n/getPokemon (W.I.P.)```")
+    if message.content.startswith('/capture'):
+        pass #Remove specified pokemon from play.txt and into playerData.txt
     if message.content.startswith('/hit'):
         if "<@233691753922691072>" in str(message.content):
             await message.channel.send("Sorry...I don't hit my papa.")
