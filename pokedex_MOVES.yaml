@@ -1,0 +1,821 @@
+Bulbasaur
+Type: Grass / Poison
+Fast Attacks: Tackle, Vine Whip
+Special Attacks: Power Whip, Seed Bomb, Sludge Bomb
+Evolves into: Ivysaur (Cost: 25 candy)
+Ivysaur
+Type: Grass / Poison
+Fast Attacks: Razor Leaf, Vine Whip
+Special Attacks: Power Whip, Sludge Bomb, Solar Beam
+Evolves from: Bulbasaur
+Evolves Into: Venusaur (Cost: 100 candy)
+Venusaur
+Type: Grass / Poison
+Fast Attacks: Razor Leaf, Vine Whip
+Special Attacks: Petal Blizzard, Sludge Bomb, Solar Beam
+Evolves from: Ivysaur
+pkmn4-6
+
+Charmander
+Type: Fire
+Fast Attacks: Scratch, Ember
+Special Attacks: Flame Burst, Flame Charge, Flamethrower
+Evolves into: Charmeleon (Cost: 25 candy)
+Charmeleon
+Type: Fire
+Fast Attacks: Scratch, Ember
+Special Attacks: Fire Punch, Flame Burst, Flamethrower
+Evolves from: Charmander
+Evolves Into: Charizard (Cost: 100 candy)
+Charizard
+Type: Fire / Flying
+Fast Attacks: Ember, Wing Attack
+Special Attacks: Dragon Claw, Fire Blast, Flamethrower
+Evolves from: Charmeleon
+pkmn7-9
+
+Squirtle
+Type: Water
+Fast Attacks: Tackle, Bubble
+Special Attacks: Aqua Jet, Aqua Tail, Water Pulse
+Evolves into: Wartortle (Cost: 25 candy)
+Wartortle
+Type: Water
+Fast Attacks: Bite, Water Gun
+Special Attacks: Aqua Jet, Hydro Pump, Ice Beam
+Evolves from: Squirtle
+Evolves Into: Blastoise (Cost: 100 candy)
+Blastoise
+Type: Water
+Fast Attacks: Bite, Water Gun
+Special Attacks: Flash Cannon, Ice Beam, Hydro Pump
+Evolves from: Wartortle
+pkmn10-15
+
+Caterpie
+Type: Bug
+Fast Attacks: Tackle, Bug Bite
+Special Attacks: Struggle
+Evolves Into: Metapod (Cost: 12 candy)
+Metapod
+Type: Bug
+Fast Attacks: Tackle, Bug Bite
+Special Attacks: Struggle
+Evolves from: Caterpie
+Evolves into: Butterfree (Cost: 50 candy)
+Butterfree
+Type: Bug / Flying
+Fast Attacks: Confusion, Bug Bite
+Special Attacks: Psychic, Bug Buzz, Signal Beam
+Evolves from: Metapod
+Weedle
+Type: Bug, Poison
+Fast Attacks: Bug Bite, Poison Sting
+Special Attacks: Struggle
+Evolves Into: Kakuna (Cost: 12 candy)
+Kakuna
+Type: Bug, Poison
+Fast Attacks: Bug Bite, Poison Sting
+Special Attacks: Struggle
+Evolves from: Weedle
+Evolves into: Beedrill (Cost: 50 candy)
+Beedrill
+Type: Bug, Poison
+Fast Attacks: Bug Bite, Poison Jab
+Special Attacks: Aerial Ace, Sludge Bomb, X-Scissor
+Evolves from: Kakuna
+pkmn16-20
+
+Pidgey
+Type: Normal, Flying
+Fast Attacks: Tackle, Quick Attack
+Special Attacks: Twister, Aerial Ace, Air Cutter
+Evolves Into: Pidgeotto (Cost: 12 candy)
+Pidgeotto
+Type: Normal, Flying
+Fast Attacks: Wing Attack, Steel Wing
+Special Attacks: Twister, Aerial Ace, Air Cutter
+Evolves from: Pidgey
+Evolves into: Pidgeot(Cost: 50 candy)
+Pidgeot
+Type: Normal, Flying
+Fast Attacks: Wing Attack, Steel Wing
+Special Attacks: Hurricane, Aerial Ace, Air Cutter
+Evolves from: Pidgeotto
+Rattata
+Type: Normal
+Fast Attacks: Tackle, Quick Attack
+Special Attacks: Dig, Hyper Fang, Body Slam
+Evolves Into: Raticate (Cost: 25 candy)
+Raticate
+Type: Normal
+Fast Attacks: Bite, Quick Attack
+Special Attacks: Dig, Hyper Fang, Hyper Beam
+Evolves from: Rattata
+pkmn21-24
+
+Spearow
+Type: Normal / Flying
+Fast Attacks: Peck, Quick Attack
+Special Attacks: Dig, Hyper Fang, Body Slam
+Evolves Into: Fearow (Cost: 50 candy)
+Fearow
+Type: Normal / Flying
+Fast Attacks: Peck, Steel Wing
+Special Attacks: Aerial Ace, Twister, Drill Run
+Evolves from: Spearow
+Ekans
+Type: Poison
+Fast Attacks: Acid, Poison Sting
+Special Attacks: Gunk Shot, Sludge Bomb, Wrap
+Evolves Into: Arbok (Cost: 50 candy)
+Arbok
+Type: Poison
+Fast Attacks: Acid, Bite
+Special Attacks: Gunk Shot, Sludge Wave, Dark Pulse
+Evolves from: Ekans
+pkmn25-28
+
+Pikachu
+Type: Electric
+Fast Attacks: Thunder Shock, Quick Attack
+Special Attacks: Thunderbolt, Discharge, Thunder
+Evolves From: Pichu
+Evolves Into: Raichu (Cost: 50 candy)
+Raichu
+Type: Electric
+Fast Attacks: Thunder Shock, Spark
+Special Attacks: Brick Break, Thunder Punch, Thunder
+Evolves From: Pikachu
+Sandshrew
+Type: Ground
+Fast Attacks: Scratch, Mud Show
+Special Attacks: Dig, Rock Slide, Rock Tomb
+Evolves Into: Sandslash (Cost: 50 candy)
+Sandslash
+Type: Ground
+Fast Attacks: Metal Claw, Mud Shot
+Special Attacks: Rock Tomb, Bulldoze, Earthquake
+Evolves from: Sandshrew
+pkmn29-34
+
+Nidoran ♀
+Type: Poison
+Fast Attacks: Poison Sting, Bite
+Special Attacks: Poison Fang, Sludge Bomb, Body Slam
+Evolves Into: Nidorina (Cost: 25 candy)
+Nidorina
+Type: Poison
+Fast Attacks: Poison Sting, Bite
+Special Attacks: Poison Fang, Sludge Bomb, Dig
+Evolves from: Nidoran ♀
+Evolves into: Nidoqueen (Cost: 100 candy)
+Nidoqueen
+Type: Poison / Ground
+Fast Attacks: Poison Jab, Bite
+Special Attacks: Stone Edge, Sludge Wave, Earthquake
+Evolves from: Nidorina
+Nidoran ♂
+Type: Poison
+Fast Attacks: Poison Sting, Peck
+Special Attacks: Horn Attack, Body Slam, Sludge Bomb
+Evolves Into: Nidorino (Cost: 25 candy)
+Nidorino
+Type: Poison
+Fast Attacks: Poison Jab, Bite
+Special Attacks: Horn Attack, Dig, Sludge Bomb
+Evolves from: Nidoran ♂
+Evolves into: Beedrill (Cost: 100 candy)
+Nidoking
+Type: Poison / Ground
+Fast Attacks: Poison Jab, Fury Cutter
+Special Attacks: Megahorn, Earthquake, Sludge Wave
+Evolves from: Nidorino
+pkmn35-38
+
+Clefairy
+Type: Fairy
+Fast Attacks: Zen Headbutt, Pound
+Special Attacks: Body Slam, Disarming Voice, Moonblast
+Evolves From: Cleffa
+Evolves Into: Clefable (Cost: 50 candy)
+Clefable
+Type: Fairy
+Fast Attacks: Zen Headbutt, Pound
+Special Attacks: Psychic, Dazzling Gleam, Moonblast
+Evolves From: Clefairy
+Vulpix
+Type: Fire
+Fast Attacks: Quick Attack, Ember
+Special Attacks: Heat Wave, Fire Blast, Flamethrower
+Evolves Into: Ninetales (Cost: 50 candy)
+Ninetales
+Type: Fire
+Fast Attacks: Feint Attack, Ember
+Special Attacks: Heat Wave, Fire Blast, Flamethrower
+Evolves from: Vulpix
+pkmn39-42
+
+Jigglypuff
+Type: Normal / Fairy
+Fast Attacks: Feint Attack, Pound
+Special Attacks: Disarming Voice, Body Slam, Play Rough
+Evolves From: Igglybuff
+Evolves Into: Wigglytuff (Cost: 50 candy)
+Wigglytuff
+Type: Normal / Fairy
+Fast Attacks: Feint Attack, Pound
+Special Attacks: Dazzling Gleam, Hyper Beam, Play Rough
+Evolves From: Jigglypuff
+Zubat
+Type: Poison / Flying
+Fast Attacks: Quick Attack, Bite
+Special Attacks: Sludge Bomb, Poison Fang, Air Cutter
+Evolves Into: Golbat (Cost: 50 candy)
+Golbat
+Type: Poison / Flying
+Fast Attacks: Bite, Wing Attack
+Special Attacks: Ominous Wind, Poison Fang, Air Cutter
+Evolves From: Zubat
+Evolves Into: Crobat (Cost: 100 candy)
+pkmn43-49
+
+Oddish
+Type: Grass / Poison
+Fast Attacks: Razor Leaf, Acid
+Special Attacks: Moonblast, Seed Bomb, Sludge Bomb
+Evolves Into: Gloom (Cost: 25 candy)
+Gloom
+Type: Grass / Poison
+Fast Attacks: Razor Leaf, Acid
+Special Attacks: Moonblast, Petal Blizzard, Sludge Bomb
+Evolves from: Oddish
+Evolves into: Vileplume (Cost: 100 candy)/ Bellossom (Cost: 1 Sun Stone, 100 candy)(
+Vileplume
+Type: Grass / Poison
+Fast Attacks: Razor Leaf, Acid
+Special Attacks: Moonblast, Petal Blizzard, Solar Beam
+Evolves from: Gloom
+Paras
+Type: Bug / Grass
+Fast Attacks: Bug Bite, Fury Cutter
+Special Attacks: Seed Bomb, X-Scissor, Cross Poison
+Evolves Into: Parasect (Cost: 50 candy)
+Parasect
+Type: Bug / Grass
+Fast Attacks: Bite, Wing Attack
+Special Attacks: Solar Beam, X-Scissor, Cross Poison
+Evolves From: Paras
+Venonat
+Type: Bug / Grass
+Fast Attacks: Confusion, Bug Bite
+Special Attacks: Signal Beam, Poison Fang, Psybeam
+Evolves Into: Venomoth (Cost: 50 candy)
+Venomoth
+Type: Bug / Grass
+Fast Attacks: Confusion, Bug Bite
+Special Attacks: Bug buzz, Poison Fang, Psychic
+Evolves From: Venonat
+pkmn50-55
+
+Diglett
+Type: Ground
+Fast Attacks: Scratch, Mud Shot
+Special Attacks: Rock Tomb, Dig, Mud Bomb
+Evolves Into: Dugtrio (Cost: 50 candy)
+Dugtrio
+Type: Ground
+Fast Attacks: Sucker Punch, Mud Shot
+Special Attacks: Stone Edge, Earthquake, Mud Bomb
+Evolves From: Diglett
+Meowth
+Type: Normal
+Fast Attacks: Scratch, Bite
+Special Attacks: Dark Pulse, Night Slash, Body Slam
+Evolves Into: Persian (Cost: 50 candy)
+Persian
+Type: Normal
+Fast Attacks: Scratch, Feint Attack
+Special Attacks: Play Rough, Power Gem, Night Slash
+Evolves From: Meowth
+Psyduck
+Type: Water
+Fast Attacks: Zen Headbutt, Water Gun
+Special Attacks: Aqua Tail, Cross Chop, Psybeam
+Evolves Into: Golduck (Cost: 50 candy)
+Golduck
+Type: Water
+Fast Attacks: Confusion, Water Gun
+Special Attacks: Ice Beam, Psychic, Hydro pump
+Evolves From: Psyduck
+pkmn56-59
+
+Mankey
+Type: Fighting
+Fast Attacks: Scratch, Karate Chop
+Special Attacks: Brick Break, Cross Chop, Low Sweep
+Evolves Into: Primeape (Cost: 50 candy)
+Primeape
+Type: Fighting
+Fast Attacks: Karate Chop, Low Kick
+Special Attacks: Night Slash, Cross Chop, Low Sweep
+Evolves From: Mankey
+Growlithe
+Type: Fire
+Fast Attacks: Bite, Ember
+Special Attacks: Flame Wheel, Body Slam, Flamethrower
+Evolves Into: Arcanine (Cost: 50 candy)
+Arcanine
+Type: Fire
+Fast Attacks: Bite, Fire Fang
+Special Attacks: Fire Blast, Bulldoze, Flamethrower
+Evolves From: Growlithe
+pkmn60-65
+
+Poliwag
+Type: Water
+Fast Attacks: Bubble, Mud Shot
+Special Attacks: Body Slam, Bubble Beam, Mud Bomb
+Evolves Into: Gloom (Cost: 25 candy)
+Poliwhirl
+Type: Water
+Fast Attacks: Bubble, Mud Shot
+Special Attacks: Scald, Bubble Beam, Mud Bomb
+Evolves from: Poliwag
+Evolves into: Poliwrath (Cost: 100 candy)/ Politoed (Cost: 1 King’s Rock, 100 candy)
+Poliwrath
+Type: Water
+Fast Attacks: Bubble, Mud Shot
+Special Attacks: Ice Punch, Submission, Hydro Pump
+Evolves from: Poliwhirl
+Abra
+Type: Psychic
+Fast Attacks: Zen Headbutt
+Special Attacks: Shadow Ball, Signal Beam, Psyshock
+Evolves Into: Kadabra (Cost: 25 candy)
+Kadabra
+Type: Psychic
+Fast Attacks: Confusion, Psycho Cut
+Special Attacks: Shadow Ball, Dazzling Gleam, Psybeam
+Evolves from: Abra
+Evolves into: Alakazam (Cost: 100 candy)
+Alakazam
+Type: Psychic
+Fast Attacks: Confusion, Psycho Cut
+Special Attacks: Shadow Ball, Dazzling Gleam, Psychic
+Evolves from: Kadabra
+pkmn66-71
+
+Machop
+Type: Fighting
+Fast Attacks: Low Kick, Karate Chop
+Special Attacks: Brick Break, Cross Chop, Low Sweep
+Evolves Into: Machoke (Cost: 25 candy)
+Machoke
+Type: Fighting
+Fast Attacks: Low Kick, Karate Chop
+Special Attacks: Brick Break, Cross Chop, Submission
+Evolves from: Machop
+Evolves into: Machamp (Cost: 100 candy)
+Machamp
+Type: Fighting
+Fast Attacks: Bullet Punch, Karate Chop
+Special Attacks: Stone Edge, Cross Chop, Submission
+Evolves from: Machoke
+Bellsprout
+Type: Grass / Poison
+Fast Attacks: Acid, Vine Whip
+Special Attacks: Sludge Bomb, Power Whip, Wrap
+Evolves Into: Weepinbell (Cost: 25 candy)
+Weepinbell
+Type: Grass / Poison
+Fast Attacks: Acid, Razor Leaf
+Special Attacks: Sludge Bomb, Power Whip, Seed Bomb
+Evolves from: Bellsprout
+Evolves into: Victreebel (Cost: 100 candy)
+Victreebel
+Type: Grass / Poison
+Fast Attacks: Acid, Razor Leaf
+Special Attacks: Sludge Bomb, Leaf Blade, Solar Beam
+Evolves from: Weepinbell
+pkmn72-76
+
+Tentacool
+Type: Water / Poison
+Fast Attacks: Bubble, Poison Sting
+Special Attacks: Bubble Beam, Water Pulse, Wrap
+Evolves Into: Tentacruel (Cost: 50 candy)
+Tentacruel
+Type: Water / Poison
+Fast Attacks: Acid, Poison Jab
+Special Attacks: Blizzard, Sludge Wave, Hydro Pump
+Evolves from: Tentacool
+Geodude
+Type: Rock / Ground
+Fast Attacks: Tackle, Rock Throw
+Special Attacks: Rock Slide, Dig, Rock Tomb
+Evolves Into: Graveler (Cost: 25 candy)
+Graveler
+Type: Rock / Ground
+Fast Attacks: Mud Shot, Rock Throw
+Special Attacks: Rock Slide, Dig, Stone Edge
+Evolves from: Geodude
+Evolves into: Golem (Cost: 100 candy)
+Golem
+Type: Rock / Ground
+Fast Attacks: Mud Shot, Rock Throw
+Special Attacks: Ancient Power, Earthquake, Stone Edge
+Evolves from: Graveler
+pkmn77-83
+
+Ponyta
+Type: Fire
+Fast Attacks: Tackle, Ember
+Special Attacks: Flame Wheel, Fire Blast, Flame Charge
+Evolves Into: Rapidash (Cost: 50 candy)
+Rapidash
+Type: Fire
+Fast Attacks: Ember, Low Kick
+Special Attacks: Heat Wave, Fire Blast, Drill Run
+Evolves From: Ponyta
+Slowpoke
+Type: Water / Psychic
+Fast Attacks: Water Gun, Confusion
+Special Attacks: Psychic, Water Pulse, Psyshock
+Evolves Into: Slowbro (Cost: 50 candy)
+Slowbro
+Type: Water / Psychic
+Fast Attacks: Water Gun, Confusion
+Special Attacks: Psychic, Water Pulse, Ice Beam
+Evolves From: Slowpoke
+Evolves Into: Slowking (Cost: 50 candy)
+Magnemite
+Type: Electric / Steel
+Fast Attacks: Spark, Thunder Shock
+Special Attacks: Magnet Bomb, Discharge, Thunderbolt
+Evolves Into: Magneton (Cost: 50 candy)
+Magneton
+Type: Electric / Steel
+Fast Attacks: Spark, Thunder Shock
+Special Attacks: Magnet Bomb, Discharge, Flash Cannon
+Evolves From: Magnemite
+Farfetch’d
+Type: Normal / Flying
+Fast Attacks: Fury Cutter, Cut
+Special Attacks: Air Cutter, Aerial Ace, Leaf Blade
+pkmn84-87
+
+Doduo
+Type: Normal / Flying
+Fast Attacks: Peck, Quick Attack
+Special Attacks: Swift, Aerial Ace, Drill Peck
+Evolves Into: Dodrio (Cost: 50 candy)
+Dodrio
+Type: Normal / Flying
+Fast Attacks: Steel Wing, Feint Attack
+Special Attacks: Drill Peck, Aerial Ace, Fury Cutter
+Evolves From: Doduo
+Seel
+Type: Electric / Steel
+Fast Attacks: Water Gun, Ice Shard
+Special Attacks: Aqua Jet, Icy Wind, Aqua Tail
+Evolves Into: Dewgong (Cost: 50 candy)
+Dewgong
+Type: Electric / Steel
+Fast Attacks: Frost Breath, Ice Shard
+Special Attacks: Aqua Jet, Icy Wind, Blizzard
+Evolves From: Seel
+pkmn88-91
+
+Grimer
+Type: Poison
+Fast Attacks: Mud Slap, Acid
+Special Attacks: Sludge, Sludge Bomb, Mud Bomb
+Evolves Into: Muk (Cost: 50 candy)
+Muk
+Type: Poison
+Fast Attacks: Poison Jab, Acid
+Special Attacks: Sludge Wave, Sludge Bomb, Dark Pulse
+Evolves From: Grimer
+Shellder
+Type: Water
+Fast Attacks: Tackle, Ice Shard
+Special Attacks: Bubble Beam, Icy Wind, Water Pulse
+Evolves Into: Cloyster (Cost: 50 candy)
+Cloyster
+Type: Water / Ice
+Fast Attacks: Frost Breath, Ice Shard
+Special Attacks: Icy Wind, Aqua Jet, Hydro Pump
+Evolves From: Shellder
+pkmn92-97
+
+Gastly
+Type: Ghost / Poison
+Fast Attacks: Lick, Sucker Punch
+Special Attacks: Dark Pulse, Sludge Bomb, Ominous Wind
+Evolves Into: Haunter(Cost: 25 candy)
+Haunter
+Type: Ghost / Poison
+Fast Attacks: Lick, Sucker Punch
+Special Attacks: Dark Pulse, Sludge Bomb, Shadow Ball
+Evolves from: Gastly
+Evolves into: Gengar (Cost: 100 candy)
+Gengar
+Type: Ghost / Poison
+Fast Attacks: Shadow Claw, Sucker Punch
+Special Attacks: Dark Pulse, Sludge Wave, Shadow Ball
+Evolves from: Haunter
+Onix
+Type: Rock / Ground
+Fast Attacks: Tackle, Rock Throw
+Special Attacks: Rock Slide, Stone Edge, Iron Head
+Evolves Into: Steelix (Cost: 50 candy)
+Drowzee
+Type: Psychic
+Fast Attacks: Pound, Confusion
+Special Attacks: Psychic, Psyshock, Psybeam
+Evolves Into: Hypno (Cost: 50 candy)
+Hypno
+Type: Psychic
+Fast Attacks: Zen Headbutt, Confusion
+Special Attacks: Psychic, Psyshock, Shadow Ball
+Evolves From: Drowzee
+pkmn98-105
+
+Krabby
+Type: Water
+Fast Attacks: Bubble, Mud Shot
+Special Attacks: Vice Grip, Water Pulse, Bubble Beam
+Evolves Into: Kingler (Cost: 50 candy)
+Kingler
+Type: Water
+Fast Attacks: Metal Claw, Mud Shot
+Special Attacks: Vice Grip, Water Pulse, X-Scissor
+Evolves From: Krabby
+Voltorb
+Type: Electric
+Fast Attacks: Tackle, Spark
+Special Attacks: Thunderbolt, Discharge, Signal Beam
+Evolves Into: Electrode (Cost: 50 candy)
+Electrode
+Type: Electric
+Fast Attacks: Tackle, Spark
+Special Attacks: Thunderbolt, Discharge, Hyper Beam
+Evolves From: Voltorb
+Exeggcute
+Type: Grass / Psychic
+Fast Attacks: Confusion
+Special Attacks: Psychic, Seed Bomb, Ancient Power
+Evolves Into: Exeggutor (Cost: 50 candy)
+Exeggutor
+Type: Grass / Psychic
+Fast Attacks: Confusion, Zen Headbutt
+Special Attacks: Psychic, Seed Bomb, Solar Beam
+Evolves From: Exeggcute
+Cubone
+Type: Ground
+Fast Attacks: Rock Smash, Mud Slap
+Special Attacks: Bone Club, Dig, Bulldoze
+Evolves Into: Marowak (Cost: 50 candy)
+Marowak
+Type: Ground
+Fast Attacks: Rock Smash, Mud Slap
+Special Attacks: Bone Club, Dig, Earthquake
+Evolves From: Cubone
+pkmn106-110
+
+Hitmonlee
+Type: Fighting
+Fast Attacks: Low Kick, Rock Smash
+Special Attacks: Low Sweep, Stone Edge, Stomp
+Evolves From: Tyrogue
+Hitmonchan
+Type: Fighting
+Fast Attacks: Bullet Punch, Rock Smash
+Special Attacks: Fire Punch, Ice Punch, Thunder Punch, Brick Break
+Evolves From: Tyrogue
+Lickitung
+Type: Normal
+Fast Attacks: Lick, Zen Headbutt
+Special Attacks: Stomp, Power Whip, Hyper Beam
+Koffing
+Type: Poison
+Fast Attacks: Tackle, Acid
+Special Attacks: Dark Pulse, Sludge, Sludge Bomb
+Evolves Into: Weezing (Cost: 50 candy)
+Weezing
+Type: Poison
+Fast Attacks: Tackle, Acid
+Special Attacks: Dark Pulse, Sludge Bomb, Shadow Ball
+Evolves From: Koffing
+pkmn111-115
+
+Rhyhorn
+Type: Ground / Rock
+Fast Attacks: Rock Smash, Mud Slap
+Special Attacks: Stomp, Bulldoze, Horn Attack
+Evolves Into: Rhydon (Cost: 50 candy)
+Rhydon
+Type: Ground / Rock
+Fast Attacks: Rock Smash, Mud Slap
+Special Attacks: Earthquake, Stone Edge, Megahorn
+Evolves From: Rhyhorn
+Chansey
+Type: Normal
+Fast Attacks: Pound, Zen Headbutt
+Special Attacks: Dazzling Gleam, Psybeam, Psychic
+Evolves Into: Blissey (Cost: 50 candy)
+Tangela
+Type: Grass
+Fast Attacks: Vine Whip
+Special Attacks: Sludge Bomb, Solar Beam, Power Whip
+Kangaskhan
+Type: Normal
+Fast Attacks: Low Kick, Mud Slap
+Special Attacks: Earthquake, Brick Break, Stomp
+pkmn116-122
+
+Horsea
+Type: Water
+Fast Attacks: Water Gun, Bubble
+Special Attacks: Bubble Beam, Dragon Pulse, Flash Cannon
+Evolves Into: Seadra (Cost: 50 candy)
+Seadra
+Type: Water
+Fast Attacks: Water Gun, Dragon Breath
+Special Attacks: Dragon Pulse, Blizzard, Hydro Pump
+Evolves From: Horsea
+Evolves Into: Kingdra (Cost: 100 candy, 1 Dragon Scale)
+Goldeen
+Type: Water
+Fast Attacks: Mud Shot, Peck
+Special Attacks: Aqua Tail, Horn Attack, Water Pulse
+Evolves Into: Seaking (Cost: 50 candy)
+Seaking
+Type: Water
+Fast Attacks: Poison Jab, Peck
+Special Attacks: Drill Run, Megahorn, Icy Wind
+Evolves From: Goldeen
+Staryu
+Type: Water
+Fast Attacks: Water Gun, Quick Attack
+Special Attacks: Bubble Beam, Power Gem, Swift
+Evolves Into: Starmie (Cost: 50 candy)
+Starmie
+Type: Water / Psychic
+Fast Attacks: Water Gun, Quick Attack
+Special Attacks: Hydro Pump, Power Gem, Psybeam
+Evolves From: Staryu
+Mr. Mime
+Type: Psychic / Fairy
+Fast Attacks: Confusion, Zen Headbutt
+Special Attacks: Shadow Ball, Psybeam, Psychic
+pkmn123-128
+
+Scyther
+Type: Bug / Flying
+Fast Attacks: Steel Wing, Fury Cutter
+Special Attacks: Bug Buzz, X-Scissor, Night Slash
+Evolves Into: Scizor (Cost: 50 candy)
+Jynx
+Type: Ice / Psychic
+Fast Attacks: Pound, Frost Breath
+Special Attacks: Psyshock, Ice Punch, Draining Kiss
+Evolves From: Smoochum
+Electabuzz
+Type: Electric
+Fast Attacks: Low Kick, Thunder Shock
+Special Attacks: Thunderbolt, Thunder, Thunder Punch
+Evolves From: Elekid
+Magmar
+Type: Fire
+Fast Attacks: Ember, Karate Chop
+Special Attacks: Flamethrower, Fire Blast, Fire Punch
+Evolves From: Magby
+Pinsir
+Type: Bug
+Fast Attacks: Fury Cutter, Rock Smash
+Special Attacks: Submission, Vice Grip, X-Scissor
+Tauros
+Type: Normal
+Fast Attacks: Tackle, Zen Headbutt
+Special Attacks: Earthquake, Iron Head, Horn Attack
+pkmn129-132
+
+Magikarp
+Type: Water
+Fast Attacks: Splash
+Special Attacks: Struggle
+Evolves Into: Gyarados (Cost: 400 candy)
+Gyarados
+Type: Water / Flying
+Fast Attacks: Bite, Dragon Breath
+Special Attacks: Twister, Hydro Pump, Dragon Pulse
+Evolves From: Magikarp
+Lapras
+Type: Water / Ice
+Fast Attacks: Frost Breath, Ice Shard
+Special Attacks: Blizzard, Dragon Pulse, Ice Beam
+Ditto
+Type: Normal
+Fast Attacks: Pound
+Special Attacks: Struggle
+pkmn133-136
+
+Eevee
+Type: Normal
+Fast Attacks: Tackle, Quick Attack
+Special Attacks: Body Slam, Dig, Swift
+Evolves Into: Vaporeon, Jolteon, Flareon, Espeon, or Umbreon at random – or use our Eevee evolution guide (Cost: 25 candy)
+Vaporeon
+Type: Water
+Fast Attacks: Water Gun
+Special Attacks: Aqua Tail, Hydro Pump, Water Pulse
+Evolves From: Eevee
+Jolteon
+Type: Thunder
+Fast Attacks: Thunder Shock
+Special Attacks: Discharge, Thunderbolt, Thunder
+Evolves From: Eevee
+Flareon
+Type: Fire
+Fast Attacks: Ember
+Special Attacks: Flamethrower, Fire Blast, Heat Wave
+Evolves From: Eevee
+pkmn137-143
+
+Porygon
+Type: Normal
+Fast Attacks: Tackle, Quick Attack
+Special Attacks: Discharge, Psybeam, Signal Beam
+Evolves Into: Porygon 2 (Cost: 50 candy, 1 Up-Grade)
+Omanyte
+Type: Rock / Water
+Fast Attacks: Water Gun, Mud Shot
+Special Attacks: Ancient Power, Brine, Rock Tomb
+Evolves Into: Omastar (Cost: 50 candy)
+Omastar
+Type: Rock / Water
+Fast Attacks: Water Gun, Rock Throw
+Special Attacks: Ancient Power, Hydro Pump, Rock Slide
+Evolves From: Omanyte
+Kabuto
+Type: Rock / Water
+Fast Attacks: Scratch, Mud Shot
+Special Attacks: Aqua Jet, Ancient Power, Rock Tomb
+Evolves Into: Kabutops (Cost: 50 candy)
+Kabutops
+Type: Rock / Water
+Fast Attacks: Fury Cutter, Mud Shot
+Special Attacks: Ancient Power, Water Pulse, Stone Edge
+Evolves From: Kabuto
+Aerodactyl
+Type: Rock / Flying
+Fast Attacks: Bite, Steel Wing
+Special Attacks: Ancient Power, Iron Head, Hyper Beam
+Snorlax
+Type: Normal
+Fast Attacks: Lick, Zen Headbutt
+Special Attacks: Body Slam, Earthquake, Hyper Beam
+pkmn144-146
+
+Articuno
+Type: Ice / Flying
+Fast Attacks: Frost Breath
+Special Attacks: Blizzard, Ice Beam, Icy Wind
+Zapdos
+Type: Electric / Flying
+Fast Attacks: Thunder Shock
+Special Attacks: Discharge, Thunderbolt, Thunder
+Moltres
+Type: Fire / Flying
+Fast Attacks: Ember
+Special Attacks: Flamethrower, Fire Blast, Heat Wave
+pkmn147-149
+
+Dratini
+Type: Dragon
+Fast Attacks: Dragon Breath
+Special Attacks: Aqua Tail, Twister, Wrap
+Evolves Into: Dragonair (Cost: 25 candy)
+Dragonair
+Type: Dragon
+Fast Attacks: Dragon Breath
+Special Attacks: Aqua Tail, Dragon Pulse, Wrap
+Evolves from: Dratini
+Evolves into: Dragonite (Cost: 100 candy)
+Dragonite
+Type: Dragon / Flying
+Fast Attacks: Dragon Breath, Steel Wing
+Special Attacks: Dragon Claw, Dragon Pulse, Hyper Beam
+Evolves from: Dragonair
+pkmn150-151
+
+Mewtwo
+Type: Psychic
+Fast Attacks: Confusion, Psycho Cut
+Special Attacks: Hyper Beam, Psychic, Shadow Ball
+Mew
+Type: Psychic
+Fast Attacks: Pound
+Special Attacks: Dragon Pulse, Earthquake, Fire Blast, Hyper Beam, Hurricane, Moonblast, Psychic, Solar Beam
