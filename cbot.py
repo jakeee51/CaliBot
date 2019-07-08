@@ -3,6 +3,8 @@ import time
 import asyncio
 import re
 import random
+import yaml
+from key import Key
 
 '''
 from discord.ext import commands
@@ -19,7 +21,7 @@ bot.run('token')
 
 pokemonDict = ["Pikachu", "Squirtle", "Charmander", "Bulbasaur", '']
 
-def timeCheck(t):
+def timeCheck(t): #check if time is valid
     C = False
     if len(t) > 5:
         return False
@@ -31,9 +33,9 @@ def timeCheck(t):
             C = True
     return C
 
-def timeAdd(hrs, mins):
-    newHrs = int(hrs) + 1
-    newMin = int(mins) + 30
+def timeAdd(hrs, mins): #add time df takes to spawn
+    newHrs = int(hrs) + 1 #add 1 hour
+    newMin = int(mins)
     if newMin >= 60:
         newHrs += 1
         newMin = newMin - 60
@@ -88,26 +90,19 @@ async def on_ready():
             print(f"{i}\t{spawn}")
             await channel.send("Attention nearby pokemon trainers who are online...! A ***" + spawn + "*** has spawned! Gotta catchem all!\nCapture with `/capture <pokemon_name>`")
         await asyncio.sleep(1200)'''
-    await channel.send("***I'm prescribing you 3 hugs per day...Doctor's orders.*** *(Note: DO NOT OVERDOSE)* ")
+
+    '''await channel.send("***I'm prescribing you 3 hugs per day...Doctor's orders.*** *(Note: DO NOT OVERDOSE)* ")
     await asyncio.sleep(2)
     while True:
         await channel.send("<@508740700213477386>" + " https://cdn.discordapp.com/attachments/571528488809660476/586733560388386841/image0.gif")
         await asyncio.sleep(28800)
         await channel.send("<@508740700213477386>" + " https://cdn.discordapp.com/attachments/571528488809660476/586733569817182208/image0.gif")
-        await asyncio.sleep(28800)
+        await asyncio.sleep(28800)'''
 
 @client.event
 async def on_message(message):
     if message.author == client.user:
         return -1;
-
-##    tempo = 0 # use a dict to store the time
-##    if message.content.startswith('/nextHug'):
-##        await message.channel.send("ACTIVATED")
-##        tempo = time.time() + 28800 # store end time
-##        t = tempo - time.time()
-##        print(t)
-##        await message.channel.send("wait {} seconds.".format(t))
 
     if message.content == "my guardian angel":
         if "Cali#6919" in str(message.author) or "Vampy#1379" in str(message.author) or "Sauce Boss#7075" in str(message.author):
@@ -122,9 +117,32 @@ async def on_message(message):
             await message.channel.send("***DON'T YELL AT PAPA!!!***")
 
     if message.content.startswith('/help'):
-        await message.channel.send("```CaliBot Commands:\n/help\n/lick\n/jump\n/hit\n/startDFC\n/getPokemon (W.I.P.)```")
+        await message.channel.send("```CaliBot Commands:\n/help\n/hit\n/startDFC\n/timer\n/getPokemon (W.I.P.)```")
+    if message.content.startswith('/start game'):
+        game = message.content.strip("/start game ")
+        if game.lower() == "pokemon":
+            with open("server_channels.txt", 'a') as f:
+                f.write(str(message.channel.id) + '\n')
+    if message.content.startswith('/stop game'):
+        game = message.content.strip("/stop game ")
+        if game.lower() == "pokemon":
+            with open("server_channels.txt", 'rw') as f:
+                ids = f.readlines()
+                for i in ids:
+                    if str(i) != str(message.channel.id):
+                        f.write(i)
+    if message.content.startswith('/timer'):
+        t = message.content.strip("/timer ")
+        get = re.search(r"^(\d{0,2}) (\d{0,2})$", t)
+        if not get:
+            await message.channel.send("***Invalid Command! Must include hours followed by minutes!***\n (ex: `/time 0 30`)")
+        else:
+            eta = ((int(get.group(1)) * 60) * 60) + (int(get.group(2)) * 60)
+            await message.channel.send(f"You will be notified in **" + get[1] + "** hour(s) & **" + get[2] + "** minute(s)!")
+            await asyncio.sleep(eta)
+            await message.channel.send(message.author.mention + " **ALERT! YOUR TIMER HAS RUN OUT! DO WHAT YOU MUST!**")
     if message.content.startswith('/capture'):
-        pass #Remove specified pokemon from play.txt and into playerData.txt
+        pass #Remove specified pokemon from play.yaml and into player_data.yaml
     if message.content.startswith('/hit'):
         if "<@233691753922691072>" in str(message.content):
             await message.channel.send("Sorry...I don't hit my papa.")
@@ -133,17 +151,7 @@ async def on_message(message):
         else:
             usr = re.search(r"<@\d+>", str(message.content))
             await message.channel.send(message.author.mention + " ***ATTACKED*** " + usr[0] + " https://tenor.com/view/shizuo-durarara-drrr-gif-12251387")
-    if message.content.startswith('/lick'):
-        usr = message.content
-        usr = usr.strip('/lick ')
-        await message.channel.send(message.author.mention + " *GAVE A* ***MOIST*** *LICK TO* " + usr)
-    if message.content.startswith('/jump'):
-        await message.channel.send("How high?! " + message.author.mention)
     if message.content.startswith('/startDFC'):
-##        ct = time.strftime("%I:%M %c", message.created_at)
-##        print(time.time())
-##        print(message.created_at) #2019-05-14 06:30:37.141000
-##        print(time.strftime("%Y-%m-%d %H:%M:%S %c", time.localtime(time.time())))
         st = message.content
         lst = st.split(' ')
         if len(lst) < 3:
@@ -159,10 +167,5 @@ async def on_message(message):
             m = st[-2:]
             dt = timeAdd(h, m)
             await message.channel.send(":pray: Devil Fruit Spawn Time :pray: ```" + dt + " " + tz + "```")
-##            sec = timeDif(dt, ct)
-##            await message.channel.send("df->" + dt + "ct->" + ct)
-##            if sec <= 5400:
-##                await asyncio.sleep(sec)
-##                await message.channel.send(message.author.mention + ":open_mouth: The devil fruit has spawned at :open_mouth: ```" + dt + " " + tz + "```:triumph:You now have 25 minutes to search!:triumph:")
 
-client.run('NTc2OTUyMjc0MjA3NzY4NTc2.XNd-wA.EubtjmhnTgLnDL6yBBFv4OtojeU')
+client.run(Key())
