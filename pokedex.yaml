@@ -1,14 +1,5 @@
 ---
-Nat.#
-Name
-Type
-HP
-Atk
-Def
-SAt
-SDf
-Spd
-BST
+Nat.# Name Type HP Atk Def SAt SDf Spd BST
 1	Bulbasaur
 GRASS
 POISON
