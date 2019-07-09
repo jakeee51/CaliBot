@@ -4,15 +4,16 @@ import asyncio
 import re
 import random
 import yaml
-from key import Key
+import os
+from key import Key, cwd
+token = Key()
+os.chdir(cwd)
 
 '''
 from discord.ext import commands
-
 @bot.command()
 async def ping(ctx):
     await ctx.send('pong')
-
 bot.run('token')
 '''
 
@@ -20,6 +21,30 @@ bot.run('token')
 #Permissions to only work in specific channel
 
 pokemonDict = ["Pikachu", "Squirtle", "Charmander", "Bulbasaur", '']
+
+class Unbuffered(object):
+   def __init__(self, stream):
+       self.stream = stream
+   def write(self, data):
+       self.stream.write(data)
+       self.stream.flush()
+   def writelines(self, datas):
+       self.stream.writelines(datas)
+       self.stream.flush()
+   def __getattr__(self, attr):
+       return getattr(self.stream, attr)
+import sys
+sys.stdout = Unbuffered(sys.stdout)
+
+def edit_file(file, value):
+    with open(file, 'r+') as f:
+        lines = f.readlines()
+        f.seek(0)
+        for line in lines:
+            line = line.strip('\n')
+            if str(line) != str(value):
+                f.write(line + '\n')
+        f.truncate()
 
 def timeCheck(t): #check if time is valid
     C = False
@@ -118,19 +143,21 @@ async def on_message(message):
 
     if message.content.startswith('/help'):
         await message.channel.send("```CaliBot Commands:\n/help\n/hit\n/startDFC\n/timer\n/getPokemon (W.I.P.)```")
+
     if message.content.startswith('/start game'):
         game = message.content.strip("/start game ")
         if game.lower() == "pokemon":
             with open("server_channels.txt", 'a') as f:
                 f.write(str(message.channel.id) + '\n')
+            await message.channel.send("***Pokemon game has begun!!! Prepare yourselves young trainers!***")
     if message.content.startswith('/stop game'):
-        game = message.content.strip("/stop game ")
+        game = re.sub(r"^/stop game ", '', message.content)
         if game.lower() == "pokemon":
-            with open("server_channels.txt", 'rw') as f:
-                ids = f.readlines()
-                for i in ids:
-                    if str(i) != str(message.channel.id):
-                        f.write(i)
+            edit_file("server_channels.txt", message.channel.id)
+            await message.channel.send("***Pokemon game has been stopped!***")
+    if message.content.startswith('/capture'):
+        pass #Remove specified pokemon from play.yaml and into player_data.yaml
+
     if message.content.startswith('/timer'):
         t = message.content.strip("/timer ")
         get = re.search(r"^(\d{0,2}) (\d{0,2})$", t)
@@ -141,8 +168,6 @@ async def on_message(message):
             await message.channel.send(f"You will be notified in **" + get[1] + "** hour(s) & **" + get[2] + "** minute(s)!")
             await asyncio.sleep(eta)
             await message.channel.send(message.author.mention + " **ALERT! YOUR TIMER HAS RUN OUT! DO WHAT YOU MUST!**")
-    if message.content.startswith('/capture'):
-        pass #Remove specified pokemon from play.yaml and into player_data.yaml
     if message.content.startswith('/hit'):
         if "<@233691753922691072>" in str(message.content):
             await message.channel.send("Sorry...I don't hit my papa.")
@@ -168,4 +193,4 @@ async def on_message(message):
             dt = timeAdd(h, m)
             await message.channel.send(":pray: Devil Fruit Spawn Time :pray: ```" + dt + " " + tz + "```")
 
-client.run(Key())
+client.run(token)
