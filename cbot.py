@@ -142,7 +142,7 @@ async def on_message(message):
             await message.channel.send("***DON'T YELL AT PAPA!!!***")
 
     if message.content.startswith('/help'):
-        await message.channel.send("```CaliBot Commands:\n/help\n/hit\n/startDFC\n/timer\n/getPokemon (W.I.P.)```")
+        await message.channel.send("```CaliBot Commands:\n/help\n/hit\n/startDFC\n/timer\n/goodVibes\n/getPokemon (W.I.P.)```")
 
     if message.content.startswith('/start game'):
         game = message.content.strip("/start game ")
@@ -164,17 +164,17 @@ async def on_message(message):
                 lines = f.readlines()
                 if len(lines) != 0:
                     vibe = lines[random.randint(0,len(lines)-1)]
-                    await message.channel.send("Here's some good vibes from " + vibe)
+                    await message.channel.send("Here's some good vibes from ```CSS\n" + vibe)
                 else:
-                    await message.channel.send("***Vibe container is empty! Fill it up with:*** `/goodVibes <Quote_Vibe>`")
+                    await message.channel.send("***Vibe container is empty! Fill it up with:***\n`/goodVibes <Quote_Vibe>`")
         elif message.content.startswith("/goodVibes remove"):
-            get = "||***" + re.sub("/goodVibes remove ", '', str(message.content)) + "***||"
+            get = re.sub("/goodVibes remove ", '', str(message.content)) + "```"
             edit_file("vibes.txt", str(get))
             await message.channel.send("`Vibe removed!`")
         else:
             get = re.sub("/goodVibes ", '', str(message.content))
             with open("vibes.txt", 'a') as f:
-                f.write("||***" + str(message.author) + ": " + str(get) + '***||\n')
+                f.write(str(message.author) + ": " + str(get) + '```\n')
                 await message.channel.send("`Vibe added! Thanks!`")
     if message.content.startswith('/timer'):
         t = message.content.strip("/timer ")
