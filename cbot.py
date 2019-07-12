@@ -158,6 +158,24 @@ async def on_message(message):
     if message.content.startswith('/capture'):
         pass #Remove specified pokemon from play.yaml and into player_data.yaml
 
+    if message.content.startswith('/goodVibes'):
+        if message.content == "/goodVibes":
+            with open("vibes.txt") as f:
+                lines = f.readlines()
+                if len(lines) != 0:
+                    vibe = lines[random.randint(0,len(lines)-1)]
+                    await message.channel.send("Here's some good vibes from " + vibe)
+                else:
+                    await message.channel.send("***Vibe container is empty! Fill it up with:*** `/goodVibes <Quote_Vibe>`")
+        elif message.content.startswith("/goodVibes remove"):
+            get = "||***" + re.sub("/goodVibes remove ", '', str(message.content)) + "***||"
+            edit_file("vibes.txt", str(get))
+            await message.channel.send("`Vibe removed!`")
+        else:
+            get = re.sub("/goodVibes ", '', str(message.content))
+            with open("vibes.txt", 'a') as f:
+                f.write("||***" + str(message.author) + ": " + str(get) + '***||\n')
+                await message.channel.send("`Vibe added! Thanks!`")
     if message.content.startswith('/timer'):
         t = message.content.strip("/timer ")
         get = re.search(r"^(\d{0,2}) (\d{0,2})$", t)
