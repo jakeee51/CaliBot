@@ -142,7 +142,7 @@ async def on_message(message):
             await message.channel.send("***DON'T YELL AT PAPA!!!***")
 
     if message.content.startswith('/help'):
-        await message.channel.send("```CaliBot Commands:\n/help\n/hit\n/startDFC\n/timer\n/vibes\n/vibes remove\n/getPokemon (W.I.P.)```")
+        await message.channel.send("```CaliBot Commands:\n/help\n/hit\n/startDFC\n/timer\n/cartoonQs\n/cartoonQs remove\n/vibes\n/vibes remove\n/getPokemon (W.I.P.)```")
 
     if message.content.startswith('/start game'):
         game = message.content.strip("/start game ")
@@ -158,6 +158,31 @@ async def on_message(message):
     if message.content.startswith('/capture'):
         pass #Remove specified pokemon from play.yaml and into player_data.yaml
 
+    if message.content.startswith('/cartoonQs'):
+        if message.content == "/cartoonQs":
+            with open("cartoonQs.txt") as f:
+                lines = f.readlines()
+                if len(lines) != 0:
+                    vibe = lines[random.randint(0,len(lines)-1)]
+                    await message.channel.send("Here's some good cartoonQs from ```CSS\n" + vibe)
+                else:
+                    await message.channel.send("***Cartoon quote container is empty! Fill it up with:***\n`/goodVibes <Quote_Vibe>`")
+        elif message.content == "/cartoonQs list":
+            if "Cali#6919" == str(message.author) or "Vampy#1379" == str(message.author):
+                with open("cartoonQs.txt") as f:
+                    v = f.read()
+                    cartoonQs = re.sub(r"```", '', v)
+                    await message.channel.send("```CSS\n" + cartoonQs + "```")
+        elif message.content.startswith("/cartoonQs remove"):
+            get = re.sub("^/cartoonQs remove ", '', str(message.content)) + "```"
+            edit_file("cartoonQs.txt", str(get))
+            await message.channel.send("`Cartoon quote removed!`")
+        else:
+            print("made it")
+            get = re.sub("^/cartoonQs ", '', str(message.content))
+            with open("cartoonQs.txt", 'a') as f:
+                f.write(str(message.author) + ": " + str(get) + '```\n')
+                await message.channel.send("`Cartoon quote added! Thanks!`")
     if re.search(r"^/vibes", str(message.content.lower())):
         if message.content.lower() == "/vibes":
             with open("vibes.txt") as f:
@@ -167,10 +192,11 @@ async def on_message(message):
                     await message.channel.send("Here's some good vibes from ```CSS\n" + vibe)
                 else:
                     await message.channel.send("***Vibe container is empty! Fill it up with:***\n`/goodVibes <Quote_Vibe>`")
-        elif "Cali#6919" == str(message.author):
+        elif "Cali#6919" == str(message.author) or "Vampy#1379" == str(message.author):
             if message.content.startswith('/vibes list'):
                 with open("vibes.txt") as f:
-                    vibes = re.sub(r"```", '', f.read())
+                    v = f.read()
+                    vibes = re.sub(r"```", '', v)
                     await message.channel.send("```CSS\n" + vibes + "```")
         elif message.content.startswith("/vibes remove"):
             get = re.sub("^/vibes remove ", '', str(message.content)) + "```"
