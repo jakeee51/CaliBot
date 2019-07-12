@@ -130,7 +130,7 @@ async def on_message(message):
         return -1;
 
     if message.content == "my guardian angel":
-        if "Cali#6919" in str(message.author) or "Vampy#1379" in str(message.author) or "Sauce Boss#7075" in str(message.author):
+        if "Cali#6919" == str(message.author) or "Vampy#1379" == str(message.author) or "Sauce Boss#7075" == str(message.author):
             await message.channel.send("That's right, it is I! :stuck_out_tongue:")
     if re.search(r"(<@233691753922691072>|cali)|(<@!508740700213477386>|vampy)|(<@!375778063356657666>|sauce|saucy)", str(message.content).lower()):
         if re.search(r"(punch|slap|bully|insult|kill|baka|roast|trigger|meme|mock|fight|hack|lick)", str(message.content).lower()):
@@ -142,7 +142,7 @@ async def on_message(message):
             await message.channel.send("***DON'T YELL AT PAPA!!!***")
 
     if message.content.startswith('/help'):
-        await message.channel.send("```CaliBot Commands:\n/help\n/hit\n/startDFC\n/timer\n/goodVibes\n/getPokemon (W.I.P.)```")
+        await message.channel.send("```CaliBot Commands:\n/help\n/hit\n/startDFC\n/timer\n/vibes\n/vibes remove\n/getPokemon (W.I.P.)```")
 
     if message.content.startswith('/start game'):
         game = message.content.strip("/start game ")
@@ -158,8 +158,8 @@ async def on_message(message):
     if message.content.startswith('/capture'):
         pass #Remove specified pokemon from play.yaml and into player_data.yaml
 
-    if message.content.startswith('/goodVibes'):
-        if message.content == "/goodVibes":
+    if re.search(r"^/vibes", str(message.content.lower())):
+        if message.content.lower() == "/vibes":
             with open("vibes.txt") as f:
                 lines = f.readlines()
                 if len(lines) != 0:
@@ -167,12 +167,17 @@ async def on_message(message):
                     await message.channel.send("Here's some good vibes from ```CSS\n" + vibe)
                 else:
                     await message.channel.send("***Vibe container is empty! Fill it up with:***\n`/goodVibes <Quote_Vibe>`")
-        elif message.content.startswith("/goodVibes remove"):
-            get = re.sub("/goodVibes remove ", '', str(message.content)) + "```"
+        elif "Cali#6919" == str(message.author):
+            if message.content.startswith('/vibes list'):
+                with open("vibes.txt") as f:
+                    vibes = re.sub(r"```", '', f.read())
+                    await message.channel.send("```CSS\n" + vibes + "```")
+        elif message.content.startswith("/vibes remove"):
+            get = re.sub("^/vibes remove ", '', str(message.content)) + "```"
             edit_file("vibes.txt", str(get))
             await message.channel.send("`Vibe removed!`")
         else:
-            get = re.sub("/goodVibes ", '', str(message.content))
+            get = re.sub("^/vibes ", '', str(message.content))
             with open("vibes.txt", 'a') as f:
                 f.write(str(message.author) + ": " + str(get) + '```\n')
                 await message.channel.send("`Vibe added! Thanks!`")
