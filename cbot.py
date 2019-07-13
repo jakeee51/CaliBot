@@ -17,6 +17,7 @@ async def ping(ctx):
 bot.run('token')
 '''
 
+#Quote guessing game
 #Learn to edit messages to prevent clutter
 #Permissions to only work in specific channel
 
@@ -32,9 +33,24 @@ class Unbuffered(object):
         self.stream.writelines(datas)
         self.stream.flush()
     def __getattr__(self, attr):
-        return getattr(self.stream, attr)
+        return getattr(self .stream, attr)
 import sys
 sys.stdout = Unbuffered(sys.stdout)
+
+def getIncrParse(text, idx, pas, last):
+    if idx == last:
+        part = text[0:2000*last]
+        get = re.sub(r"```", '', part)
+        get = re.search(r"(.*\n)+", get)
+        new_text = re.sub(r"```", '', text)
+        part2 = new_text[len(get.group()):]
+        return part2
+    else:
+        part = text[2000*idx:2000*pas]
+        get = re.sub(r"```", '', part)
+        get = re.search(r"(.*\n)+", get)
+    if get:
+        return get.group()
 
 def edit_file(file, value):
     with open(file, 'r+') as f:
@@ -168,11 +184,17 @@ async def on_message(message):
                 else:
                     await message.channel.send("***Cartoon quote container is empty! Fill it up with:***\n`/goodVibes <Quote_Vibe>`")
         elif message.content == "/cartoonQs list":
-            if "Cali#6919" == str(message.author) or "Vampy#1379" == str(message.author):
+            if "Cali#6919" == str(message.author) or "Vampy#1379" == str(message.author) or "Sauce Boss#7075" == str(message.author):
                 with open("cartoonQs.txt") as f:
-                    v = f.read()
-                    cartoonQs = re.sub(r"```", '', v)
-                    await message.channel.send("```CSS\n" + cartoonQs + "```")
+                    v = f.read(); cnt = len(v)
+                    if cnt > 2000:
+                        multi = (cnt // 2000)
+                        for i in range(multi+1):
+                            cartoonQs = getIncrParse(v, i, i+1, multi)
+                            await message.channel.send("```CSS\n" + cartoonQs + "```")
+                    else:
+                        cartoonQs = re.sub(r"```", '', v)
+                        await message.channel.send("```CSS\n" + cartoonQs + "```")
         elif message.content.startswith("/cartoonQs remove"):
             get = re.sub("^/cartoonQs remove ", '', str(message.content)) + "```"
             edit_file("cartoonQs.txt", str(get))
@@ -192,12 +214,18 @@ async def on_message(message):
                     await message.channel.send("Here's some good vibes from ```CSS\n" + vibe)
                 else:
                     await message.channel.send("***Vibe container is empty! Fill it up with:***\n`/goodVibes <Quote_Vibe>`")
-        elif "Cali#6919" == str(message.author) or "Vampy#1379" == str(message.author):
-            if message.content.startswith('/vibes list'):
+        elif message.content.startswith('/vibes list'):
+            if "Cali#6919" == str(message.author) or "Vampy#1379" == str(message.author):
                 with open("vibes.txt") as f:
-                    v = f.read()
-                    vibes = re.sub(r"```", '', v)
-                    await message.channel.send("```CSS\n" + vibes + "```")
+                    v = f.read(); cnt = len(v)
+                    if cnt > 2000:
+                        multi = (cnt // 2000)
+                        for i in range(multi+1):
+                            vibes = getIncrParse(v, i, i+1, multi)
+                            await message.channel.send("```CSS\n" + vibes + "```")
+                    else:
+                        vibes = re.sub(r"```", '', v)
+                        await message.channel.send("```CSS\n" + vibes + "```")
         elif message.content.startswith("/vibes remove"):
             get = re.sub("^/vibes remove ", '', str(message.content)) + "```"
             edit_file("vibes.txt", str(get))
