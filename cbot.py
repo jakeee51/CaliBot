@@ -55,12 +55,15 @@ def getIncrParse(text, idx, pas, last):
 def edit_file(file, value):
     with open(file, 'r+') as f:
         lines = f.readlines()
-        f.seek(0)
+        f.seek(0); found = False
         for line in lines:
             line = line.strip('\n')
             if str(line) != str(value):
                 f.write(line + '\n')
+            else:
+                found = True
         f.truncate()
+        return found
 
 def timeCheck(t): #check if time is valid
     C = False
@@ -197,10 +200,12 @@ async def on_message(message):
                         await message.channel.send("```CSS\n" + cartoonQs + "```")
         elif message.content.startswith("/cartoonQs remove"):
             get = re.sub("^/cartoonQs remove ", '', str(message.content)) + "```"
-            edit_file("cartoonQs.txt", str(get))
-            await message.channel.send("`Cartoon quote removed!`")
+            find = edit_file("cartoonQs.txt", str(get))
+            if find:
+                await message.channel.send("`Cartoon quote removed!`")
+            else:
+                await message.channel.send("`Cartoon quote not found!`")
         else:
-            print("made it")
             get = re.sub("^/cartoonQs ", '', str(message.content))
             with open("cartoonQs.txt", 'a') as f:
                 f.write(str(message.author) + ": " + str(get) + '```\n')
@@ -228,8 +233,11 @@ async def on_message(message):
                         await message.channel.send("```CSS\n" + vibes + "```")
         elif message.content.startswith("/vibes remove"):
             get = re.sub("^/vibes remove ", '', str(message.content)) + "```"
-            edit_file("vibes.txt", str(get))
-            await message.channel.send("`Vibe removed!`")
+            find = edit_file("vibes.txt", str(get))
+            if find:
+                await message.channel.send("`Vibe removed!`")
+            else:
+                await message.channel.send("`Vibe not found!`")
         else:
             get = re.sub("^/vibes ", '', str(message.content))
             with open("vibes.txt", 'a') as f:
