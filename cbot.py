@@ -6,6 +6,10 @@ import random
 import yaml
 import os
 from key import Key, cwd
+try:
+    import GeoLiberator as GL
+except ModuleNotFoundError:
+    pass
 token = Key()
 os.chdir(cwd)
 
@@ -161,8 +165,13 @@ async def on_message(message):
             await message.channel.send("***DON'T YELL AT PAPA!!!***")
 
     if message.content.startswith('/help'):
-        await message.channel.send("```CaliBot Commands:\n/help\n/hit\n/startDFC\n/timer\n/cartoonQs\n/cartoonQs remove\n/vibes\n/vibes remove\n/getPokemon (W.I.P.)```")
+        await message.channel.send("```CaliBot Commands:\n/help\n/GL\n/hit\n/startDFC\n/timer\n/cartoonQs\n/cartoonQs remove\n/vibes\n/vibes remove\n/getPokemon (W.I.P.)```")
 
+    if message.content.startswith('/GL'):
+        get = re.sub(r"^/GL ", '', str(message.content))
+        print("get", get)
+        result = GL.GeoLiberator(str(get)).getAddress()
+        await message.channel.send(str(result))
     if message.content.startswith('/start game'):
         game = message.content.strip("/start game ")
         if game.lower() == "pokemon":
