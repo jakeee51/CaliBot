@@ -194,7 +194,7 @@ async def on_message(message):
                     vibe = lines[random.randint(0,len(lines)-1)]
                     await message.channel.send("Here's some good cartoonQs from ```CSS\n" + vibe)
                 else:
-                    await message.channel.send("***Cartoon quote container is empty! Fill it up with:***\n`/goodVibes <Quote_Vibe>`")
+                    await message.channel.send("***Cartoon quote container is empty! Fill it up with:***\n`/cartoonQs <Quote_Vibe>`")
         elif message.content == "/cartoonQs list":
             if "Cali#6919" == str(message.author) or "Vampy#1379" == str(message.author) or "Sauce Boss#7075" == str(message.author):
                 with open("cartoonQs.txt") as f:
