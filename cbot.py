@@ -217,7 +217,7 @@ async def on_message(message):
         else:
             get = re.sub("^/cartoonQs ", '', str(message.content))
             with open("cartoonQs.txt", 'a') as f:
-                f.write(str(message.author) + ": " + str(get) + '```\n')
+                f.write(str(message.author) + ": " + re.sub(r":", '', str(get)) + '```\n')
                 await message.channel.send("`Cartoon quote added! Thanks!`")
     if re.search(r"^/vibes", str(message.content.lower())):
         if message.content.lower() == "/vibes":
@@ -227,7 +227,7 @@ async def on_message(message):
                     vibe = lines[random.randint(0,len(lines)-1)]
                     await message.channel.send("Here's some good vibes from ```CSS\n" + vibe)
                 else:
-                    await message.channel.send("***Vibe container is empty! Fill it up with:***\n`/goodVibes <Quote_Vibe>`")
+                    await message.channel.send("***Vibe container is empty! Fill it up with:***\n`/vibes <Quote_Vibe>`")
         elif message.content.startswith('/vibes list'):
             if "Cali#6919" == str(message.author) or "Vampy#1379" == str(message.author):
                 with open("vibes.txt") as f:
@@ -250,7 +250,7 @@ async def on_message(message):
         else:
             get = re.sub("^/vibes ", '', str(message.content))
             with open("vibes.txt", 'a') as f:
-                f.write(str(message.author) + ": " + str(get) + '```\n')
+                f.write(str(message.author) + ": " + re.sub(r":", '', str(get)) + '```\n')
                 await message.channel.send("`Vibe added! Thanks!`")
     if message.content.startswith('/timer'):
         t = message.content.strip("/timer ")
