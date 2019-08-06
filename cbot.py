@@ -139,13 +139,13 @@ async def on_ready():
             await channel.send("Attention nearby pokemon trainers who are online...! A ***" + spawn + "*** has spawned! Gotta catchem all!\nCapture with `/capture <pokemon_name>`")
         await asyncio.sleep(1200)'''
 
-    '''await channel.send("***I'm prescribing you 3 hugs per day...Doctor's orders.*** *(Note: DO NOT OVERDOSE)* ")
+    await channel.send("***I'm prescribing you 3 hugs per day...Doctor's orders.*** *(Note: DO NOT OVERDOSE)* ")
     await asyncio.sleep(2)
     while True:
         await channel.send("<@508740700213477386>" + " https://cdn.discordapp.com/attachments/571528488809660476/586733560388386841/image0.gif")
         await asyncio.sleep(28800)
         await channel.send("<@508740700213477386>" + " https://cdn.discordapp.com/attachments/571528488809660476/586733569817182208/image0.gif")
-        await asyncio.sleep(28800)'''
+        await asyncio.sleep(28800)
 
 @client.event
 async def on_message(message):
