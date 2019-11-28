@@ -21,11 +21,12 @@ async def ping(ctx):
 bot.run('token')
 '''
 
+#Organize code...
 #Quote guessing game
 #Learn to edit messages to prevent clutter
 #Permissions to only work in specific channel
 
-pokemonDict = ["Pikachu", "Squirtle", "Charmander", "Bulbasaur", '']
+pokemonDict = ["Pikachu", "Squirtle", "Charmander", "Bulbasaur"]
 
 class Unbuffered(object):
     def __init__(self, stream):
@@ -62,7 +63,7 @@ def edit_file(file, value):
         f.seek(0); found = False
         for line in lines:
             line = line.strip('\n')
-            if str(line) != str(value):
+            if str(line).lower() != str(value).lower():
                 f.write(line + '\n')
             else:
                 found = True
@@ -129,6 +130,7 @@ async def on_ready():
     await client.change_presence(activity = discord.Game(name = "/help (For all cmds)"))
     print('We have logged in as {0.user}'.format(client))
     channel = client.get_channel(577547595170185217); i = 0
+    await channel.send("`Updated!`")
     '''while True:
         spawn = random.choice(pokemonDict)
         if spawn != '':
@@ -139,13 +141,13 @@ async def on_ready():
             await channel.send("Attention nearby pokemon trainers who are online...! A ***" + spawn + "*** has spawned! Gotta catchem all!\nCapture with `/capture <pokemon_name>`")
         await asyncio.sleep(1200)'''
 
-    await channel.send("***I'm prescribing you 3 hugs per day...Doctor's orders.*** *(Note: DO NOT OVERDOSE)* ")
+    '''await channel.send("***I'm prescribing you 3 hugs per day...Doctor's orders.*** *(Note: DO NOT OVERDOSE)* ")
     await asyncio.sleep(2)
     while True:
         await channel.send("<@508740700213477386>" + " https://cdn.discordapp.com/attachments/571528488809660476/586733560388386841/image0.gif")
         await asyncio.sleep(28800)
         await channel.send("<@508740700213477386>" + " https://cdn.discordapp.com/attachments/571528488809660476/586733569817182208/image0.gif")
-        await asyncio.sleep(28800)
+        await asyncio.sleep(28800)'''
 
 @client.event
 async def on_message(message):
@@ -163,15 +165,38 @@ async def on_message(message):
     if re.search(r"<@233691753922691072>|CALI", str(message.content)):
         if re.sub(r"<@233691753922691072>", '', str(message.content)).isupper():
             await message.channel.send("***DON'T YELL AT PAPA!!!***")
-
+#/help
     if message.content.startswith('/help'):
-        await message.channel.send("```CaliBot Commands:\n/help\n/GL\n/hit\n/startDFC\n/timer\n/cartoonQs\n/cartoonQs remove\n/vibes\n/vibes remove\n/getPokemon (W.I.P.)```")
+        await message.channel.send("```CaliBot Commands:\n/help\n/GL\n/hit\n/startDFC\n/timer\n/showq\n/showq remove\n/cartoonQs\n/cartoonQs remove\n/vibes\n/vibes remove\n/getPokemon (W.I.P.)```")
+
+    if message.content.startswith('/showq'):
+        if message.content == "/showq":
+            with open("showq.txt") as f:
+                await message.channel.send(":tickets::popcorn: Shows & Movies Queue List:\n```CSS\n" + f.read() + "```")
+        elif message.content.startswith('/showq remove'):
+            show = re.sub(r"/showq remove ", '', str(message.content))
+            find = edit_file("showq.txt", str(show))
+            if find:
+                await message.channel.send("`Show or Movie removed from queue!`")
+            else:
+                await message.channel.send("`Show or Movie not found!`")
+        elif message.content.startswith('/showq '):
+            show = message.content.strip("/showq ")
+            with open("showq.txt", 'r+') as f:
+                shows = f.readlines(); exists = False
+                for entry in shows:
+                    if re.search(fr"{show}", entry):
+                        await message.channel.send("***Sorry, the Show or Movie is already in queue!***")
+                        exists = True
+                if not exists:
+                    f.write(str(show) + '\n')
+                    await message.channel.send(":tickets::popcorn:`Show or Movie added to queue!`")
 
     if message.content.startswith('/GL'):
         get = re.sub(r"^/GL ", '', str(message.content))
-        print("get", get)
         result = GL.GeoLiberator(str(get)).getAddress()
         await message.channel.send(str(result))
+
     if message.content.startswith('/start game'):
         game = message.content.strip("/start game ")
         if game.lower() == "pokemon":
@@ -191,21 +216,21 @@ async def on_message(message):
             with open("cartoonQs.txt") as f:
                 lines = f.readlines()
                 if len(lines) != 0:
-                    vibe = lines[random.randint(0,len(lines)-1)]
-                    await message.channel.send("Here's some good cartoonQs from ```CSS\n" + vibe)
+                    cQ = lines[random.randint(0,len(lines)-1)]
+                    await message.channel.send("Here's some good cartoonQs from ```CSS\n" + cQ)
                 else:
                     await message.channel.send("***Cartoon quote container is empty! Fill it up with:***\n`/cartoonQs <Quote_Vibe>`")
         elif message.content == "/cartoonQs list":
             if "Cali#6919" == str(message.author) or "Vampy#1379" == str(message.author) or "Sauce Boss#7075" == str(message.author):
                 with open("cartoonQs.txt") as f:
-                    v = f.read(); cnt = len(v)
+                    c = f.read(); cnt = len(c)
                     if cnt > 2000:
                         multi = (cnt // 2000)
                         for i in range(multi+1):
-                            cartoonQs = getIncrParse(v, i, i+1, multi)
+                            cartoonQs = getIncrParse(c, i, i+1, multi)
                             await message.channel.send("```CSS\n" + cartoonQs + "```")
                     else:
-                        cartoonQs = re.sub(r"```", '', v)
+                        cartoonQs = re.sub(r"```", '', c)
                         await message.channel.send("```CSS\n" + cartoonQs + "```")
         elif message.content.startswith("/cartoonQs remove"):
             get = re.sub("^/cartoonQs remove ", '', str(message.content)) + "```"
@@ -252,6 +277,7 @@ async def on_message(message):
             with open("vibes.txt", 'a') as f:
                 f.write(str(message.author) + ": " + re.sub(r":", '', str(get)) + '```\n')
                 await message.channel.send("`Vibe added! Thanks!`")
+
     if message.content.startswith('/timer'):
         t = message.content.strip("/timer ")
         get = re.search(r"^(\d{0,2}) (\d{0,2})$", t)
@@ -262,14 +288,17 @@ async def on_message(message):
             await message.channel.send(f"You will be notified in **" + get[1] + "** hour(s) & **" + get[2] + "** minute(s)!")
             await asyncio.sleep(eta)
             await message.channel.send(message.author.mention + " **ALERT! YOUR TIMER HAS RUN OUT! DO WHAT YOU MUST!**")
+
     if message.content.startswith('/hit'):
         if "<@233691753922691072>" in str(message.content):
             await message.channel.send("Sorry...I don't hit my papa.")
             await asyncio.sleep(2)
             await message.channel.send("YOU FOO!!!")
         else:
-            usr = re.search(r"<@\d+>", str(message.content))
+            usr = re.search(r"<@!?\d+>", str(message.content))
+            print(str(message.content))
             await message.channel.send(message.author.mention + " ***ATTACKED*** " + usr[0] + " https://tenor.com/view/shizuo-durarara-drrr-gif-12251387")
+
     if message.content.startswith('/startDFC'):
         st = message.content
         lst = st.split(' ')

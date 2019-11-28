@@ -2,7 +2,7 @@ import os
 
 cwd = os.getcwd()
 os.chdir("..");os.chdir("..");os.chdir("..")
-os.chdir("Desktop\\Python Prog\\CaliBot")
+os.chdir("Desktop\\Prog\\CaliBot")
 
 def Key():
     with open("key.txt") as f:
