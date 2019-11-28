@@ -21,7 +21,7 @@ async def ping(ctx):
 bot.run('token')
 '''
 
-#Organize code...
+#Organize code
 #Quote guessing game
 #Learn to edit messages to prevent clutter
 #Permissions to only work in specific channel
