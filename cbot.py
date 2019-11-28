@@ -185,7 +185,7 @@ async def on_message(message):
             with open("showq.txt", 'r+') as f:
                 shows = f.readlines(); exists = False
                 for entry in shows:
-                    if re.search(fr"{show}", entry):
+                    if re.search(fr"{show}", entry.lower()):
                         await message.channel.send("***Sorry, the Show or Movie is already in queue!***")
                         exists = True
                 if not exists:
