@@ -167,7 +167,11 @@ async def on_message(message):
             await message.channel.send("***DON'T YELL AT PAPA!!!***")
 #/help
     if message.content.startswith('/help'):
-        await message.channel.send("```CaliBot Commands:\n/help\n/GL\n/hit\n/startDFC\n/timer\n/showq\n/showq remove\n/cartoonQs\n/cartoonQs remove\n/vibes\n/vibes remove\n/getPokemon (W.I.P.)```")
+        await message.channel.send("```CaliBot Commands:\n/help\n/GL\n/snow\n/hit\n/startDFC\n/timer\n/showq\n/showq remove\n/cartoonQs\n/cartoonQs remove\n/vibes\n/vibes remove\n/getPokemon (W.I.P.)```")
+
+    if message.content.startswith('/snow'):
+        usr = re.search(r"<@!?\d+>", str(message.content))
+        await message.channel.send("***GET SNOWED*** " + usr[0] + " ***BY*** " + message.author.mention + " https://tenor.com/view/weather-snow-gif-4754467")
 
     if message.content.startswith('/showq'):
         if message.content == "/showq":
@@ -181,7 +185,7 @@ async def on_message(message):
             else:
                 await message.channel.send("`Show or Movie not found!`")
         elif message.content.startswith('/showq '):
-            show = message.content.strip("/showq ")
+            show = re.sub(r"/showq ", '', message.content)
             with open("showq.txt", 'r+') as f:
                 shows = f.readlines(); exists = False
                 for entry in shows:
@@ -296,7 +300,6 @@ async def on_message(message):
             await message.channel.send("YOU FOO!!!")
         else:
             usr = re.search(r"<@!?\d+>", str(message.content))
-            print(str(message.content))
             await message.channel.send(message.author.mention + " ***ATTACKED*** " + usr[0] + " https://tenor.com/view/shizuo-durarara-drrr-gif-12251387")
 
     if message.content.startswith('/startDFC'):
