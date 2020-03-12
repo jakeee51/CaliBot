@@ -3,7 +3,7 @@
 Author: David J. Morfe
 Application Name: CaliBot
 Functionality Purpose: An agile Discord Bot to fit Cali's needs
-Version: 0.1.0
+Version: 0.1.3
 '''
 #3/11/20
 
@@ -31,6 +31,11 @@ bot.run('token')
 #Organize code
 #Learn to edit messages to prevent clutter
 #Have /verify prompt to specify college
+
+#Change new user's nickname to full name
+#Create a no-reply gmail account
+#Prevent email from spam
+#syjqqqvdajhssgfl
 
 class Unbuffered(object):
     def __init__(self, stream):
@@ -62,13 +67,17 @@ def edit_file(file, value):
 def send_email(addr: str) -> str: # Return 4-digit verification code string
     sCode = f"{randint(0,9)}{randint(0,9)}{randint(0,9)}{randint(0,9)}"
     msg = EmailMessage()
-    msg.set_content(f"Verification Code Below:\n\n{sCode}")
-    msg["Subject"] = "Test 1"
-    msg["From"] = "djm65@njit.edu"
-    msg["To"] = "jakemorfe@gmail.com"
-    s = smtplib.SMTP("localhost")
-    s.send_message(msg)
-    s.quit()
+    msg.set_content(f"\
+<html><body><b>Your verification code to join the chat is below:<br><br>\
+<h2>{sCode}</h2></b>Please copy & paste this code in the \
+<i><u>#verify</u></i> text channel of the NJIT MSA Discord. \
+This code will expire in 15 minutes.</body></html>", subtype="html")
+    msg["Subject"] = "Verification Code for NJIT MSA Discord"
+    msg["From"] = "no-reply-njitmsadiscord@njit.edu"
+    msg["To"] = addr
+    with smtplib.SMTP_SSL("smtp.gmail.com", 465) as s:
+            s.login("djm65@njit.edu", "syjqqqvdajhssgfl")
+            s.send_message(msg)
     return sCode
 
 client = discord.Client()
@@ -78,7 +87,7 @@ async def on_ready():
     await client.change_presence(activity = discord.Game(name = "/help (For all cmds)"))
     print("We have logged in as {0.user}".format(client))
     channel = client.get_channel(631090067963772931)
-##    await channel.send("`Updated!`")
+    #await channel.send("`Updated!`")
 
 @client.event
 async def on_member_join(member):
@@ -94,17 +103,20 @@ async def on_message(message):
         eCode = re.search(r"^\d\d\d\d$", message.content)
         if eCode:
             with open("verify.txt", 'r') as f:
-                lines = f.readlines()
+                lines = f.readlines(); flag = True
                 if len(lines) != 0:
                     for line in lines:
-                        if line[:4] == eCode.group():
+                        lst = line.strip('\n').split(' ')
+                        if lst[0] == eCode.group() and lst[2] == str(message.author.id):
                             await message.channel.send("**Code accepted! Welcome to the NJIT Brotherhood!**")
                             edit_file("verify.txt", line.strip('\n'))
-                        else:
-                            await message.channel.send("**Invalid code! Who a u?!**")
-    if message.content == "my guardian angel":
+                            role = discord.utils.get(client.get_guild(630888887375364126).roles, name="Muslim")
+                            await message.author.add_roles(role); flag = False
+                    if flag:
+                        await message.channel.send("**Invalid code! Who a u?!**")
+    if message.content == "nu u":
         if "Cali#6919" == str(message.author):
-            await message.channel.send("Dats right, it is I! :stuck_out_tongue:")
+            await message.channel.send("who me? :feelshabibi:")
     if re.search(r"<@233691753922691072>|CALI", str(message.content)):
         if re.sub(r"<@233691753922691072>", '', str(message.content)).isupper():
             await message.channel.send("***DON'T YELL AT PAPA!!!***")
@@ -117,9 +129,9 @@ async def on_message(message):
         email_addr = f"{ucid}@njit.edu"
         vCode = send_email(email_addr)
         with open("verify.txt", 'a') as f:
-            f.write(f"{vCode} {email_addr}\n")
-        await message.channel.send(f"**We've sent a verification code to your email at {email_addr}, please copy & paste it below.**")
-        await asyncio.sleep(900)
+            f.write(f"{vCode} {email_addr} {message.author.id}\n")
+        await message.channel.send(f"**We've sent a verification code to your email at** ___{email_addr}___**, please copy & paste it below.**")
+        await asyncio.sleep(900) # TTL = 15 minutes
         edit_file("verify.txt", f"{vCode} {email_addr}")
 
     if message.content.startswith('/GL'): # GeoLiberator demo command
