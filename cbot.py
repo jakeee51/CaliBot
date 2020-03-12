@@ -87,7 +87,7 @@ async def on_ready():
     await client.change_presence(activity = discord.Game(name = "/help (For all cmds)"))
     print("We have logged in as {0.user}".format(client))
     channel = client.get_channel(631090067963772931)
-    #await channel.send("`Updated!`")
+    await channel.send("`Updated!`")
 
 @client.event
 async def on_member_join(member):
