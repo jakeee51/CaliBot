@@ -137,7 +137,7 @@ async def on_message(message):
                         await message.channel.send("**Invalid code! Who a u?!**")
     if message.content == "nu u":
         if "Cali#6919" == str(message.author):
-            await message.channel.send("who me? :feelshabibi:")
+            await message.channel.send("nu u")
     if re.search(r"<@233691753922691072>|CALI", str(message.content)):
         if re.sub(r"<@233691753922691072>", '', str(message.content)).isupper():
             await message.channel.send("***DON'T YELL AT PAPA!!!***")
