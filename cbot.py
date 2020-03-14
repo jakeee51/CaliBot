@@ -2,10 +2,10 @@
 '''
 Author: David J. Morfe
 Application Name: CaliBot
-Functionality Purpose: An agile Discord Bot to fit NJIT MSA's needs
-Version: 0.1.6
+Functionality Purpose: An agile Discord Bot to fit Cali's needs
+Version: 0.1.5
 '''
-#3/14/20
+#3/12/20
 
 import discord
 import asyncio
@@ -31,13 +31,14 @@ bot.run('token')
 
 #Organize code
 #Learn to edit messages to prevent clutter
-#Have /verify prompt to specify college
+#Have `/verify` prompt to specify college
+#After verified delete all their messages in '#verify'
+    #Allow read history in '#verify'
 
-#Add purge messages command for admins
-#Add command to change role color
 #Put more detail into `/help`
 #Create a no-reply gmail account
 #Prevent email from spam
+#syjqqqvdajhssgfl
 
 class Unbuffered(object):
     def __init__(self, stream):
@@ -152,7 +153,7 @@ async def on_message(message):
             f.write(f"{vCode} {email_addr} {message.author.id}\n")
         await message.channel.send(f"**We've sent a verification code to your email at** ___{email_addr}___**, please copy & paste it below.**")
         await asyncio.sleep(900) # TTL = 15 minutes
-        edit_file("verify.txt", f"{vCode} {email_addr}")
+        edit_file("verify.txt", f"{vCode} {email_addr} {message.author.id}")
 
     if message.content.startswith('/GL'): # GeoLiberator demo command
         get = re.sub(r"^/GL ", '', str(message.content))
