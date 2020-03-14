@@ -2,14 +2,15 @@
 '''
 Author: David J. Morfe
 Application Name: CaliBot
-Functionality Purpose: An agile Discord Bot to fit Cali's needs
-Version: 0.1.3
+Functionality Purpose: An agile Discord Bot to fit NJIT MSA's needs
+Version: 0.1.6
 '''
-#3/11/20
+#3/14/20
 
 import discord
 import asyncio
 import re, os, time, yaml, smtplib
+import mysql.connector
 from email.message import EmailMessage
 from random import randint
 from key import Key, cwd
@@ -32,10 +33,11 @@ bot.run('token')
 #Learn to edit messages to prevent clutter
 #Have /verify prompt to specify college
 
-#Change new user's nickname to full name
+#Add purge messages command for admins
+#Add command to change role color
+#Put more detail into `/help`
 #Create a no-reply gmail account
 #Prevent email from spam
-#syjqqqvdajhssgfl
 
 class Unbuffered(object):
     def __init__(self, stream):
@@ -80,6 +82,20 @@ This code will expire in 15 minutes.</body></html>", subtype="html")
             s.send_message(msg)
     return sCode
 
+def get_name(addr: str) -> str: # Return full name string based on email
+    mydb = mysql.connector.connect(
+        host="localhost",
+        user="root",
+        password="mantabayray51",
+        database="contacts")
+    mycursor = mydb.cursor()
+    ucid = re.sub(r"@njit\.edu", '', addr)
+    sql = f"SELECT full_name FROM links WHERE ucid='{ucid}'"
+    mycursor.execute(sql)
+    result = mycursor.fetchall()
+    if len(result) != 0:
+        return str(result[0][0])
+
 client = discord.Client()
 
 @client.event
@@ -92,6 +108,7 @@ async def on_ready():
 @client.event
 async def on_member_join(member):
     channel = client.get_channel(630888887375364128)
+    await asyncio.sleep(15)
     await channel.send("__***Welcome to the NJIT MSA Discord Server!***__\n\n**Please type `/verify <YOUR_NJIT_UCID>` to join the chat.**")
 
 @client.event
@@ -99,7 +116,7 @@ async def on_message(message):
     if message.author == client.user:
         return -1;
 
-    if message.channel.id == 630888887375364128: # Listen on NJIT MSA #verify
+    if message.channel.id == 630888887375364128: # Listen for code on NJIT MSA #verify
         eCode = re.search(r"^\d\d\d\d$", message.content)
         if eCode:
             with open("verify.txt", 'r') as f:
@@ -112,6 +129,9 @@ async def on_message(message):
                             edit_file("verify.txt", line.strip('\n'))
                             role = discord.utils.get(client.get_guild(630888887375364126).roles, name="Muslim")
                             await message.author.add_roles(role); flag = False
+                            nName = get_name(lst[1])
+                            if nName != None:
+                                await message.author.edit(nick=f"{nName}")
                     if flag:
                         await message.channel.send("**Invalid code! Who a u?!**")
     if message.content == "nu u":
@@ -122,7 +142,7 @@ async def on_message(message):
             await message.channel.send("***DON'T YELL AT PAPA!!!***")
     
     if message.content.startswith('/help'): # Help command
-        await message.channel.send("```CaliBot Commands:\n/help\n/verify\n/GL\n/timer\n```")
+        await message.channel.send("```CaliBot Commands:\n/help\n/verify\n/GL\n/timer\n/showq\n/showq remove\n/juegos```")
 
     if message.content.startswith('/verify'): # Verify command
         ucid = message.content.strip("/verify ")
@@ -149,5 +169,33 @@ async def on_message(message):
             await message.channel.send(f"You will be notified in **" + get[1] + "** hour(s) & **" + get[2] + "** minute(s)!")
             await asyncio.sleep(eta)
             await message.channel.send(message.author.mention + " **ALERT! YOUR TIMER HAS RUN OUT! DO WHAT YOU MUST!**")
+
+    if message.content.startswith('/juegos'):
+        role = discord.utils.get(client.get_guild(630888887375364126).roles, name="Juegos")
+        await message.author.add_roles(role)
+        await message.channel.send(message.author.mention + " *role has been updated!*")
+
+    if message.content.startswith('/showq'):
+        if message.content == "/showq":
+            with open("showq.txt") as f:
+                await message.channel.send(":tickets::popcorn: Shows & Movies Queue List:\n```CSS\n" + f.read() + "```")
+        elif message.content.startswith('/showq remove'):
+            show = re.sub(r"/showq remove ", '', str(message.content))
+            find = edit_file("showq.txt", str(show))
+            if find:
+                await message.channel.send("`Show or Movie removed from queue!`")
+            else:
+                await message.channel.send("`Show or Movie not found!`")
+        elif message.content.startswith('/showq '):
+            show = re.sub(r"/showq ", '', message.content)
+            with open("showq.txt", 'r+') as f:
+                shows = f.readlines(); exists = False
+                for entry in shows:
+                    if re.search(fr"{show}", entry.lower()):
+                        await message.channel.send("***Sorry, the Show or Movie is already in queue!***")
+                        exists = True
+                if not exists:
+                    f.write(str(show) + '\n')
+                    await message.channel.send(":tickets::popcorn:`Show or Movie added to queue!`")
 
 client.run(token)
