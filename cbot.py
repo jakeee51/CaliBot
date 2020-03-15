@@ -32,12 +32,11 @@ bot.run('token')
 #Organize code
 #Learn to edit messages to prevent clutter
 #Have `/verify` prompt to specify college
-#After verified delete all their messages in #verify
+#Verify #verify works
 
 #Put more detail into `/help`
 #Create a no-reply gmail account
 #Prevent email from spam
-#syjqqqvdajhssgfl
 
 class Unbuffered(object):
     def __init__(self, stream):
@@ -96,18 +95,14 @@ def get_name(addr: str) -> str: # Return full name string based on email
     if len(result) != 0:
         return str(result[0][0])
 
-def check_verify(msg, code):
-    end = time.time() + 900 # Time to end function after 15 minutes
+def check_verify(code):
     while True:
-        if time.time() >= end:
-            break
         with open("verify.txt") as f:
             text = f.read()
             if re.search(fr"^{code}", text):
                 continue
-        break
-        
-    client.delete_message(msg)
+            return True
+    return False
 
 client = discord.Client()
 
@@ -120,6 +115,7 @@ async def on_ready():
 
 '''@client.event
 async def on_member_join(member):
+    #await client.edit_message(message_var, "This is the edit to replace the message.")
     channel = client.get_channel(630888887375364128)
     await asyncio.sleep(15)
     await channel.send("__***Welcome to the NJIT MSA Discord Server!***__\n\n**Please type `/verify <YOUR_NJIT_UCID>` to join the chat.**")'''
@@ -132,7 +128,7 @@ async def on_message(message):
     if message.channel.id == 688625250832744449: # Listen for code on NJIT MSA #verify
         eCode = re.search(r"^\d\d\d\d$", message.content)
         if eCode:
-            with open("verify.txt", 'r') as f:
+            with open("verify.txt") as f:
                 lines = f.readlines(); flag = True
                 if len(lines) != 0:
                     for line in lines:
@@ -145,28 +141,32 @@ async def on_message(message):
                             if nName != None:
                                 await message.author.edit(nick=f"{nName}")
                                 channel = client.get_channel(631090067963772931) # NJIT MSA #general
-                                await channel.send(f"***{nName}*** *has joined the NJIT MSA Discord!*")
+                            await channel.send(f"***" + message.author.mention + "***" + " *has joined the NJIT MSA Discord!*")
+                            await message.delete()
                     if flag:
                         await message.channel.send("**Invalid code! Who a u?!**")
     if message.content == "nu u":
         if "Cali#6919" == str(message.author):
             await message.channel.send("nu u")
+    
     if re.search(r"<@233691753922691072>|CALI", str(message.content)):
         if re.sub(r"<@233691753922691072>", '', str(message.content)).isupper():
             await message.channel.send("***DON'T YELL AT PAPA!!!***")
     
     if message.content.startswith('/help'): # Help command
         await message.channel.send("```CaliBot Commands:\n/help\n/verify\n/GL\n/timer\n/showq\n/showq remove\n/juegos```")
-
+    
     if message.content.startswith('/verify'): # Verify command
         ucid = message.content.strip("/verify ")
         email_addr = f"{ucid}@njit.edu"
-        vCode = send_email(email_addr)
+        vCode = send_email(email_addr); ID = message.author.id
         with open("verify.txt", 'a') as f:
             f.write(f"{vCode} {email_addr} {message.author.id}\n")
         temp = await message.channel.send(f"**We've sent a verification code to your email at** ___{email_addr}___**, please copy & paste it below.**")
-        check_verify(message, vCode) # Purge messages when record is removed from 'verify.txt' otherwise purge in 15 minutes
-        client.delete_message(temp)
+        await asyncio.sleep(900)
+        if check_verify(vCode): # Purge messages when record is removed from 'verify.txt' otherwise purge in 15 minutes
+            await temp.delete(); await message.delete()
+        edit_file("verify.txt", f"{vCode} {email_addr} {ID})
 
     if message.content.startswith('/GL'): # GeoLiberator demo command
         get = re.sub(r"^/GL ", '', str(message.content))
