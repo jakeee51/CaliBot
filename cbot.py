@@ -85,7 +85,7 @@ def get_name(addr: str) -> str: # Return full name string based on email
     mydb = mysql.connector.connect(
         host="localhost",
         user="root",
-        password="mantabayray51",
+        password="password",
         database="contacts")
     mycursor = mydb.cursor()
     ucid = re.sub(r"@njit\.edu", '', addr)
