@@ -3,7 +3,7 @@
 Author: David J. Morfe
 Application Name: CaliBot
 Functionality Purpose: An agile Discord Bot to fit Cali's needs
-Version: 0.1.5
+Version: 0.1.7
 '''
 #3/12/20
 
