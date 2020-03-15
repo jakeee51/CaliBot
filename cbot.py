@@ -166,7 +166,7 @@ async def on_message(message):
         await asyncio.sleep(900)
         if check_verify(vCode): # Purge messages when record is removed from 'verify.txt' otherwise purge in 15 minutes
             await temp.delete(); await message.delete()
-        edit_file("verify.txt", f"{vCode} {email_addr} {ID})
+        edit_file("verify.txt", f"{vCode} {email_addr} {ID}")
 
     if message.content.startswith('/GL'): # GeoLiberator demo command
         get = re.sub(r"^/GL ", '', str(message.content))
