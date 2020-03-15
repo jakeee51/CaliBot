@@ -143,6 +143,8 @@ async def on_message(message):
                                 channel = client.get_channel(631090067963772931) # NJIT MSA #general
                             await channel.send(f"***" + message.author.mention + "***" + " *has joined the NJIT MSA Discord!*")
                             await message.delete()
+                        else:
+                            await message.delete(delay=60)
                     if flag:
                         await message.channel.send("**Invalid code! Who a u?!**")
     if message.content == "nu u":
@@ -163,9 +165,10 @@ async def on_message(message):
         with open("verify.txt", 'a') as f:
             f.write(f"{vCode} {email_addr} {message.author.id}\n")
         temp = await message.channel.send(f"**We've sent a verification code to your email at** ___{email_addr}___**, please copy & paste it below.**")
-        await asyncio.sleep(900)
         if check_verify(vCode): # Purge messages when record is removed from 'verify.txt' otherwise purge in 15 minutes
             await temp.delete(); await message.delete()
+        else:
+            await temp.delete(delay=900); await message.delete(delay=900)
         edit_file("verify.txt", f"{vCode} {email_addr} {ID}")
 
     if message.content.startswith('/GL'): # GeoLiberator demo command
