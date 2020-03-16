@@ -5,7 +5,7 @@ Application Name: CaliBot
 Functionality Purpose: An agile Discord Bot to fit Cali's needs
 Version: 0.2.0
 '''
-#3/16/20
+#3/17/20
 
 import discord
 import asyncio
@@ -139,7 +139,9 @@ async def on_message(message):
             await message.channel.send("***DON'T YELL AT PAPA!!!***")
     
     if message.content.startswith('/help'): # Help command
-        await message.channel.send("```CaliBot Commands:\n/help\n/verify\n/GL\n/timer\n/showq\n/showq remove\n/juegos```")
+        with open("cmds.md") as f:
+            cmds = f.read()
+        await message.channel.send("__**CaliBot Commands:**__```CSS\n" + cmds + "```")
     
     if message.content.startswith('/verify'): # Verify command
         ucid = message.content.strip("/verify ")
@@ -223,7 +225,34 @@ async def on_message(message):
                     f.write(str(show) + '\n')
                     await message.channel.send(":tickets::popcorn:`Show or Movie added to queue!`")
 
-client.run(token)
-client.logout()
-client.close()
-print("We have logged out of bot client")
+    if message.content.startswith('/mods'):
+        if message.content == "/mods":
+            with open("mods.txt") as f:
+                await message.channel.send(":video_game::video_game: Minecraft Mods List:\n```CSS\n" + f.read() + "```")
+        elif message.content.startswith('/mods remove'):
+            mod = re.sub(r"/mods remove ", '', str(message.content))
+            find = edit_file("mods.txt", str(mod))
+            if find:
+                await message.channel.send("`Mod removed from list!`")
+            else:
+                await message.channel.send("`Mod not found!`")
+        elif message.content.startswith('/mods'):
+            mod = re.sub(r"/mods ", '', message.content)
+            with open("mods.txt", 'r+') as f:
+                mods = f.readlines(); exists = False
+                for entry in mods:
+                    if re.search(fr"{mod}", entry.lower()):
+                        await message.channel.send("***The mod is already in list!***")
+                        exists = True
+                if not exists:
+                    f.write(str(mod) + '\n')
+                    await message.channel.send(":video_game: `Mod added to list!`")
+
+try:
+    client.run(token)
+except KeyboardInterrupt:
+    pass
+finally:
+    client.logout()
+    client.close()
+    print("We have logged out of bot client")
