@@ -3,9 +3,9 @@
 Author: David J. Morfe
 Application Name: CaliBot
 Functionality Purpose: An agile Discord Bot to fit Cali's needs
-Version: 0.1.8
+Version: 0.2.0
 '''
-#3/15/20
+#3/16/20
 
 import discord
 import asyncio
@@ -13,12 +13,13 @@ import re, os, time, yaml, smtplib
 import mysql.connector
 from email.message import EmailMessage
 from random import randint
-from key import Key, cwd
+from key import Key, Pass, cwd
 try:
     import GeoLiberator as GL
 except ModuleNotFoundError:
     pass
 token = Key()
+login = Pass()
 os.chdir(cwd)
 
 '''
@@ -65,44 +66,48 @@ def edit_file(file, value):
         f.truncate()
         return found
 
-def send_email(addr: str) -> str: # Return 4-digit verification code string
+def send_email(addr: str, test=False) -> str: # Return 4-digit verification code string
     sCode = f"{randint(0,9)}{randint(0,9)}{randint(0,9)}{randint(0,9)}"
-    msg = EmailMessage()
-    msg.set_content(f"\
-<html><body><b>Your verification code to join the chat is below:<br><br>\
-<h2>{sCode}</h2></b>Please copy & paste this code in the \
-<i><u>#verify</u></i> text channel of the NJIT MSA Discord. \
-This code will expire in 15 minutes.</body></html>", subtype="html")
-    msg["Subject"] = "Verification Code for NJIT MSA Discord"
-    msg["From"] = "no-reply-njitmsadiscord@njit.edu"
-    msg["To"] = addr
-    with smtplib.SMTP_SSL("smtp.gmail.com", 465) as s:
-            s.login("djm65@njit.edu", "syjqqqvdajhssgfl")
-            s.send_message(msg)
+    if not test:
+        msg = EmailMessage()
+        msg.set_content(f"\
+    <html><body><b>Your verification code to join the chat is below:<br><br>\
+    <h2>{sCode}</h2></b>Please copy & paste this code in the \
+    <i><u>#verify</u></i> text channel of the NJIT MSA Discord. \
+    This code will expire in 15 minutes.</body></html>", subtype="html")
+        msg["Subject"] = "Verification Code for NJIT MSA Discord"
+        msg["From"] = "noreply.njitmsa.discord@gmail.com"
+        msg["To"] = addr
+        with smtplib.SMTP_SSL("smtp.gmail.com", 465) as s:
+                s.login("noreply.njitmsa@gmail.com", "zvyqtttzcspsbylv")
+                s.send_message(msg)
     return sCode
 
 def get_name(addr: str) -> str: # Return full name string based on email
-    mydb = mysql.connector.connect(
-        host="localhost",
-        user="root",
-        password="mantabayray51",
-        database="contacts")
-    mycursor = mydb.cursor()
-    ucid = re.sub(r"@njit\.edu", '', addr)
-    sql = f"SELECT full_name FROM links WHERE ucid='{ucid}'"
-    mycursor.execute(sql)
-    result = mycursor.fetchall()
-    if len(result) != 0:
-        return str(result[0][0])
+    try:
+        mydb = mysql.connector.connect(
+            host="localhost",
+            user="root",
+            password=login,
+            database="contacts")
+        mycursor = mydb.cursor()
+        ucid = re.sub(r"@njit\.edu", '', addr)
+        sql = f"SELECT full_name FROM links WHERE ucid='{ucid}'"
+        mycursor.execute(sql)
+        result = mycursor.fetchall()
+        if len(result) != 0:
+            return str(result[0][0])
+    except mysql.connector.Error as err:
+        print(f"Error: Could not connect:\n\tDetails: {err}")
 
-def check_verify(code):
+async def check_verify(code, msg, temp):
     while True:
         with open("verify.txt") as f:
             text = f.read()
-            if re.search(fr"^{code}", text):
-                continue
-            return True
-    return False
+            if not re.search(fr"^{code}", text):
+                break
+        await asyncio.sleep(0)
+    await msg.delete(); await temp.delete()
 
 client = discord.Client()
 
@@ -111,7 +116,7 @@ async def on_ready():
     await client.change_presence(activity = discord.Game(name = "/help (For all cmds)"))
     print("We have logged in as {0.user}".format(client))
     channel = client.get_channel(631090067963772931)
-    #await channel.send("`Updated!`")
+    await channel.send("`Updated!`")
 
 '''@client.event
 async def on_member_join(member):
@@ -125,28 +130,6 @@ async def on_message(message):
     if message.author == client.user:
         return -1;
 
-    if message.channel.id == 688625250832744449: # Listen for code on NJIT MSA #verify
-        eCode = re.search(r"^\d\d\d\d$", message.content)
-        if eCode:
-            with open("verify.txt") as f:
-                lines = f.readlines(); flag = True
-                if len(lines) != 0:
-                    for line in lines:
-                        lst = line.strip('\n').split(' ')
-                        if lst[0] == eCode.group() and lst[2] == str(message.author.id): # Verify code
-                            edit_file("verify.txt", line.strip('\n'))
-                            role = discord.utils.get(client.get_guild(630888887375364126).roles, name="Muslim")
-                            await message.author.add_roles(role); flag = False
-                            nName = get_name(lst[1])
-                            if nName != None:
-                                await message.author.edit(nick=f"{nName}")
-                                channel = client.get_channel(631090067963772931) # NJIT MSA #general
-                            await channel.send(f"***" + message.author.mention + "***" + " *has joined the NJIT MSA Discord!*")
-                            await message.delete()
-                        else:
-                            await message.delete(delay=60)
-                    if flag:
-                        await message.channel.send("**Invalid code! Who a u?!**")
     if message.content == "nu u":
         if "Cali#6919" == str(message.author):
             await message.channel.send("nu u")
@@ -165,11 +148,36 @@ async def on_message(message):
         with open("verify.txt", 'a') as f:
             f.write(f"{vCode} {email_addr} {message.author.id}\n")
         temp = await message.channel.send(f"**We've sent a verification code to your email at** ___{email_addr}___**, please copy & paste it below.**")
-        if check_verify(vCode): # Purge messages when record is removed from 'verify.txt' otherwise purge in 15 minutes
-            await temp.delete(); await message.delete()
-        else:
-            await temp.delete(delay=900); await message.delete(delay=900)
+        try:
+            await asyncio.wait_for(check_verify(vCode, message, temp), timeout=900) # Purge messages when record is removed from 'verify.txt' otherwise purge in 15 minutes
+        except asyncio.TimeoutError:
+            await message.delete(); await temp.delete()
         edit_file("verify.txt", f"{vCode} {email_addr} {ID}")
+
+    if message.channel.id == 688625250832744449: # Listen for code on NJIT MSA #verify
+        eCode = re.search(r"^\d\d\d\d$", message.content)
+        if eCode:
+            with open("verify.txt") as f:
+                lines = f.readlines(); flag = True
+                if len(lines) != 0:
+                    for line in lines:
+                        lst = line.strip('\n').split(' ')
+                        if lst[0] == eCode.group() and lst[2] == str(message.author.id): # Verify code
+                            edit_file("verify.txt", line.strip('\n'))
+                            role = discord.utils.get(client.get_guild(630888887375364126).roles, name="Muslim")
+                            await message.author.add_roles(role); flag = False
+                            nName = get_name(lst[1])
+                            print(nName)
+                            if nName != None:
+                                await message.author.edit(nick=f"{nName}")
+                            channel = client.get_channel(631090067963772931) # NJIT MSA #general
+                            await channel.send(f"***" + message.author.mention + "***" + " *has joined the NJIT MSA Discord!*")
+                            await message.delete()
+                        else:
+                            await message.delete(delay=60)
+                    if flag:
+                        temp = await message.channel.send("**Invalid code! Who a u?!**")
+                        await temp.delete(delay=60)
 
     if message.content.startswith('/GL'): # GeoLiberator demo command
         get = re.sub(r"^/GL ", '', str(message.content))
@@ -216,3 +224,6 @@ async def on_message(message):
                     await message.channel.send(":tickets::popcorn:`Show or Movie added to queue!`")
 
 client.run(token)
+client.logout()
+client.close()
+print("We have logged out of bot client")
