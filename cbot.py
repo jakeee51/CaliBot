@@ -5,7 +5,7 @@ Application Name: CaliBot
 Functionality Purpose: An agile Discord Bot to fit Cali's needs
 Version: 0.2.0
 '''
-#3/24/20
+#4/3/20
 
 import discord
 import asyncio
@@ -96,14 +96,14 @@ def get_name(addr: str) -> str: # Return full name string based on email
     except mysql.connector.Error as err:
         print(f"Error: Could not connect:\n\tDetails: {err}")
 
-async def check_verify(code, msg, temp):
+'''async def check_verify(code, msg, temp):
     while True:
         with open("verify.txt") as f:
             text = f.read()
             if not re.search(fr"^{code}", text):
                 break
         await asyncio.sleep(0)
-    await msg.delete(); await temp.delete()
+    await msg.delete(); await temp.delete()'''
 
 client = discord.Client()
 
@@ -111,8 +111,8 @@ client = discord.Client()
 async def on_ready():
     await client.change_presence(activity = discord.Game(name = "/help (For all cmds)"))
     print("We have logged in as {0.user}".format(client))
-    channel = client.get_channel(631090067963772931)
-    await channel.send("`Updated!`")
+    #channel = client.get_channel(631090067963772931)
+    #await channel.send("`Updated!`")
 
 '''@client.event
 async def on_member_join(member):
@@ -168,7 +168,6 @@ async def on_message(message):
                             role = discord.utils.get(client.get_guild(630888887375364126).roles, name="Muslim")
                             await message.author.add_roles(role); flag = False
                             nName = get_name(lst[1])
-                            print(nName)
                             if nName != None:
                                 await message.author.edit(nick=f"{nName}")
                             channel = client.get_channel(631090067963772931) # NJIT MSA #general
@@ -247,11 +246,8 @@ async def on_message(message):
                     f.write(str(mod) + '\n')
                     await message.channel.send(":video_game: `Mod added to list!`")
 
-try:
-    client.run(token)
-except KeyboardInterrupt:
-    pass
-finally:
-    client.logout()
-    client.close()
-    print("We have logged out of bot client")
+
+client.run(token)
+##client.logout()
+##client.close()
+##print("We have logged out of bot client")
