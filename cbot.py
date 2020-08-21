@@ -149,11 +149,11 @@ async def on_message(message):
             with open("verify.txt", 'a') as f:
                 f.write(f"{vCode} {email_addr} {message.author.id}\n")
             temp = await message.channel.send(f"**We've sent a verification code to your email at** ___{email_addr}___**, please copy & paste it below.**")
-            try:
+            '''try:
                 await asyncio.wait_for(check_verify(vCode, message, temp), timeout=900) # Purge messages when record is removed from 'verify.txt' otherwise purge in 15 minutes
             except asyncio.TimeoutError:
                 await message.delete(); await temp.delete()
-            edit_file("verify.txt", f"{vCode} {email_addr} {ID}")
+            edit_file("verify.txt", f"{vCode} {email_addr} {ID}")'''
 
     if message.channel.id == 688625250832744449: # Listen for code on NJIT MSA #verify
         eCode = re.search(r"^\d\d\d\d$", message.content)
