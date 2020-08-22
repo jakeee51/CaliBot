@@ -10,7 +10,6 @@ RELEASE = "v0.2.2 - 8/22/20"
 import discord
 import asyncio
 import re, os, time, yaml, smtplib, datetime
-from random import randint
 from key import bot_pass, cwd
 from config import *
 from tools import *
@@ -93,8 +92,9 @@ async def on_message(message):
             with open("verify.txt", 'a') as f:
                 f.write(f"{vCode} {email_addr} {ID}\n")
             temp = await message.channel.send(f"**We've sent a verification code to your email at** ___{email_addr}___**, please copy & paste it below.**", delete_after=900)
+            message.delete(delay=900)
             '''try:
-                await asyncio.wait_for(check_verify(vCode, message, temp), timeout=900) # Purge messages when record is removed from 'verify.txt' otherwise purge in 15 minutes
+                await asyncio.wait_for(check_verify(f"{vCode} email_addr", message, temp), timeout=900) # Purge messages when record is removed from 'verify.txt' otherwise purge in 15 minutes
             except asyncio.TimeoutError:
                 await message.delete(); await temp.delete()
             edit_file("verify.txt", f"{vCode} {email_addr} {ID}")'''

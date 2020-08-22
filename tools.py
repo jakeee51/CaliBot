@@ -1,5 +1,7 @@
+import asyncio
 import re, os, time, yaml, smtplib
 import mysql.connector
+from random import randint
 from email.message import EmailMessage
 from key import db_pass, email_pass
 from config import *
@@ -74,11 +76,11 @@ def in_general(channel_id):
     else:
         return False
 
-'''async def check_verify(code, msg, temp):
+'''async def check_verify(record, msg, temp):
     while True:
         with open("verify.txt") as f:
             text = f.read()
-            if not re.search(fr"^{code}", text):
+            if not re.search(fr"{record}", text):
                 break
         await asyncio.sleep(0)
     await msg.delete(); await temp.delete()'''
