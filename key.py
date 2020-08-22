@@ -4,10 +4,14 @@ cwd = os.getcwd()
 os.chdir("..");os.chdir("..");os.chdir("..")
 os.chdir("Desktop\\Prog\\CaliBot")
 
-def Key():
-    with open("key.txt") as f:
+def bot_pass():
+    with open("bot.txt") as f:
         return f.read()
 
-def Pass():
-    with open("pass.txt") as f:
+def db_pass():
+    with open("db.txt") as f:
+        return f.read()
+
+def email_pass():
+    with open("email.txt") as f:
         return f.read()

@@ -3,23 +3,22 @@
 Author: David J. Morfe
 Application Name: CaliBot
 Functionality Purpose: An agile Discord Bot to fit Cali's needs
-Version: 0.2.0
+Version: 0.2.1
 '''
-#4/3/20
+#8/22/20
 
 import discord
 import asyncio
 import re, os, time, yaml, smtplib
-import mysql.connector
-from email.message import EmailMessage
 from random import randint
-from key import Key, Pass, cwd
+from key import bot_pass, cwd
+from config import *
+from tools import *
 try:
     import GeoLiberator as GL
 except ModuleNotFoundError:
     pass
-token = Key()
-login = Pass()
+token = bot_pass()
 os.chdir(cwd)
 
 '''
@@ -49,75 +48,19 @@ class Unbuffered(object):
 import sys
 sys.stdout = Unbuffered(sys.stdout)
 
-def edit_file(file, value):
-    with open(file, 'r+') as f:
-        lines = f.readlines()
-        f.seek(0); found = False
-        for line in lines:
-            line = line.strip('\n')
-            if str(line).lower() != str(value).lower():
-                f.write(line + '\n')
-            else:
-                found = True
-        f.truncate()
-        return found
-
-def send_email(addr: str, test=False) -> str: # Return 4-digit verification code string
-    sCode = f"{randint(0,9)}{randint(0,9)}{randint(0,9)}{randint(0,9)}"
-    if not test:
-        msg = EmailMessage()
-        msg.set_content(f"\
-    <html><body><b>Your verification code to join the chat is below:<br><br>\
-    <h2>{sCode}</h2></b>Please copy & paste this code in the \
-    <i><u>#verify</u></i> text channel of the NJIT MSA Discord. \
-    This code will expire in 15 minutes.</body></html>", subtype="html")
-        msg["Subject"] = "Verification Code for NJIT MSA Discord"
-        msg["From"] = "noreply.njitmsa.discord@gmail.com"
-        msg["To"] = addr
-        with smtplib.SMTP_SSL("smtp.gmail.com", 465) as s:
-                s.login("noreply.njitmsa@gmail.com", "zvyqtttzcspsbylv")
-                s.send_message(msg)
-    return sCode
-
-def get_name(addr: str) -> str: # Return full name string based on email
-    try:
-        mydb = mysql.connector.connect(
-            host="localhost",
-            user="root",
-            password=login,
-            database="contacts")
-        mycursor = mydb.cursor()
-        ucid = re.sub(r"@njit\.edu", '', addr)
-        sql = f"SELECT full_name FROM links WHERE ucid='{ucid}'"
-        mycursor.execute(sql)
-        result = mycursor.fetchall()
-        if len(result) != 0:
-            return str(result[0][0])
-    except mysql.connector.Error as err:
-        print(f"Error: Could not connect:\n\tDetails: {err}")
-
-'''async def check_verify(code, msg, temp):
-    while True:
-        with open("verify.txt") as f:
-            text = f.read()
-            if not re.search(fr"^{code}", text):
-                break
-        await asyncio.sleep(0)
-    await msg.delete(); await temp.delete()'''
-
 client = discord.Client()
 
 @client.event
 async def on_ready():
     await client.change_presence(activity = discord.Game(name = "/help (For all cmds)"))
     print("We have logged in as {0.user}".format(client))
-    #channel = client.get_channel(631090067963772931)
+    #channel = client.get_channel(brothers.general)
     #await channel.send("`Updated!`")
 
 '''@client.event
 async def on_member_join(member):
     #await client.edit_message(message_var, "This is the edit to replace the message.")
-    channel = client.get_channel(630888887375364128)
+    channel = client.get_channel(brothers.general)
     await asyncio.sleep(15)
     await channel.send("__***Welcome to the NJIT MSA Discord Server!***__\n\n**Please type `/verify <YOUR_NJIT_UCID>` to join the chat.**")'''
 
@@ -129,10 +72,6 @@ async def on_message(message):
     if message.content == "nu u":
         if "Cali#6919" == str(message.author):
             await message.channel.send("nu u")
-    
-    if re.search(r"<@233691753922691072>|CALI", str(message.content)):
-        if re.sub(r"<@233691753922691072>", '', str(message.content)).isupper():
-            await message.channel.send("***DON'T YELL AT PAPA!!!***")
     
     if message.content.startswith('/help'): # Help command
         with open("cmds.md") as f:
@@ -148,14 +87,14 @@ async def on_message(message):
             vCode = send_email(email_addr); ID = message.author.id
             with open("verify.txt", 'a') as f:
                 f.write(f"{vCode} {email_addr} {message.author.id}\n")
-            temp = await message.channel.send(f"**We've sent a verification code to your email at** ___{email_addr}___**, please copy & paste it below.**")
+            temp = await message.channel.send(f"**We've sent a verification code to your email at** ___{email_addr}___**, please copy & paste it below.**", delete_after=900)
             '''try:
                 await asyncio.wait_for(check_verify(vCode, message, temp), timeout=900) # Purge messages when record is removed from 'verify.txt' otherwise purge in 15 minutes
             except asyncio.TimeoutError:
                 await message.delete(); await temp.delete()
             edit_file("verify.txt", f"{vCode} {email_addr} {ID}")'''
 
-    if message.channel.id == 688625250832744449: # Listen for code on NJIT MSA #verify
+    if message.channel.id == brothers.verify: # Listen for code on NJIT MSA #verify
         eCode = re.search(r"^\d\d\d\d$", message.content)
         if eCode:
             with open("verify.txt") as f:
@@ -165,12 +104,12 @@ async def on_message(message):
                         lst = line.strip('\n').split(' ')
                         if lst[0] == eCode.group() and lst[2] == str(message.author.id): # Verify code
                             edit_file("verify.txt", line.strip('\n'))
-                            role = discord.utils.get(client.get_guild(630888887375364126).roles, name="Muslim")
+                            role = discord.utils.get(client.get_guild(brothers.server).roles, name="Muslim")
                             await message.author.add_roles(role); flag = False
                             nName = get_name(lst[1])
                             if nName != None:
                                 await message.author.edit(nick=f"{nName}")
-                            channel = client.get_channel(631090067963772931) # NJIT MSA #general
+                            channel = client.get_channel(brothers.general) # NJIT MSA #general
                             await channel.send(f"***" + message.author.mention + "***" + " *has joined the NJIT MSA Discord!*")
                             await message.delete()
                         else:
@@ -196,7 +135,7 @@ async def on_message(message):
             await message.channel.send(message.author.mention + " **ALERT! YOUR TIMER HAS RUN OUT! DO WHAT YOU MUST!**")
 
     if message.content.startswith('/juegos'):
-        role = discord.utils.get(client.get_guild(630888887375364126).roles, name="Juegos")
+        role = discord.utils.get(client.get_guild(brothers.server).roles, name="Juegos")
         await message.author.add_roles(role)
         await message.channel.send(message.author.mention + " *role has been updated!*")
 
