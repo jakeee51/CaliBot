@@ -2,6 +2,7 @@ import re, os, time, yaml, smtplib
 import mysql.connector
 from email.message import EmailMessage
 from key import db_pass, email_pass
+from config import *
 login = db_pass()
 app_pass = email_pass()
 
@@ -56,6 +57,22 @@ def get_name(addr: str) -> str: # Return full name string based on email
             return str(result[0][0])
     except mysql.connector.Error as err:
         print(f"Error: Could not connect:\n\tDetails: {err}")
+
+def listen_verify(channel_id):
+    if channel_id == brothers.verify:
+        return brothers
+    elif channel_id == sisters.verify:
+        return sisters
+    else:
+        return False
+
+def in_general(channel_id):
+    if channel_id == brothers.general:
+        return brothers
+    elif channel_id == sisters.general:
+        return sisters
+    else:
+        return False
 
 '''async def check_verify(code, msg, temp):
     while True:
