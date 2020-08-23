@@ -76,11 +76,11 @@ def in_general(channel_id):
     else:
         return False
 
-'''async def check_verify(record, msg, temp):
+async def check_verify(record, msg, temp):
     while True:
         with open("verify.txt") as f:
             text = f.read()
             if not re.search(fr"{record}", text):
                 break
         await asyncio.sleep(0)
-    await msg.delete(); await temp.delete()'''
+    await msg.delete(); await temp.delete()

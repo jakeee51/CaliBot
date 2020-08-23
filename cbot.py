@@ -5,7 +5,7 @@ Application Name: CaliBot
 Functionality Purpose: An agile Discord Bot to fit Cali's needs
 Version: 
 '''
-RELEASE = "v0.2.3 - 8/22/20"
+RELEASE = "v0.2.4 - 8/23/20"
 
 import discord
 import asyncio
@@ -91,13 +91,16 @@ async def on_message(message):
             vCode = send_email(email_addr); ID = message.author.id
             with open("verify.txt", 'a') as f:
                 f.write(f"{vCode} {email_addr} {ID}\n")
-            temp = await message.channel.send(f"**We've sent a verification code to your email at** ___{email_addr}___**, please copy & paste it below.**", delete_after=900)
-            message.delete(delay=900)
-            '''try:
+            temp = await message.channel.send(f"**We've sent a verification code to your email at** ___{email_addr}___**, please copy & paste it below.**", delete_after=300)
+            await message.delete(delay=300)
+            try:
                 await asyncio.wait_for(check_verify(f"{vCode} {email_addr}", message, temp), timeout=900) # Purge messages when record is removed from 'verify.txt' otherwise purge in 15 minutes
             except asyncio.TimeoutError:
-                await message.delete(); await temp.delete()
-            edit_file("verify.txt", f"{vCode} {email_addr} {ID}")'''
+                try:
+                    await message.delete(); await temp.delete()
+                except discord.errors.NotFound:
+                    pass
+                edit_file("verify.txt", f"{vCode} {email_addr} {ID}")
 
     if listen_verify(message.channel.id): # Listen for 4-digit code on a NJIT MSA #verify
         siblinghood = listen_verify(message.channel.id) # Return brother or sister server config
@@ -113,11 +116,14 @@ async def on_message(message):
                             role = discord.utils.get(client.get_guild(siblinghood.server).roles, name="Muslim")
                             await message.author.add_roles(role); flag = False
                             nName = get_name(lst[1])
+                            await message.delete()
                             if nName != None:
-                                await message.author.edit(nick=f"{nName}")
+                                try:
+                                    await message.author.edit(nick=f"{nName}")
+                                except discord.errors.Forbidden:
+                                    print("Success!")
                             channel = client.get_channel(siblinghood.general) # NJIT MSA #general
                             await channel.send(f"***" + message.author.mention + "***" + " *has joined the NJIT MSA Discord!*")
-                            await message.delete()
                         else:
                             await message.delete(delay=60)
                     if flag:
