@@ -5,7 +5,7 @@ Application Name: CaliBot
 Functionality Purpose: An agile Discord Bot to fit Cali's needs
 Version: 
 '''
-RELEASE = "v0.2.5 - 8/28/20"
+RELEASE = "v0.2.6 - 8/28/20"
 
 import discord
 import asyncio
@@ -81,6 +81,11 @@ async def on_message(message):
             cmds = f.read()
         await message.channel.send("__**CaliBot Commands:**__```CSS\n" + cmds + "```")
 
+    if listen_announce(message):
+        announce_channel = listen_announce(message)
+        channel = client.get_channel(announce_channel)
+        await channel.send(message.content)
+
     if message.content.startswith('/add'): # Add user officially
         if check_admin(message):
             user_id = re.search("\d{5,}", message.content)
@@ -145,8 +150,8 @@ async def on_message(message):
                     if flag:
                         temp = await message.channel.send("**Invalid code! Who a u?!**")
                         await temp.delete(delay=60)
-            else:
-                await message.delete(delay=60)
+        else:
+            await message.delete(delay=60)
     else: # Ignore and delete all other messages in #verify after 5 minutes
         await message.delete(delay=300)
     

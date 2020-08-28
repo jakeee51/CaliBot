@@ -81,7 +81,17 @@ def get_sibling(sibling):
         return brothers
     else:
         return sisters
-    
+
+def listen_announce(msg):
+    if msg.channel.id == brothers.announce:
+        if "@everyone" in msg.content:
+            return sisters.announce
+    elif msg.channel.id == sisters.announce:
+        if "@everyone" in msg.content:
+            return brothers.announce
+    else:
+        False
+
 def listen_verify(msg):
     if msg.channel.id == VERIFY_ID:
         if msg.content.startswith('/verify'):
