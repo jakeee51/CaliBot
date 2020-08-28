@@ -5,11 +5,11 @@ Application Name: CaliBot
 Functionality Purpose: An agile Discord Bot to fit Cali's needs
 Version: 
 '''
-RELEASE = "v0.2.4 - 8/23/20"
+RELEASE = "v0.2.5 - 8/28/20"
 
 import discord
 import asyncio
-import re, os, time, yaml, smtplib, datetime
+import re, os, sys, time, yaml, smtplib, datetime
 from key import bot_pass, cwd
 from config import *
 from tools import *
@@ -46,7 +46,6 @@ class Unbuffered(object):
         self.stream.flush()
     def __getattr__(self, attr):
         return getattr(self .stream, attr)
-import sys
 sys.stdout = Unbuffered(sys.stdout)
 
 client = discord.Client()
@@ -81,16 +80,33 @@ async def on_message(message):
         with open("cmds.md") as f:
             cmds = f.read()
         await message.channel.send("__**CaliBot Commands:**__```CSS\n" + cmds + "```")
+
+    if message.content.startswith('/add'): # Add user officially
+        if check_admin(message):
+            user_id = re.search("\d{5,}", message.content)
+            if user_id:
+                guild = client.get_guild(SERVER_ID)
+                member = guild.get_member(int(user_id.group()))
+                sibling, rm_role = get_sibling_role(member)
+                role = discord.utils.get(
+                    client.get_guild(SERVER_ID).roles, name=f"{sibling}")
+                await member.add_roles(role)
+                await member.remove_roles(rm_role)
+            else:
+                await message.channel.send("**Invalid command! Please make sure you're @ing the user.**", delete_after=25)
+                await message.delete(delay=300)
     
-    if message.content.startswith('/verify'): # Verify command
-        ucid = re.sub(r"/verify ", '', message.content)
-        if not re.search(r"^\w{0,4}\d{0,4}$", ucid):
+    if listen_verify(message): # Verify command
+        ucid, gender = listen_verify(message)
+        if not re.search(r"^[a-zA-Z]{2,4}\d{0,4}$", ucid) or \
+           not re.search(r"(Brother|Sister)", gender):
             await message.channel.send("**Invalid command! Please make sure you're typing everything correctly.**", delete_after=25)
+            await message.delete(delay=300)
         else:
             email_addr = f"{ucid}@njit.edu"
             vCode = send_email(email_addr); ID = message.author.id
             with open("verify.txt", 'a') as f:
-                f.write(f"{vCode} {email_addr} {ID}\n")
+                f.write(f"{vCode} {email_addr} {ID} {gender}\n")
             temp = await message.channel.send(f"**We've sent a verification code to your email at** ___{email_addr}___**, please copy & paste it below.**", delete_after=300)
             await message.delete(delay=300)
             try:
@@ -100,11 +116,10 @@ async def on_message(message):
                     await message.delete(); await temp.delete()
                 except discord.errors.NotFound:
                     pass
-                edit_file("verify.txt", f"{vCode} {email_addr} {ID}")
+                edit_file("verify.txt", f"{vCode} {email_addr} {ID} {gender}")
 
-    if listen_verify(message.channel.id): # Listen for 4-digit code on a NJIT MSA #verify
-        siblinghood = listen_verify(message.channel.id) # Return brother or sister server config
-        eCode = re.search(r"^\d\d\d\d$", message.content)
+    if listen_code(message): # Listen for 4-digit code on the NJIT MSA #verify
+        eCode = listen_code(message)
         if eCode:
             with open("verify.txt") as f:
                 lines = f.readlines(); flag = True
@@ -113,23 +128,25 @@ async def on_message(message):
                         lst = line.strip('\n').split(' ')
                         if lst[0] == eCode.group() and lst[2] == str(message.author.id): # Verify code
                             edit_file("verify.txt", line.strip('\n'))
-                            role = discord.utils.get(client.get_guild(siblinghood.server).roles, name="Muslim")
+                            role = discord.utils.get(client.get_guild(SERVER_ID).roles,
+                                                     name=f"{lst[3]}s Waiting Room")
                             await message.author.add_roles(role); flag = False
                             nName = get_name(lst[1])
+                            sibling = get_sibling(lst[3])
                             await message.delete()
                             if nName != None:
                                 try:
                                     await message.author.edit(nick=f"{nName}")
                                 except discord.errors.Forbidden:
                                     print("Success!")
-                            channel = client.get_channel(siblinghood.general) # NJIT MSA #general
-                            await channel.send(f"***" + message.author.mention + "***" + " *has joined the NJIT MSA Discord!*")
+                            channel = client.get_channel(sibling.wait) # NJIT MSA #general
+                            await channel.send(f"@here ***" + message.author.mention + "***" + " *has joined the NJIT MSA Discord!*")
                         else:
                             await message.delete(delay=60)
                     if flag:
                         temp = await message.channel.send("**Invalid code! Who a u?!**")
                         await temp.delete(delay=60)
-
+    
     if message.content.startswith('/timer'): # Set timer command
         t = message.content.strip("/timer ")
         get = re.search(r"^(\d{0,2}) (\d{0,2})$", t)

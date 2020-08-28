@@ -60,13 +60,45 @@ def get_name(addr: str) -> str: # Return full name string based on email
     except mysql.connector.Error as err:
         print(f"Error: Could not connect:\n\tDetails: {err}")
 
-def listen_verify(channel_id):
-    if channel_id == brothers.verify:
+def check_admin(msg):
+    roles = msg.author.roles
+    for role in roles:
+        if role.name == "Admin" or role.name == "Shura":
+            return True
+    return False
+
+def get_sibling_role(member):
+    roles = member.roles
+    for role in roles:
+        if role.name == "Brothers Waiting Room":
+            ret = ("Brother", role); break
+        elif role.name == "Sisters Waiting Room":
+            ret = ("Sister", role); break
+    return ret
+
+def get_sibling(sibling):
+    if sibling == "Brother":
         return brothers
-    elif channel_id == sisters.verify:
-        return sisters
     else:
-        return False
+        return sisters
+    
+def listen_verify(msg):
+    if msg.channel.id == VERIFY_ID:
+        if msg.content.startswith('/verify'):
+            request = re.sub(r"/verify ", '', msg.content)
+            gender = re.search(r"(brothers?|sis(tas?|ters?))", request) or ''
+            if gender:
+                ucid = re.sub(fr"{gender.group()}", '', request).strip(' ')
+                if gender.group()[0] == 'b':
+                    gender = "Brother"
+                else:
+                    gender = "Sister"
+                return ucid, gender
+            return ('', '')
+
+def listen_code(msg):
+    if msg.channel.id == VERIFY_ID:
+        return re.search(r"^\d\d\d\d$", msg.content)
 
 def in_general(channel_id):
     if channel_id == brothers.general:
