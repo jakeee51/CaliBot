@@ -117,8 +117,7 @@ async def on_message(message):
                 except discord.errors.NotFound:
                     pass
                 edit_file("verify.txt", f"{vCode} {email_addr} {ID} {gender}")
-
-    if listen_code(message): # Listen for 4-digit code on the NJIT MSA #verify
+    elif listen_code(message): # Listen for 4-digit code on the NJIT MSA #verify
         eCode = listen_code(message)
         if eCode:
             with open("verify.txt") as f:
@@ -146,6 +145,10 @@ async def on_message(message):
                     if flag:
                         temp = await message.channel.send("**Invalid code! Who a u?!**")
                         await temp.delete(delay=60)
+            else:
+                await message.delete(delay=60)
+    else: # Ignore and delete all other messages in #verify after 5 minutes
+        await message.delete(delay=300)
     
     if message.content.startswith('/timer'): # Set timer command
         t = message.content.strip("/timer ")
