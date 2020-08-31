@@ -5,7 +5,7 @@ Application Name: CaliBot
 Functionality Purpose: An agile Discord Bot to fit Cali's needs
 Version: 
 '''
-RELEASE = "v0.2.6 - 8/28/20"
+RELEASE = "v0.2.7 - 8/30/20"
 
 import discord
 import asyncio
@@ -97,6 +97,9 @@ async def on_message(message):
                     client.get_guild(SERVER_ID).roles, name=f"{sibling}")
                 await member.add_roles(role)
                 await member.remove_roles(rm_role)
+                siblinghood = get_sibling(sibling)
+                channel = client.get_channel(siblinghood.general)
+                await channel.send("<@!" + user_id.group() + "> *has ***officially*** joined the NJIT MSA Discord! Welcome your " + sibling + "!*")
             else:
                 await message.channel.send("**Invalid command! Please make sure you're @ing the user.**", delete_after=25)
                 await message.delete(delay=300)
@@ -150,10 +153,9 @@ async def on_message(message):
                     if flag:
                         temp = await message.channel.send("**Invalid code! Who a u?!**")
                         await temp.delete(delay=60)
-        else:
-            await message.delete(delay=60)
-    else: # Ignore and delete all other messages in #verify after 5 minutes
-        await message.delete(delay=300)
+    else:
+        if message.channel.id == VERIFY_ID:
+            await message.delete(delay=300)
     
     if message.content.startswith('/timer'): # Set timer command
         t = message.content.strip("/timer ")

@@ -68,7 +68,7 @@ def check_admin(msg):
     return False
 
 def get_sibling_role(member):
-    roles = member.roles
+    roles = member.roles; ret = None
     for role in roles:
         if role.name == "Brothers Waiting Room":
             ret = ("Brother", role); break
