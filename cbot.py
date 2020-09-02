@@ -5,7 +5,7 @@ Application Name: CaliBot
 Functionality Purpose: An agile Discord Bot to fit Cali's needs
 Version: 
 '''
-RELEASE = "v0.2.7 - 8/30/20"
+RELEASE = "v0.2.8 - 9/2/20"
 
 import discord
 import asyncio
@@ -70,10 +70,23 @@ async def on_message(message):
         return -1;
     if message.content == 'nu u':
         if "Cali#6919" == str(message.author):
-            await message.channel.send("nu u")
+            await message.channel.send("nu u!")
     if message.content.lower().startswith('/version'):
         if "Cali#6919" == str(message.author):
             await message.channel.send(f"`{RELEASE} | {LAST_MODIFIED}`")
+    if re.search("(nu nu|Nunu|nunu)", message.content): # Taha
+        if message.author.id == 496079190475538461:
+            await message.channel.send("nu nu?")
+    if "/Taha" in message.content: # Taha
+        if message.author.id == 496079190475538461:
+            await message.channel.send("Yes we can")
+    if "/Anas" in message.content: # Anas
+        if message.author.id == 406821958563528737:
+            await message.channel.send("knowimsayin dawg", delete_after=10)
+    if "Solo Leveling" in message.content:          
+        if message.author.id == 185842527520292874: # Omar E.
+            await message.channel.send("Yo that junk is fire :fire:", delete_after=10)
+
 
     # General CaliBot Commands
     if message.content.startswith('/help'): # Help command
@@ -81,7 +94,7 @@ async def on_message(message):
             cmds = f.read()
         await message.channel.send("__**CaliBot Commands:**__```CSS\n" + cmds + "```")
 
-    if listen_announce(message):
+    if listen_announce(message): # Send to alternate announcement channel
         announce_channel = listen_announce(message)
         channel = client.get_channel(announce_channel)
         await channel.send(message.content)
@@ -99,7 +112,7 @@ async def on_message(message):
                 await member.remove_roles(rm_role)
                 siblinghood = get_sibling(sibling)
                 channel = client.get_channel(siblinghood.general)
-                await channel.send("<@!" + user_id.group() + "> *has ***officially*** joined the NJIT MSA Discord! Welcome your " + sibling + "!*")
+                await channel.send("<@!" + user_id.group() + "> *has* ***officially*** *joined the NJIT MSA Discord! Welcome your " + sibling + "!*")
             else:
                 await message.channel.send("**Invalid command! Please make sure you're @ing the user.**", delete_after=25)
                 await message.delete(delay=300)
@@ -107,11 +120,12 @@ async def on_message(message):
     if listen_verify(message): # Verify command
         ucid, gender = listen_verify(message)
         if not re.search(r"^[a-zA-Z]{2,4}\d{0,4}$", ucid) or \
-           not re.search(r"(Brother|Sister)", gender):
+           not re.search(r"(brother|sister)", gender) or \
+           not re.search(r"^/verify ", str(message.content)):
             await message.channel.send("**Invalid command! Please make sure you're typing everything correctly.**", delete_after=25)
             await message.delete(delay=300)
         else:
-            email_addr = f"{ucid}@njit.edu"
+            email_addr = f"{ucid}@njit.edu"; ucid = ucid.lower()
             vCode = send_email(email_addr); ID = message.author.id
             with open("verify.txt", 'a') as f:
                 f.write(f"{vCode} {email_addr} {ID} {gender}\n")
@@ -153,7 +167,7 @@ async def on_message(message):
                     if flag:
                         temp = await message.channel.send("**Invalid code! Who a u?!**")
                         await temp.delete(delay=60)
-    else:
+    else: # Delete every other message in #verify in 5 min.
         if message.channel.id == VERIFY_ID:
             await message.delete(delay=300)
     
