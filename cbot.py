@@ -86,6 +86,8 @@ async def on_message(message):
     if "Solo Leveling" in message.content:          
         if message.author.id == 185842527520292874: # Omar E.
             await message.channel.send("Yo that junk is fire :fire:", delete_after=10)
+    if "ws" == message.content:
+        await message.channel.send("Walaikumu Salam")
 
 
     # General CaliBot Commands
