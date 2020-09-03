@@ -92,6 +92,22 @@ def listen_announce(msg):
     else:
         False
 
+def listen_role_reaction(emoji):
+    role_id = 0
+    if emoji == "\U0001f9d5": # Mentor
+        role_id=750931950964965506
+    elif emoji == "\N{BABY}": # Freshies
+        role_id=750922989972750337
+    elif emoji == "\N{GIRL}": # Sophs
+        role_id=750923173956026438
+    elif emoji == "\N{WOMAN}": # Juniors
+        role_id=750923497101983795
+    elif emoji == "\N{OLDER WOMAN}": # Seniors
+        role_id=750923619634249740
+    else:
+        return False
+    return role_id
+
 def listen_verify(msg):
     if msg.channel.id == VERIFY_ID:
         if msg.content.startswith('/verify'):

@@ -5,7 +5,7 @@ Application Name: CaliBot
 Functionality Purpose: An agile Discord Bot to fit Cali's needs
 Version: 
 '''
-RELEASE = "v0.2.8 - 9/2/20"
+RELEASE = "v0.2.9 - 9/3/20"
 
 import discord
 import asyncio
@@ -24,10 +24,10 @@ LAST_MODIFIED = RUN_TIME.strftime("%m/%d/%Y %I:%M %p")
 
 '''
 from discord.ext import commands
+bot = commands.Bot("!")
 @bot.command()
 async def ping(ctx):
     await ctx.send('pong')
-bot.run('token')
 '''
 
 #Organize code
@@ -54,8 +54,23 @@ client = discord.Client()
 async def on_ready():
     await client.change_presence(activity = discord.Game(name = "/help (For all cmds)"))
     print("We have logged in as {0.user}".format(client))
-    #channel = client.get_channel(brothers.general)
-    #await channel.send("`Updated!`")
+    refresh = []
+    with open("refresh.txt") as f:
+        lines = f.readlines()
+        ch = client.get_channel(sisters.role_select)
+        for msg_id in lines:
+            msg = await ch.fetch_message(int(msg_id.strip('\n')))
+            await msg.delete()
+            refresh.append(msg_id.strip('\n'))
+    for old_msg in refresh:
+        edit_file("refresh.txt", old_msg)
+    with open("refresh.txt", 'a') as f:
+        for CH in CONST_MSG:
+            channel = client.get_channel(CH[0])
+            for MSG in CH[1]:
+                message = await channel.send(MSG.message)
+                await message.add_reaction(MSG.reaction)
+                f.write(str(message.id) + '\n')
 
 '''@client.event
 async def on_member_join(member):
@@ -63,6 +78,27 @@ async def on_member_join(member):
     channel = client.get_channel(brothers.general)
     await asyncio.sleep(15)
     await channel.send("__***Welcome to the NJIT MSA Discord Server!***__\n\n**Please type `/verify <YOUR_NJIT_UCID>` to join the chat.**")'''
+
+@client.event
+async def on_reaction_add(reaction, user):
+    if reaction.count == 1 or \
+       reaction.message.channel.id != sisters.role_select:
+        return -1
+    role_id = listen_role_reaction(reaction.emoji)
+    if role_id:
+        role = discord.utils.get(
+                    client.get_guild(SERVER_ID).roles, id=role_id)
+        await user.add_roles(role)
+
+@client.event
+async def on_reaction_remove(reaction, user):
+    if reaction.message.channel.id != sisters.role_select:
+        return -1
+    role_id = listen_role_reaction(reaction.emoji)
+    if role_id:
+        role = discord.utils.get(
+                    client.get_guild(SERVER_ID).roles, id=role_id)
+        await user.remove_roles(role)
 
 @client.event
 async def on_message(message):
@@ -88,6 +124,9 @@ async def on_message(message):
             await message.channel.send("Yo that junk is fire :fire:", delete_after=10)
     if "ws" == message.content:
         await message.channel.send("Walaikumu Salam")
+    if "texas" in str(message.content).lower():
+        if massage.author.id == 416430987241586698:
+            await message.channel.send("https://media.tenor.co/videos/c8bad30e8d9834c6543b7575c3d7bd89/mp4")
 
 
     # General CaliBot Commands
@@ -122,7 +161,7 @@ async def on_message(message):
     if listen_verify(message): # Verify command
         ucid, gender = listen_verify(message)
         if not re.search(r"^[a-zA-Z]{2,4}\d{0,4}$", ucid) or \
-           not re.search(r"(brother|sister)", gender) or \
+           not re.search(r"(Brother|Sister)", gender) or \
            not re.search(r"^/verify ", str(message.content)):
             await message.channel.send("**Invalid command! Please make sure you're typing everything correctly.**", delete_after=25)
             await message.delete(delay=300)
