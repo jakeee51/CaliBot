@@ -9,7 +9,7 @@ RELEASE = "v0.2.9 - 9/3/20"
 
 import discord
 import asyncio
-import re, os, sys, time, yaml, smtplib, datetime
+import re, os, sys, time, json, smtplib, datetime
 from key import bot_pass, cwd
 from config import *
 from tools import *
@@ -160,7 +160,7 @@ async def on_message(message):
             else:
                 await message.channel.send("**Invalid command! Please make sure you're @ing the user.**", delete_after=25)
                 await message.delete(delay=300)
-    
+
     if listen_verify(message): # Verify command
         ucid, gender = listen_verify(message)
         if not re.search(r"^[a-zA-Z]{2,4}\d{0,4}$", ucid) or \
