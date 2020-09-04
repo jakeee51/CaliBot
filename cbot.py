@@ -113,10 +113,10 @@ async def on_message(message):
     if re.search("(nu nu|Nunu|nunu)", message.content): # Taha
         if message.author.id == 496079190475538461:
             await message.channel.send("nu nu?")
-    if "/Taha" in message.content: # Taha
+    if "/taha" in message.content.lower(): # Taha
         if message.author.id == 496079190475538461:
             await message.channel.send("Yes we can")
-    if "/Anas" in message.content: # Anas
+    if "/anas" in message.content.lower(): # Anas
         if message.author.id == 406821958563528737:
             await message.channel.send("knowimsayin dawg", delete_after=10)
     if "Solo Leveling" in message.content:          
@@ -124,9 +124,12 @@ async def on_message(message):
             await message.channel.send("Yo that junk is fire :fire:", delete_after=10)
     if "ws" == message.content:
         await message.channel.send("Walaikumu Salam")
-    if "texas" in str(message.content).lower():
-        if massage.author.id == 416430987241586698:
+    if "texas" in str(message.content).lower(): # Siraj
+        if message.author.id == 416430987241586698:
             await message.channel.send("https://media.tenor.co/videos/c8bad30e8d9834c6543b7575c3d7bd89/mp4")
+    if "cap" in str(message.content).lower(): # Usmaan
+        if message.author.id == 397082457179947029:
+            await message.channel.send("yo that's cap'n cap'n")
 
 
     # General CaliBot Commands
