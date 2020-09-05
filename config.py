@@ -24,7 +24,7 @@ sisters = Server("Sister", 748761869480624158,
                  **__sis_options)
 
 role_selection = (sisters.role_select, [StaticMsg(sisters.role_select,
-                            "**Peer Mentor** :woman_with_headscarf:",
+                            "**Peer Mentee** :woman_with_headscarf:",
                             "\U0001f9d5"),
                   StaticMsg(sisters.role_select,
                             "**Senior** :older_woman:",

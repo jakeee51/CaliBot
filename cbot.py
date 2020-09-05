@@ -5,7 +5,7 @@ Application Name: CaliBot
 Functionality Purpose: An agile Discord Bot to fit Cali's needs
 Version: 
 '''
-RELEASE = "v0.2.9 - 9/3/20"
+RELEASE = "v0.2.9 - 9/5/20"
 
 import discord
 import asyncio

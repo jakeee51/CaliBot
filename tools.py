@@ -94,7 +94,7 @@ def listen_announce(msg):
 
 def listen_role_reaction(emoji):
     role_id = 0
-    if emoji == "\U0001f9d5": # Mentor
+    if emoji == "\U0001f9d5": # Mentee
         role_id=750931950964965506
     elif emoji == "\N{BABY}": # Freshies
         role_id=750922989972750337
