@@ -1,3 +1,5 @@
+# NJIT Configuration
+
 class Server(object):
    #__slots__ = ("name", "wait", "general")
    def __init__(self, name, wait, general, announce, **kwargs):
