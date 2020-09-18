@@ -75,7 +75,7 @@ def check_admin(msg):
     return False
 
 def ben_10(choice=''):
-    choice = choice.strip(' ')
+    choice = choice.strip(' '); alien_form = ''
     if choice == '':
         idx = randint(0,28)
         alien_form = BEN_10[idx]
@@ -84,14 +84,15 @@ def ben_10(choice=''):
             if alien.lower() in choice.lower():
                 got = randint(1,3)
                 if got == 1:
-                    alien_form = alien
+                    alien_form = alien; break
                 else:
                     ignore = BEN_10.index(alien)
                     idx = randint(0,27)
                     temp = BEN_10[:ignore] + BEN_10[ignore+1:]
-                    return temp[idx]
-        idx = randint(0,28)
-        alien_form = BEN_10[idx]
+                    alien_form = temp[idx]; break
+        if alien_form == '':
+            idx = randint(0,28)
+            alien_form = BEN_10[idx]
     return alien_form
 
 def get_sibling_role(member):

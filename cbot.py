@@ -55,7 +55,7 @@ async def on_ready():
     await client.change_presence(activity = discord.Game(name = "/help (For all cmds)"))
     print("We have logged in as {0.user}".format(client))
     refresh = []
-    with open("refresh.txt") as f: # Delete old role reacts
+    '''with open("refresh.txt") as f: # Delete old role reacts
         lines = f.readlines()
         ch_s = client.get_channel(sisters.role_select)
         ch_b = client.get_channel(brothers.role_select)
@@ -75,7 +75,7 @@ async def on_ready():
             for MSG in CH[1]:
                 message = await channel.send(MSG.message)
                 await message.add_reaction(MSG.reaction)
-                f.write(f"{CH[0]} {message.id}\n")
+                f.write(f"{CH[0]} {message.id}\n")'''
 
 '''@client.event
 async def on_member_join(member):
