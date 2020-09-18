@@ -152,7 +152,7 @@ async def on_message(message):
 
     if message.content.startswith('/add'): # Add user officially
         if check_admin(message):
-            user_id = re.search("\d{5,}", message.content)
+            user_id = re.search(r"\d{5,}", message.content)
             if user_id:
                 guild = client.get_guild(SERVER_ID)
                 member = guild.get_member(int(user_id.group()))
@@ -174,6 +174,9 @@ async def on_message(message):
            not re.search(r"(Brother|Sister)", gender) or \
            not re.search(r"^/verify ", str(message.content)):
             await message.channel.send("**Invalid command! Please make sure you're typing everything correctly.**", delete_after=25)
+            await message.delete(delay=300)
+        elif re.search(r"\d{8}", message.content):
+        	await message.channel.send("**Invalid command! NOT your student ID, use your UCID!**", delete_after=25)
             await message.delete(delay=300)
         else:
             email_addr = f"{ucid}@njit.edu"; ucid = ucid.lower()
@@ -220,6 +223,8 @@ async def on_message(message):
                         await temp.delete(delay=60)
     else: # Delete every other message in #verify in 5 min.
         if message.channel.id == VERIFY_ID:
+        	if re.search(r"^[a-zA-Z]{2,4}\d{0,4}$", message.content):
+        		await message.channel.send("**Invalid command! Read instructions above and use /verify please!**", delete_after=25)
             await message.delete(delay=300)
     
     if message.content.startswith('/timer'): # Set timer command

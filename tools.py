@@ -90,6 +90,8 @@ def ben_10(choice=''):
 	                idx = randint(0,27)
 	                temp = BEN_10[:ignore] + BEN_10[ignore+1:]
 	                alien_form = temp[idx]
+    	idx = randint(0,28)
+        alien_form = BEN_10[idx]
     return alien_form
 
 def get_sibling_role(member):
