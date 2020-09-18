@@ -80,17 +80,17 @@ def ben_10(choice=''):
         idx = randint(0,28)
         alien_form = BEN_10[idx]
     else:
-    	for alien in BEN_10:
-	        if alien.lower() in choice.lower():
-	            got = randint(1,3)
-	            if got == 1:
-	                alien_form = alien
-	            else:
-	                ignore = BEN_10.index(alien)
-	                idx = randint(0,27)
-	                temp = BEN_10[:ignore] + BEN_10[ignore+1:]
-	                alien_form = temp[idx]
-    	idx = randint(0,28)
+        for alien in BEN_10:
+            if alien.lower() in choice.lower():
+                got = randint(1,3)
+                if got == 1:
+                    alien_form = alien
+                else:
+                    ignore = BEN_10.index(alien)
+                    idx = randint(0,27)
+                    temp = BEN_10[:ignore] + BEN_10[ignore+1:]
+                    return temp[idx]
+        idx = randint(0,28)
         alien_form = BEN_10[idx]
     return alien_form
 

@@ -176,7 +176,7 @@ async def on_message(message):
             await message.channel.send("**Invalid command! Please make sure you're typing everything correctly.**", delete_after=25)
             await message.delete(delay=300)
         elif re.search(r"\d{8}", message.content):
-        	await message.channel.send("**Invalid command! NOT your student ID, use your UCID!**", delete_after=25)
+            await message.channel.send("**Invalid command! NOT your student ID, use your UCID!**", delete_after=25)
             await message.delete(delay=300)
         else:
             email_addr = f"{ucid}@njit.edu"; ucid = ucid.lower()
@@ -223,8 +223,8 @@ async def on_message(message):
                         await temp.delete(delay=60)
     else: # Delete every other message in #verify in 5 min.
         if message.channel.id == VERIFY_ID:
-        	if re.search(r"^[a-zA-Z]{2,4}\d{0,4}$", message.content):
-        		await message.channel.send("**Invalid command! Read instructions above and use /verify please!**", delete_after=25)
+            if re.search(r"^[a-zA-Z]{2,4}\d{0,4}$", message.content):
+                await message.channel.send("**Invalid command! Read instructions above and use /verify please!**", delete_after=25)
             await message.delete(delay=300)
     
     if message.content.startswith('/timer'): # Set timer command
@@ -271,9 +271,9 @@ async def on_message(message):
         await message.channel.send(str(result))
 
     if message.content.startswith('/herotime'): # It's Ben 10!
-	    choice = message.content.replace("/herotime", '')
-	    alien_form = ben_10(choice)
-	    await message.channel.send(message.author.mention + f" has transformed into **{alien_form}**!")
+        choice = message.content.replace("/herotime", '')
+        alien_form = ben_10(choice)
+        await message.channel.send(message.author.mention + f" has transformed into **{alien_form}**!")
 
 
     # Sisters Exclusive Commands
