@@ -266,7 +266,8 @@ async def on_message(message):
         await message.channel.send(str(result))
 
     if message.content.startswith('/herotime'): # It's Ben 10!
-	    alien_form = ben_10()
+	    choice = message.content.replace("/herotime", '')
+	    alien_form = ben_10(choice)
 	    await message.channel.send(message.author.mention + f" has transformed into **{alien_form}**!")
 
 
