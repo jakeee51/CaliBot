@@ -5,7 +5,7 @@ Application Name: CaliBot
 Functionality Purpose: An agile Discord Bot to fit Cali's needs
 Version: 
 '''
-RELEASE = "v0.2.9 - 9/17/20"
+RELEASE = "v0.2.9 - 9/18/20"
 
 import discord
 import asyncio
@@ -69,13 +69,13 @@ async def on_ready():
             refresh.append(msg_og.strip('\n'))
     for old_msg in refresh: # Flush role reacts deletions
         edit_file("refresh.txt", old_msg)
-    with open("refresh.txt", 'a') as f: # Populate new role reacts
+    '''with open("refresh.txt", 'a') as f: # Populate new role reacts
         for CH in CONST_MSG:
             channel = client.get_channel(CH[0])
             for MSG in CH[1]:
                 message = await channel.send(MSG.message)
                 await message.add_reaction(MSG.reaction)
-                f.write(f"{CH[0]} {message.id}\n")
+                f.write(f"{CH[0]} {message.id}\n")'''
 
 '''@client.event
 async def on_member_join(member):
@@ -265,18 +265,17 @@ async def on_message(message):
             result = GL.GeoLiberator(str(get)).full_address()
         await message.channel.send(str(result))
 
+    if message.content.startswith('/herotime'): # It's Ben 10!
+	    alien_form = ben_10()
+	    await message.channel.send(message.author.mention + f" has transformed into **{alien_form}**!")
+
 
     # Sisters Exclusive Commands
 
 
 
     # Brothers Exclusive Commands
-    if message.content.startswith('/juegos') and message.guild.id == brothers.server: # Add Juegos role command
-        role = discord.utils.get(client.get_guild(brothers.server).roles, name="Juegos")
-        await message.author.add_roles(role)
-        await message.channel.send(message.author.mention + " *role has been updated!*")
-
-    if message.content.startswith('/mods') and message.guild.id == brothers.server: # Manage Minecraft mods command
+    if message.content.startswith('/mods') and message.channel.id == brothers.general: # Manage Minecraft mods command
         if message.content == "/mods":
             with open("mods.txt") as f:
                 await message.channel.send(":video_game::video_game: Minecraft Mods List:\n```CSS\n" + f.read() + "```")

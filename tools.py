@@ -11,6 +11,13 @@ app_pass = email_pass()
 #If email treated as spam:
  #https://support.google.com/mail/contact/bulk_send_new?rd=1
 
+BEN_10 = ["Heatblast", "Wildmutt", "Diamondhead", "XLR8", "Grey Matter",
+          "Four Arms", "Stinkfly", "Ripjaws", "Upgrade", "Ghostfreak",
+          "Cannonbolt", "Ditto", "Way Big", "Way Thick", "Upchuck",
+          "Wildvine", "Alien X", "Echo Echo", "Brainstorm", "Swampfire",
+          "Humongousaur", "Jetray", "Big Chill", "Chromastone", "Goop",
+          "Spidermonkey", "Rath", "Nanomech"]
+
 def edit_file(file, value):
     with open(file, 'r+') as f:
         lines = f.readlines()
@@ -66,6 +73,11 @@ def check_admin(msg):
         if role.name == "Admin" or role.name == "Shura":
             return True
     return False
+
+def ben_10():
+    idx = randint(0,28)
+    alien_form = BEN_10[idx]
+    return alien_form
 
 def get_sibling_role(member):
     roles = member.roles; ret = None

@@ -4,4 +4,5 @@
 /timer         | Set a timer (type `/time 0 30` to set 0hr 30min timer)
 /showq         | Show every tv show in queue (to add show: `/showq <show_name>`)
 /showq remove  | Remove a show from queue
-ws			   | Walaikumu Salam
+ws	         | Walaikumu Salam
+/herotime      | Benjamin Tennyson
