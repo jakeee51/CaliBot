@@ -69,13 +69,13 @@ async def on_ready():
             refresh.append(msg_og.strip('\n'))
     for old_msg in refresh: # Flush role reacts deletions
         edit_file("refresh.txt", old_msg)
-    '''with open("refresh.txt", 'a') as f: # Populate new role reacts
+    with open("refresh.txt", 'a') as f: # Populate new role reacts
         for CH in CONST_MSG:
             channel = client.get_channel(CH[0])
             for MSG in CH[1]:
                 message = await channel.send(MSG.message)
                 await message.add_reaction(MSG.reaction)
-                f.write(f"{CH[0]} {message.id}\n")'''
+                f.write(f"{CH[0]} {message.id}\n")
 
 '''@client.event
 async def on_member_join(member):
