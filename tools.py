@@ -95,15 +95,23 @@ def listen_announce(msg):
 def listen_role_reaction(emoji):
     role_id = 0
     if emoji == "\U0001f9d5": # Mentee
-        role_id=750931950964965506
+        role_id = 750931950964965506
     elif emoji == "\N{BABY}": # Freshies
-        role_id=750922989972750337
+        role_id = 750922989972750337
     elif emoji == "\N{GIRL}": # Sophs
-        role_id=750923173956026438
+        role_id = 750923173956026438
     elif emoji == "\N{WOMAN}": # Juniors
-        role_id=750923497101983795
+        role_id = 750923497101983795
     elif emoji == "\N{OLDER WOMAN}": # Seniors
-        role_id=750923619634249740
+        role_id = 750923619634249740
+    elif emoji == "\N{STRAIGHT RULER}": # MATH
+        role_id = 756328774764593173
+    elif emoji == "\N{DESKTOP COMPUTER}": # CS
+        role_id = 756329639588397197
+    elif emoji == "\N{ATOM SYMBOL}": # PHYS
+        role_id = 756334778881540137
+    elif emoji == "\N{TEST TUBE}": # CHEM
+        role_id = 756335021933068288
     else:
         return False
     return role_id

@@ -14,16 +14,17 @@ class StaticMsg(object):
       self.message = message
       self.reaction = reaction
 
-__bro_options = {}
+__bro_options = {"role_select": 756318101880176752}
 __sis_options = {"role_select": 750886997874311179}
 
 brothers = Server("Brother", 748745649746477086,
-                  631090067963772931, 687402472586870849)
+                  631090067963772931, 687402472586870849,
+                  **__bro_options)
 sisters = Server("Sister", 748761869480624158,
                  748762901531066458, 748764105686384650,
                  **__sis_options)
 
-role_selection = (sisters.role_select, [StaticMsg(sisters.role_select,
+role_selection_s = (sisters.role_select, [StaticMsg(sisters.role_select,
                             "**Peer Mentee** :woman_with_headscarf:",
                             "\U0001f9d5"),
                   StaticMsg(sisters.role_select,
@@ -39,7 +40,20 @@ role_selection = (sisters.role_select, [StaticMsg(sisters.role_select,
                             "**Freshmen** :baby:",
                             "\N{BABY}")])
 
-CONST_MSG = [role_selection]
+role_selection_b = (brothers.role_select, [StaticMsg(brothers.role_select,
+                            "**MATH Review** :straight_ruler:",
+                            "\N{STRAIGHT RULER}"),
+				  StaticMsg(brothers.role_select,
+                            "**CS Review** :computer:",
+                            "\N{DESKTOP COMPUTER}"),
+                  StaticMsg(brothers.role_select,
+                            "**PHYS Review** :atom:",
+                            "\N{ATOM SYMBOL}"),
+                  StaticMsg(brothers.role_select,
+                            "**CHEM Review** :test_tube:",
+                            "\N{TEST TUBE}")])
+
+CONST_MSG = [role_selection_s, role_selection_b]
 SERVER_ID = 630888887375364126
 VERIFY_ID = 688625250832744449
 '''

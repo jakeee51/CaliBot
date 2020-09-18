@@ -5,7 +5,7 @@ Application Name: CaliBot
 Functionality Purpose: An agile Discord Bot to fit Cali's needs
 Version: 
 '''
-RELEASE = "v0.2.9 - 9/5/20"
+RELEASE = "v0.2.9 - 9/17/20"
 
 import discord
 import asyncio
@@ -55,22 +55,27 @@ async def on_ready():
     await client.change_presence(activity = discord.Game(name = "/help (For all cmds)"))
     print("We have logged in as {0.user}".format(client))
     refresh = []
-    with open("refresh.txt") as f:
+    with open("refresh.txt") as f: # Delete old role reacts
         lines = f.readlines()
-        ch = client.get_channel(sisters.role_select)
-        for msg_id in lines:
-            msg = await ch.fetch_message(int(msg_id.strip('\n')))
+        ch_s = client.get_channel(sisters.role_select)
+        ch_b = client.get_channel(brothers.role_select)
+        for msg_og in lines:
+            role_ch, msg_id = msg_og.split(' ')
+            if int(role_ch) == sisters.role_select:
+                msg = await ch_s.fetch_message(int(msg_id.strip('\n')))
+            else:
+                msg = await ch_b.fetch_message(int(msg_id.strip('\n')))
             await msg.delete()
-            refresh.append(msg_id.strip('\n'))
-    for old_msg in refresh:
+            refresh.append(msg_og.strip('\n'))
+    for old_msg in refresh: # Flush role reacts deletions
         edit_file("refresh.txt", old_msg)
-    with open("refresh.txt", 'a') as f:
+    with open("refresh.txt", 'a') as f: # Populate new role reacts
         for CH in CONST_MSG:
             channel = client.get_channel(CH[0])
             for MSG in CH[1]:
                 message = await channel.send(MSG.message)
                 await message.add_reaction(MSG.reaction)
-                f.write(str(message.id) + '\n')
+                f.write(f"{CH[0]} {message.id}\n")
 
 '''@client.event
 async def on_member_join(member):
@@ -82,7 +87,8 @@ async def on_member_join(member):
 @client.event
 async def on_reaction_add(reaction, user):
     if reaction.count == 1 or \
-       reaction.message.channel.id != sisters.role_select:
+       reaction.message.channel.id != sisters.role_select and \
+       reaction.message.channel.id != brothers.role_select:
         return -1
     role_id = listen_role_reaction(reaction.emoji)
     if role_id:
@@ -92,7 +98,8 @@ async def on_reaction_add(reaction, user):
 
 @client.event
 async def on_reaction_remove(reaction, user):
-    if reaction.message.channel.id != sisters.role_select:
+    if reaction.message.channel.id != sisters.role_select and \
+       reaction.message.channel.id != brothers.role_select:
         return -1
     role_id = listen_role_reaction(reaction.emoji)
     if role_id:
