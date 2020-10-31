@@ -6,3 +6,4 @@
 /showq remove  | Remove a show from queue
 ws	         | Walaikumu Salam
 /herotime      | Benjamin Tennyson
+/amongus	   | Play Among Us the right way

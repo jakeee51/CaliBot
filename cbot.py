@@ -5,7 +5,7 @@ Application Name: CaliBot
 Functionality Purpose: An agile Discord Bot to fit Cali's needs
 Version: 
 '''
-RELEASE = "v0.2.9 - 9/18/20"
+RELEASE = "v0.2.9 - 10/31/20"
 
 import discord
 import asyncio
@@ -31,9 +31,9 @@ async def ping(ctx):
 '''
 
 #Organize code
-#Have `/verify` prompt to specify college
-
-#Prevent email from spam
+# Have `/verify` prompt to specify college
+# Prevent email from spam
+# Mute Among Us voice channel if in the channel
 
 class Unbuffered(object):
     def __init__(self, stream):
@@ -55,7 +55,7 @@ async def on_ready():
     await client.change_presence(activity = discord.Game(name = "/help (For all cmds)"))
     print("We have logged in as {0.user}".format(client))
     refresh = []
-    '''with open("refresh.txt") as f: # Delete old role reacts
+    with open("refresh.txt") as f: # Delete old role reacts
         lines = f.readlines()
         ch_s = client.get_channel(sisters.role_select)
         ch_b = client.get_channel(brothers.role_select)
@@ -75,7 +75,7 @@ async def on_ready():
             for MSG in CH[1]:
                 message = await channel.send(MSG.message)
                 await message.add_reaction(MSG.reaction)
-                f.write(f"{CH[0]} {message.id}\n")'''
+                f.write(f"{CH[0]} {message.id}\n")
 
 '''@client.event
 async def on_member_join(member):
@@ -89,22 +89,38 @@ async def on_reaction_add(reaction, user):
     if reaction.count == 1 or \
        reaction.message.channel.id != sisters.role_select and \
        reaction.message.channel.id != brothers.role_select:
+        if reaction.emoji == "\U0001F507" and reaction.count > 1:
+            sibling = check_gender(user)
+            if sibling == "Brother":
+                voice_channel = client.get_channel(brothers.among_us)
+            else:
+                voice_channel = client.get_channel(sisters.among_us)
+            await mute_voice_members(voice_channel)
         return -1
     role_id = listen_role_reaction(reaction.emoji)
     if role_id:
         role = discord.utils.get(
                     client.get_guild(SERVER_ID).roles, id=role_id)
+        del(role_id)
         await user.add_roles(role)
 
 @client.event
 async def on_reaction_remove(reaction, user):
     if reaction.message.channel.id != sisters.role_select and \
        reaction.message.channel.id != brothers.role_select:
+        if reaction.emoji == "\U0001F507":
+            sibling = check_gender(user)
+            if sibling == "Brother":
+                voice_channel = client.get_channel(brothers.among_us)
+            else:
+                voice_channel = client.get_channel(sisters.among_us)
+            await mute_voice_members(voice_channel, False)
         return -1
     role_id = listen_role_reaction(reaction.emoji)
     if role_id:
         role = discord.utils.get(
                     client.get_guild(SERVER_ID).roles, id=role_id)
+        del(role_id)
         await user.remove_roles(role)
 
 @client.event
@@ -137,6 +153,9 @@ async def on_message(message):
     if "cap" in str(message.content).lower(): # Usmaan
         if message.author.id == 397082457179947029:
             await message.channel.send("yo that's cap'n cap'n")
+    if re.search(r"\b(retard|fuck|shit|ass|hell|pussy?|fucker|dick|nigger|bitch|nig|damn|prick|nigga)s?\b", str(message.content).lower()): # No Bad Language/Cussing
+            await message.channel.send("https://gyazo.com/45ad780b2d98f884f00273e3dc0db6cc")
+            await message.delete(delay=1)
 
 
     # General CaliBot Commands
@@ -214,6 +233,8 @@ async def on_message(message):
                                     await message.author.edit(nick=f"{nName}")
                                 except discord.errors.Forbidden:
                                     print("Success!")
+                            else:
+                                await message.author.edit(nick=f"{lst[1]}")
                             channel = client.get_channel(sibling.wait) # NJIT MSA #general
                             await channel.send(f"@here ***" + message.author.mention + "***" + " *has joined the NJIT MSA Discord!*")
                         else:
@@ -226,6 +247,10 @@ async def on_message(message):
             if re.search(r"^[a-zA-Z]{2,4}\d{0,4}$", message.content):
                 await message.channel.send("**Invalid command! Read instructions above and use /verify please!**", delete_after=25)
             await message.delete(delay=300)
+
+    if message.content.startswith('/amongus') or message.content.startswith('/shaddup'): # Among Us Muter
+        msg = await message.channel.send(":mute:")
+        await msg.add_reaction("\U0001F507")
     
     if message.content.startswith('/timer'): # Set timer command
         t = message.content.strip("/timer ")
@@ -303,7 +328,6 @@ async def on_message(message):
                 if not exists:
                     f.write(str(mod) + '\n')
                     await message.channel.send(":video_game: `Mod added to list!`")
-
 
 client.run(token)
 ##client.logout()

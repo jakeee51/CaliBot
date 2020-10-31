@@ -14,8 +14,10 @@ class StaticMsg(object):
       self.message = message
       self.reaction = reaction
 
-__bro_options = {"role_select": 756318101880176752}
-__sis_options = {"role_select": 750886997874311179}
+__bro_options = {"role_select": 756318101880176752,
+                 "among_us": 748998766757150850}
+__sis_options = {"role_select": 750886997874311179,
+                 "among_us": 771840748042584124}
 
 brothers = Server("Brother", 748745649746477086,
                   631090067963772931, 687402472586870849,
@@ -55,7 +57,7 @@ role_selection_s = (sisters.role_select, [StaticMsg(sisters.role_select,
 role_selection_b = (brothers.role_select, [StaticMsg(brothers.role_select,
                             "**MATH Review** :straight_ruler:",
                             "\N{STRAIGHT RULER}"),
-          StaticMsg(brothers.role_select,
+		          StaticMsg(brothers.role_select,
                             "**CS Review** :computer:",
                             "\N{DESKTOP COMPUTER}"),
                   StaticMsg(brothers.role_select,
@@ -63,7 +65,10 @@ role_selection_b = (brothers.role_select, [StaticMsg(brothers.role_select,
                             "\N{ATOM SYMBOL}"),
                   StaticMsg(brothers.role_select,
                             "**CHEM Review** :test_tube:",
-                            "\N{TEST TUBE}")])
+                            "\N{TEST TUBE}"),
+                  StaticMsg(brothers.role_select,
+                            "**Quran Circle** :book:",
+                            "\N{OPEN BOOK}")])
 
 CONST_MSG = [role_selection_s, role_selection_b]
 SERVER_ID = 630888887375364126

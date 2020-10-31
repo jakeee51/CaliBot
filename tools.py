@@ -67,10 +67,16 @@ def get_name(addr: str) -> str: # Return full name string based on email
     except mysql.connector.Error as err:
         print(f"Error: Could not connect:\n\tDetails: {err}")
 
+def check_gender(user):
+    roles = user.roles
+    for role in roles:
+        if role.name == "Brother" or role.name == "Sister":
+            return role.name
+
 def check_admin(msg):
     roles = msg.author.roles
     for role in roles:
-        if role.name == "Admin" or role.name == "Shura":
+        if role.name == "Admin" or "Shura" in role.name:
             return True
     return False
 
@@ -140,6 +146,8 @@ def listen_role_reaction(emoji):
         role_id = 756334778881540137
     elif emoji == "\N{TEST TUBE}": # CHEM
         role_id = 756335021933068288
+    elif emoji == "\N{OPEN BOOK}": # Quran Circle
+        role_id = 762052942302937111
     else:
         return False
     return role_id
@@ -169,6 +177,10 @@ def in_general(channel_id):
         return sisters
     else:
         return False
+
+async def mute_voice_members(voice_channel, mute=True):
+    for member in voice_channel.members:
+        await member.edit(mute=mute)
 
 async def check_verify(record, msg, temp):
     while True:
