@@ -13,7 +13,7 @@ app_pass = email_pass()
 
 BEN_10 = ["Heatblast", "Wildmutt", "Diamondhead", "XLR8", "Grey Matter",
           "Four Arms", "Stinkfly", "Ripjaws", "Upgrade", "Ghostfreak",
-          "Cannonbolt", "Ditto", "Way Big", "Way Thick", "Upchuck",
+          "Cannonbolt", "Ditto", "Way Big", "Upchuck",
           "Wildvine", "Alien X", "Echo Echo", "Brainstorm", "Swampfire",
           "Humongousaur", "Jetray", "Big Chill", "Chromastone", "Goop",
           "Spidermonkey", "Rath", "Nanomech"]
@@ -93,11 +93,11 @@ def ben_10(choice=''):
                     alien_form = alien; break
                 else:
                     ignore = BEN_10.index(alien)
-                    idx = randint(0,27)
+                    idx = randint(0,26)
                     temp = BEN_10[:ignore] + BEN_10[ignore+1:]
                     alien_form = temp[idx]; break
         if alien_form == '':
-            idx = randint(0,28)
+            idx = randint(0,27)
             alien_form = BEN_10[idx]
     return alien_form
 
