@@ -93,11 +93,9 @@ async def on_reaction_add(reaction, user):
        reaction.message.channel.id != brothers.role_select:
         if reaction.emoji == "\U0001F507" and reaction.count > 1:
             sibling = check_gender(user)
-            if sibling == "Brother":
-                voice_channel = client.get_channel(brothers.among_us)
-            else:
+            if sibling == "Sister":
                 voice_channel = client.get_channel(sisters.among_us)
-            await mute_voice_members(voice_channel)
+                await mute_voice_members(voice_channel)
         return -1
     role_id = listen_role_reaction(reaction.emoji)
     if role_id:
@@ -112,11 +110,9 @@ async def on_reaction_remove(reaction, user):
        reaction.message.channel.id != brothers.role_select:
         if reaction.emoji == "\U0001F507":
             sibling = check_gender(user)
-            if sibling == "Brother":
-                voice_channel = client.get_channel(brothers.among_us)
-            else:
+            if sibling == "Sister":
                 voice_channel = client.get_channel(sisters.among_us)
-            await mute_voice_members(voice_channel, False)
+                await mute_voice_members(voice_channel, False)
         return -1
     role_id = listen_role_reaction(reaction.emoji)
     if role_id:

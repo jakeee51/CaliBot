@@ -14,8 +14,7 @@ class StaticMsg(object):
       self.message = message
       self.reaction = reaction
 
-__bro_options = {"role_select": 756318101880176752,
-                 "among_us": 748998766757150850}
+__bro_options = {"role_select": 756318101880176752}
 __sis_options = {"role_select": 750886997874311179,
                  "among_us": 771840748042584124}
 
