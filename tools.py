@@ -17,6 +17,13 @@ BEN_10 = ["Heatblast", "Wildmutt", "Diamondhead", "XLR8", "Grey Matter",
           "Wildvine", "Alien X", "Echo Echo", "Brainstorm", "Swampfire",
           "Humongousaur", "Jetray", "Big Chill", "Chromastone", "Goop",
           "Spidermonkey", "Rath", "Nanomech"]
+SIKE = {'@':'a', '!': 'i', '1': 'i', '5': 's',
+        '3': 'e', '0': 'o', 'l': 'i'}
+CURSES = ["retard", "fuck", "shit", "ass",
+          "heii", "pussy", "fucker",
+          "dick", "nigger", "bitch", "nigg",
+          "damn", "prick", "nigga", "hoe",
+          "siut", "whore", "cunt"]
 
 def edit_file(file, value):
     with open(file, 'r+') as f:
@@ -49,6 +56,22 @@ def send_email(addr: str, test=False) -> str: # Return 4-digit verification code
     else:
         print(sCode)
     return sCode
+
+def curse_check(msg):
+    msg = msg.replace('l', 'i')
+    wordCheck = ''
+    for char in msg:
+        if char in SIKE:
+            char = SIKE[char]
+        wordCheck += char
+        wordCheck = wordCheck.strip(' ')
+        if wordCheck in CURSES:
+            return True
+    for curse in CURSES:
+        msg = msg.replace(' ', '')
+        if curse in msg:
+            return True
+    return False
 
 def get_name(addr: str) -> str: # Return full name string based on email
     try:

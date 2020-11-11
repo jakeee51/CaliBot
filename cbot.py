@@ -5,7 +5,7 @@ Application Name: CaliBot
 Functionality Purpose: An agile Discord Bot to fit Cali's needs
 Version: 
 '''
-RELEASE = "v0.3.0 - 11/1/20"
+RELEASE = "v0.3.1 - 11/11/20"
 
 import discord
 import asyncio
@@ -151,9 +151,13 @@ async def on_message(message):
     if "cap" in str(message.content).lower(): # Usmaan
         if message.author.id == 397082457179947029:
             await message.channel.send("yo that's cap'n cap'n")
-    if re.search(r"\b(retard|fuck|shit|ass|hell|pussy?|fucker|dick|nigger|bitch|nig|damn|prick|nigga)s?\b", str(message.content).lower()): # No Bad Language/Cussing
+    if re.search(r"\b(retard|fuck|shit|ass|hell|pussy?|fucker|dick|nigger|bitch|nigg|damn|prick|nigga)(s|ed|er|ing|ting)?\b", str(message.content).lower()): # No Bad Language/Cussing
         await message.channel.send("https://gyazo.com/45ad780b2d98f884f00273e3dc0db6cc")
         await message.delete(delay=1)
+    elif curse_check(str(message.content).lower()): # No Bad Language/Cussing
+        await message.channel.send("https://gyazo.com/45ad780b2d98f884f00273e3dc0db6cc")
+        await message.delete(delay=1)
+
 
 
     # General CaliBot Commands
