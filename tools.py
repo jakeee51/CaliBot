@@ -48,7 +48,7 @@ def send_email(addr: str, test=False) -> str: # Return 4-digit verification code
     <i><u>#verify</u></i> text channel of your NJIT MSA Discord. \
     This code will expire in 15 minutes.</body></html>", subtype="html")
         msg["Subject"] = "Verification Code for NJIT MSA Discord"
-        msg["From"] = "noreply.njitmsa.discord@gmail.com"
+        msg["From"] = "noreply.njitmsa@gmail.com"
         msg["To"] = addr
         with smtplib.SMTP_SSL("smtp.gmail.com", 465) as s:
                 s.login("noreply.njitmsa@gmail.com", app_pass)
@@ -57,19 +57,26 @@ def send_email(addr: str, test=False) -> str: # Return 4-digit verification code
         print(sCode)
     return sCode
 
-def curse_check(msg):
+def curse_check(msg: str) -> bool:
     msg = msg.replace('l', 'i')
     wordCheck = ''
-    for char in msg:
+    for i in range(len(msg)):
+        char = msg[i]
         if char in SIKE:
             char = SIKE[char]
         wordCheck += char
         wordCheck = wordCheck.strip(' ')
         if wordCheck in CURSES:
+            
+            try:
+                if msg[i+1] != char or msg[i+1] != ' ':
+                    wordCheck = ''
+                    continue
+            except IndexError:
+                pass
             return True
     for curse in CURSES:
-        msg = msg.replace(' ', '')
-        if curse in msg:
+        if re.search(fr"\b{curse}\b", msg):
             return True
     return False
 
