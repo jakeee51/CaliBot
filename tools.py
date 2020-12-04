@@ -10,6 +10,10 @@ app_pass = email_pass()
 
 #If email treated as spam:
  #https://support.google.com/mail/contact/bulk_send_new?rd=1
+#Print Emojis Safely
+ #print(u'\U0001f604'.encode('unicode-escape'))
+ #print('\N{grinning face with smiling eyes}')
+#Make way to update #role-selection
 
 BEN_10 = ["Heatblast", "Wildmutt", "Diamondhead", "XLR8", "Grey Matter",
           "Four Arms", "Stinkfly", "Ripjaws", "Upgrade", "Ghostfreak",
@@ -24,6 +28,21 @@ CURSES = ["retard", "fuck", "shit", "ass",
           "dick", "nigger", "bitch", "nigg",
           "damn", "prick", "nigga", "hoe",
           "siut", "whore", "cunt"]
+ROLE_EMOJIS = {"\U0001f9d5": 750931950964965506,
+               "\N{BABY}": 750922989972750337,
+               "\N{GIRL}": 750923173956026438,
+               "\N{WOMAN}": 750923497101983795,
+               "\N{OLDER WOMAN}": 750923619634249740,
+               "\N{STRAIGHT RULER}": 756328774764593173,
+               "\N{DESKTOP COMPUTER}": 756329639588397197,
+               "\N{ATOM SYMBOL}": 756334778881540137,
+               "\N{TEST TUBE}": 756335021933068288,
+               "\N{OPEN BOOK}": 762052942302937111,
+               "\U0001f4f6": 783048947291258920,
+               "\U0001f9a0": 783049863243104296,
+               "\U0001f9be": 783050320552001587,
+               "\U0001f3d7": 783050450462703616,
+               "\U0001f4af": 778401907713638460}
 
 def edit_file(file, value):
     with open(file, 'r+') as f:
@@ -158,29 +177,14 @@ def listen_announce(msg):
 
 def listen_role_reaction(emoji):
     role_id = 0
-    if emoji == "\U0001f9d5": # Mentee
-        role_id = 750931950964965506
-    elif emoji == "\N{BABY}": # Freshies
-        role_id = 750922989972750337
-    elif emoji == "\N{GIRL}": # Sophs
-        role_id = 750923173956026438
-    elif emoji == "\N{WOMAN}": # Juniors
-        role_id = 750923497101983795
-    elif emoji == "\N{OLDER WOMAN}": # Seniors
-        role_id = 750923619634249740
-    elif emoji == "\N{STRAIGHT RULER}": # MATH
-        role_id = 756328774764593173
-    elif emoji == "\N{DESKTOP COMPUTER}": # CS
-        role_id = 756329639588397197
-    elif emoji == "\N{ATOM SYMBOL}": # PHYS
-        role_id = 756334778881540137
-    elif emoji == "\N{TEST TUBE}": # CHEM
-        role_id = 756335021933068288
-    elif emoji == "\N{OPEN BOOK}": # Quran Circle
-        role_id = 762052942302937111
-    else:
-        return False
-    return role_id
+    emoji = emoji.name.encode('unicode-escape')
+    emote = re.search(r".+?\\", str(emoji).strip("b'\\"))
+    if emote and str(emoji).lower().count('u') > 1:
+        emoji = ("\\" + emote.group().strip('\\')).encode()
+    for role_emoji in ROLE_EMOJIS:
+        if emoji == role_emoji.encode('unicode-escape'):
+            return ROLE_EMOJIS[role_emoji]
+    return False
 
 def listen_verify(msg):
     if msg.channel.id == VERIFY_ID:

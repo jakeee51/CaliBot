@@ -5,11 +5,11 @@ Application Name: CaliBot
 Functionality Purpose: An agile Discord Bot to fit Cali's needs
 Version: 
 '''
-RELEASE = "v0.3.1 - 11/11/20"
+RELEASE = "v0.3.2 - 11/30/20"
 
 import discord
 import asyncio
-import re, os, sys, time, json, smtplib, datetime
+import re, os, sys, time, json, datetime
 from key import bot_pass, cwd
 from config import *
 from tools import *
@@ -56,7 +56,7 @@ client = discord.Client(intents=intents)
 async def on_ready():
     await client.change_presence(activity = discord.Game(name = "/help (For all cmds)"))
     print("We have logged in as {0.user}".format(client))
-    refresh = []
+    '''refresh = []
     with open("refresh.txt") as f: # Delete old role reacts
         lines = f.readlines()
         ch_s = client.get_channel(sisters.role_select)
@@ -77,7 +77,7 @@ async def on_ready():
             for MSG in CH[1]:
                 message = await channel.send(MSG.message)
                 await message.add_reaction(MSG.reaction)
-                f.write(f"{CH[0]} {message.id}\n")
+                f.write(f"{CH[0]} {message.id}\n")'''
 
 '''@client.event
 async def on_member_join(member):
@@ -87,39 +87,43 @@ async def on_member_join(member):
     await channel.send("__***Welcome to the NJIT MSA Discord Server!***__\n\n**Please type `/verify <YOUR_NJIT_UCID>` to join the chat.**")'''
 
 @client.event
-async def on_reaction_add(reaction, user):
-    if reaction.count == 1 or \
-       reaction.message.channel.id != sisters.role_select and \
-       reaction.message.channel.id != brothers.role_select:
-        if reaction.emoji == "\U0001F507" and reaction.count > 1:
-            sibling = check_gender(user)
+async def on_raw_reaction_add(payload):
+    if payload.channel_id != sisters.role_select and \
+       payload.channel_id != brothers.role_select:
+        if payload.emoji == "\U0001F507":
+            sibling = check_gender(payload.member)
             if sibling == "Sister":
                 voice_channel = client.get_channel(sisters.among_us)
                 await mute_voice_members(voice_channel)
         return -1
-    role_id = listen_role_reaction(reaction.emoji)
+    role_id = listen_role_reaction(payload.emoji)
     if role_id:
         role = discord.utils.get(
                     client.get_guild(SERVER_ID).roles, id=role_id)
         del(role_id)
-        await user.add_roles(role)
+        await payload.member.add_roles(role)
 
 @client.event
-async def on_reaction_remove(reaction, user):
-    if reaction.message.channel.id != sisters.role_select and \
-       reaction.message.channel.id != brothers.role_select:
+async def on_raw_reaction_remove(payload):
+    if payload.channel_id != sisters.role_select and \
+       payload.channel_id != brothers.role_select:
         if reaction.emoji == "\U0001F507":
-            sibling = check_gender(user)
+            sibling = check_gender(payload.member)
             if sibling == "Sister":
                 voice_channel = client.get_channel(sisters.among_us)
                 await mute_voice_members(voice_channel, False)
         return -1
-    role_id = listen_role_reaction(reaction.emoji)
+    role_id = listen_role_reaction(payload.emoji)
     if role_id:
+        guild = client.get_guild(SERVER_ID)
+        member = guild.get_member(payload.user_id)
         role = discord.utils.get(
-                    client.get_guild(SERVER_ID).roles, id=role_id)
-        del(role_id)
-        await user.remove_roles(role)
+                    guild.roles, id=role_id)
+        del(role_id); del(guild)
+        try:
+            await member.remove_roles(role)
+        except AttributeError:
+            return -1
 
 @client.event
 async def on_message(message):
@@ -251,8 +255,9 @@ async def on_message(message):
             await message.delete(delay=300)
 
     if message.content.startswith('/amongus') or message.content.startswith('/shaddup'): # Among Us Muter
-        msg = await message.channel.send(":mute:")
-        await msg.add_reaction("\U0001F507")
+        if check_gender(message.author) == "Sister":
+            msg = await message.channel.send(":mute:")
+            await msg.add_reaction("\U0001F507")
     
     if message.content.startswith('/timer'): # Set timer command
         t = message.content.strip("/timer ")
