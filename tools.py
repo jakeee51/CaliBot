@@ -27,7 +27,7 @@ CURSES = ["retard", "fuck", "shit", "ass",
           "heii", "pussy", "fucker",
           "dick", "nigger", "bitch", "nigg",
           "damn", "prick", "nigga", "hoe",
-          "siut", "whore", "cunt"]
+          "siut", "whore", "cunt", "dickhead"]
 ROLE_EMOJIS = {"\U0001f9d5": 750931950964965506,
                "\N{BABY}": 750922989972750337,
                "\N{GIRL}": 750923173956026438,
@@ -42,7 +42,8 @@ ROLE_EMOJIS = {"\U0001f9d5": 750931950964965506,
                "\U0001f9a0": 783049863243104296,
                "\U0001f9be": 783050320552001587,
                "\U0001f3d7": 783050450462703616,
-               "\U0001f4af": 778401907713638460}
+               "\U0001f4af": 778401907713638460,
+               "\U0001f310": 805947673043664919}
 
 def edit_file(file, value):
     with open(file, 'r+') as f:
@@ -175,9 +176,9 @@ def listen_announce(msg):
     else:
         False
 
-def listen_role_reaction(emoji):
+def listen_role_reaction(raw_emoji):
     role_id = 0
-    emoji = emoji.name.encode('unicode-escape')
+    emoji = raw_emoji.name.encode('unicode-escape')
     emote = re.search(r".+?\\", str(emoji).strip("b'\\"))
     if emote and str(emoji).lower().count('u') > 1:
         emoji = ("\\" + emote.group().strip('\\')).encode()
