@@ -1,0 +1,4 @@
+https://pokemondb.net/
+https://pokeapi.co/
+https://unicode.org/emoji/charts/full-emoji-list.html
+https://docs.python.org/3/library/asyncio.html
