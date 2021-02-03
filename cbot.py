@@ -30,10 +30,9 @@ async def ping(ctx):
     await ctx.send('pong')
 '''
 
-#Organize code
-# Have `/verify` prompt to specify college
+# Organize code
+# Modify /verify to simply click a unique verification link
 # Prevent email from spam
-# Mute Among Us voice channel if in the channel
 
 class Unbuffered(object):
     def __init__(self, stream):
