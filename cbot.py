@@ -5,7 +5,7 @@ Application Name: CaliBot
 Functionality Purpose: An agile Discord Bot to fit Cali's needs
 Version: 
 '''
-RELEASE = "v0.3.3 - 2/1/20"
+RELEASE = "v0.3.4 - 2/19/20"
 
 import discord
 import asyncio
@@ -31,6 +31,8 @@ async def ping(ctx):
 '''
 
 # Organize code
+# Look in to https://cloud.google.com/free/docs/gcp-free-tier?authuser=1#free-tier-usage-limits
+  # for new mode of aquiring Google Contacts data per semester
 # Modify /verify to simply click a unique verification link
 # Prevent email from spam
 
@@ -172,7 +174,16 @@ async def on_message(message):
     if listen_announce(message): # Send to alternate announcement channel
         announce_channel = listen_announce(message)
         channel = client.get_channel(announce_channel)
-        await channel.send(message.content)
+        ext = re.search(r".(png|jpg|jpeg|mp4)$", message.attachments[0].url)
+        if len(message.attachments) == 1 and ext:
+            file_name = "imgs/reattach" + str(ext.group())
+            with open(file_name, "wb") as f:
+                await message.attachments[0].save(f)
+            img = discord.File(file_name)
+            await channel.send(message.content, file=img)
+            os.remove(file_name)
+        else:
+            await channel.send(message.content)
 
     if message.content.startswith('/add'): # Add user officially
         if check_admin(message):

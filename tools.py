@@ -190,7 +190,7 @@ def listen_role_reaction(raw_emoji):
 def listen_verify(msg):
     if msg.channel.id == VERIFY_ID:
         if msg.content.startswith('/verify'):
-            request = re.sub(r"/verify ", '', msg.content)
+            request = re.sub(r"/verify ", '', msg.content.lower())
             gender = re.search(r"(brothers?|sis(tas?|ters?))", request) or ''
             if gender:
                 ucid = re.sub(fr"{gender.group()}", '', request).strip(' ')
