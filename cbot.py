@@ -5,7 +5,7 @@ Application Name: CaliBot
 Functionality Purpose: An agile Discord Bot to fit Cali's needs
 Version: 
 '''
-RELEASE = "v0.3.4 - 2/19/20"
+RELEASE = "v0.3.4 - 3/30/21"
 
 import discord
 import asyncio
@@ -55,7 +55,7 @@ client = discord.Client(intents=intents)
 
 @client.event
 async def on_ready():
-    await client.change_presence(activity = discord.Game(name = "/help (For all cmds)"))
+    await client.change_presence(activity = discord.Game(name = "-help (For all cmds)"))
     print("We have logged in as {0.user}".format(client))
     '''refresh = []
     with open("refresh.txt") as f: # Delete old role reacts
@@ -166,7 +166,7 @@ async def on_message(message):
 
 
     # General CaliBot Commands
-    if message.content.startswith('/help'): # Help command
+    if message.content.startswith('-help'): # Help command
         with open("cmds.md") as f:
             cmds = f.read()
         await message.channel.send("__**CaliBot Commands:**__```CSS\n" + cmds + "```")
@@ -215,7 +215,7 @@ async def on_message(message):
             await message.delete(delay=300)
         else:
             email_addr = f"{ucid}@njit.edu"; ucid = ucid.lower()
-            vCode = send_email(email_addr); ID = message.author.id
+            vCode = send_email(email_addr, test=False); ID = message.author.id
             with open("verify.txt", 'a') as f:
                 f.write(f"{vCode} {email_addr} {ID} {gender}\n")
             temp = await message.channel.send(f"**We've sent a verification code to your email at** ___{email_addr}___**, please copy & paste it below.**", delete_after=300)

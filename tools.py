@@ -71,7 +71,7 @@ def send_email(addr: str, test=False) -> str: # Return 4-digit verification code
         msg["From"] = "noreply.njitmsa@gmail.com"
         msg["To"] = addr
         with smtplib.SMTP_SSL("smtp.gmail.com", 465) as s:
-                s.login("noreply.njitmsa@gmail.com", app_pass)
+                s.login("noreply.njitmsa@gmail.com", APP_PASS)
                 s.send_message(msg)
     else:
         print(sCode)
