@@ -87,7 +87,6 @@ def curse_check(msg: str) -> bool:
         wordCheck += char
         wordCheck = wordCheck.strip(' ')
         if wordCheck in CURSES:
-            
             try:
                 if msg[i+1] != char or msg[i+1] != ' ':
                     wordCheck = ''
